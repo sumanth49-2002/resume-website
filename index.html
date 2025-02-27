@@ -11,6 +11,139 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Sound and Haptics Toggle Styles */
+        .settings-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--text-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .settings-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 999;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 200px;
+        }
+        
+        .settings-panel.active {
+            transform: scale(1);
+        }
+        
+        .settings-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .settings-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .settings-label {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--text-accent);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .volume-control {
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        /* Audio visual feedback */
+        .audio-visualizer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            z-index: 2000;
+            pointer-events: none;
+            transform: scaleX(0);
+            transform-origin: center;
+            background: linear-gradient(90deg, var(--text-accent), var(--chart-color-2));
+            transition: transform 0.5s ease-out;
+            opacity: 0.7;
+        }
+        
+        .audio-visualizer.active {
+            transform: scaleX(1);
+        }
+    
         /* Base Styles */
         :root {
             --background: #f5f2ea;
@@ -2005,11 +2138,253 @@
         <span class="close-modal">&times;</span>
         <img id="cert-modal-img" class="cert-modal-content" alt="Certificate">
     </div>
+    
+    <!-- Audio Visualizer Element -->
+    <div class="audio-visualizer" id="audio-visualizer"></div>
+    
+    <!-- Settings Toggle and Panel -->
+    <div class="settings-toggle" id="settings-toggle">
+        <i class="fas fa-sliders-h"></i>
+    </div>
+    
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-title">Interactive Settings</div>
+        
+        <div class="settings-option">
+            <span class="settings-label">Sound Effects</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="sound-toggle" checked>
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+        
+        <div class="settings-option">
+            <span class="settings-label">Volume</span>
+            <input type="range" id="volume-control" class="volume-control" min="0" max="100" value="50">
+        </div>
+        
+        <div class="settings-option">
+            <span class="settings-label">Haptic Feedback</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="haptic-toggle" checked>
+                <span class="toggle-slider"></span>
+            </label>
+        </div>
+    </div>
 
     <!-- Particles.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Howler.js for better audio handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
     <script>
+        // Sound and Haptics Manager
+        const SoundManager = {
+            // Sound configuration
+            sounds: {
+                hover: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAClX2nYeAgHmmQNTsw9AAkwI/jUWSxZJ9EUwSVQR4WZg9gKo0pBECYYJJOZBMJhDTAIMAxBHhgxDC8DlD8I6kW5TwMpYHqLg8BFEMolC8QLkpxcAPCDx8VHzg0/8BH7fB6a/kQ5/gHcLCx87///ZxxiZP//+3UpAcPfjh3c8mMIZWUJFTxJmIIgzGEWFigE+HBQYC30cTQsYAEeYMgzGhx5jQcRlmcBg9ZkfUCBQAH7P3W2x/0/jLQPVA4A+JnL9jGdVGdJELFUJAE4CVCQBOALAsQCy8BQEALAAeXpJ22bx9hhECAAEv0MdOI7C09u7MIxBwADAG6JlCjQeQIQLLwFAQAsAB5aLsf9k3EBAAAAFtVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'],
+                    volume: 0.2,
+                    preload: true
+                }),
+                click: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAEKWecBeaAFgOLbhcUy4wNSRCEMXgQgDgKvxr8MAiMMAhMzJhwPxR4PwD8DpfmE6HhiAXAcQ0XjCg3AwOBKmWRBGbQdwB0HTiEw4QMCGgKGiRipBlgoYJmGKRgAQGAx8YzGJjBZgIeDBKUogJPDGqDBwCFSgZUYiGKhgogFTQ3MUoIEQgYFLgAMGDBjEJSKTCQgAxcIjH4TAQGEIoYyOAQJHxkMhgEKk8zWRERV0YoMDA//ABgHFAAgfuLHZaQwGAWY0QBgNgESS/9Z8h0eGNAaCGAUAH4/7YKU/1gGECBAAwAIEn/1GfU0sFQBhAy0BgAwB+P+5zF3/qAEIEAABYBALqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg=='],
+                    volume: 0.4,
+                    preload: true
+                }),
+                success: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAADAAAHzgDMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAAAExhdmY1OC43Ni4xMDAAAAAAAAAAAAAAAP/7QMQAAAVsXXhVGAAGfI3XCqMAARSQu2iyhkAYwmw7/BCGPPC/8IYYTx3h8B8EYHHD8P4H4f8uA/+CDhJ+XAf+CuIMh0eECQMUYAALgwFqB0k+DCYd7wBxAOJ04oECjIYMwD1MUjw71DAf4UBkKRhIeAhRiEoCQpjMgU4TYCmYMCAYGk5gIGWiCgQXAiAoWFj8lmDYDhIhJGAlOGBRHiQMIlKNgRKS2VU5NQ88dDiYGFgUbNCgMCCg4gHFQkAkdG0xCADgcBe5u9nV/+znrtw/S//1nVVMHCYGBBQMVHQEAAXuZn/f//9VBAD//D1VVAAAAAAAAQAAAZtHEAARAARc5uqK5vf9/3bT/6qgAA+AEAAAAAADVQAAAzUAEQAABFvm/////////f+qgAA//1VAAAAAAAAAAA=='],
+                    volume: 0.4,
+                    preload: true
+                }),
+                scroll: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAE/WeZYeAAFHKPM+s9AAXEICQQgHgcBwEKrx2XGHAgGYEBzMQTYSoGODXHQPgZAUQEeBgR4HAQgHAHLhz8xLR4g4CAOj6JK7zFqhgEIzMTIAByYTgGhHhYHxho6QAWMKFDQFQwMMIDShwxIsNeCzOq0a7JgwkYNHGFBphYCGiQXqMYJHGpgZhYMGAwhiEQYuIGPiJgo0YcEmAARjtaY4EGEgBgIeHFNq2LPCDAEwAHARh3Wy80EEjAw8AAHAATnOLTwwWJMUAS8AWAW9vyf9PrpvkuwsThAADADAAGm3/N//5s7mEAAjADAAEqbv///5m4cJgBGAGAAIrIIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIg=='],
+                    volume: 0.2,
+                    preload: true
+                }),
+                open: new Howl({
+                    src: ['data:audio/mp3;base64,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84lAIDBgS1L9i1vHCBRBv/X2RQAWyF0sDkosjXUCpSx4EhYJE6EAYAhYQBUu7vu95SZMoAZBQOmFsVRgDA0YCAImAsAoMAgCQKCZgCAAAgczAQAEy2AbMkASMYQPzE0AwwvwPAwCKoP5fz/9XfZgMAwBAOmAJAL+df4iAIa3BMgAb8r9izfDY//7c0FQCX/a/a0T+v7b6P+j9SlPRJKWQj//qoOoKJFf+2mmpYRoT8U39f///+oqioqIDioAJYBAANLUbDGYDgDGMqHFO1Kqmw+Ap0DAcBJM1s3yjrDACQ//+3FAohiVMxQkWiJx4vfqsQyVh1A4kOJqmGNZjSABoZ4EQuG5qE0UbEEsgAACuIAgMlnN2WYlUb5q3tQdQDXpmTQGYBYAGAaAwLAUYAgAP/7gMTID9ZBl7v2WAudK7bXZ+2Bf//+oGAOAYFgKYAwAmLv/+r//0AwCQDMAkAQKAI////RVMAUADARgov9VMDAUgJiT//+iIMAKATABAECAD//+oYAoBgJCBaIVgCBf//9JDDgk9QTXLVgkUBP//9UTAgCpgKwCAMCz//+tIYAwKBksDAUCxgLACBf///0oMAoCxhO3f///tY1G1QHAYCxgLACQF//9GkxBBRMSYVhwMgWYAYBkDf/+lIYGgPGTOVJgEgN//9Ev//0gMCQH//+nh0jv/6KGmAIAwDAA//0bP/9BzC5v//RHO//9YcwFf/+ghf/6rYrG7dbUKAANDtPqgAGCACbldBwCAGYAwCGACACxMYnZ7b/Xfw3bA4AjAEAIC//9R///sMaAQAAIYAf///UAwBAAMBf///0AwYD/0QDQFBv/7YMTZj9Zpdr8/bAvdvrq/37YF/+1ABgaAmYGP/////6MMDn////0QYqwZgT//+qGK0G+aZ31V1f///5cVLDpabRMXDpnOX/////VPOb9f////71r///4aBgDAGYAgBP///9FDAEH//4Cf/+6AYCP///0YYFhTf/9Q98tf///0r/////53K///HQ4JJMPg0H///97////+mQdB0VgSD4Ew9H////f/////+i+oCMxAPmH3v///3s//////OfqP//1cCAYDIKg8H///b///////R///9FMBARqKi8FxHJ///+//////9Lf//+qcVDpmAo///+//////0Qf//+lOipmAj///9P///////9FBCGIJho////t///////0YMGB//+yhwQBUqHf///X///////UAv/+0DE5K/XkZep9swLvQyy13/tgX/+qABQCQkFQBH///////SiIoB//+omAyAMnH///+v///////zYY///1LiwWLAP//////////Rv//+jJgD///qf////+n////+nxkEE0QTP///+r//////1JJ//+qSYEoLT//////////9P///+lhSD///9X/////4X///+nmIEGTJf////r///////0v//9ASJFD////p/////8T////qooUrf////X///////0I//9UkMP////9f/////g////ThIYQYQn///+3///////9P//+khgwhkD///9v///////0T//9VMCP//////////3/////+lSYEgTHEn//////f///////Sg4TDF//////////9/////+xMFgxD//////////3/////9WkhSFiYWQj//////////f////+lcRlQ///7UMTfqdfZl7P+0AO8h7L3P9oAd/////p/////8Sf//+qcQkhRDCmOJP///+r///////qL//9QMTkw4FERlZB/////2////+C///9QJcXgwFBuSEH////7f/////gv//9RiXH4PBQbCEE////R////+A///9UMQkhwmGhMoI////9X////4L//9TTAYDEZB4MBUsSA7////9X//+6iggKiGpAJgUCYYEYXFCQHf////X///qGAyEooKhITFBQsJE3////1///qKiosoKikohATFxMJfv////9f/uoqNLKKioi4TDocFi3////1//+osoKqqYcEoQE/////X///orJjS40mGhUMaX////9f//6K2NLKKqsqKSmJJf////1///qKiypTDIqLJpSSX////1///o0w+KirGnEkv////X///o8k//tAxNWz19mXs/7QA7+lsva/2gB4v/////r/////SIpSSX////1///6WnJJB/////X///pZWS/////X///6XrJf////1///6LLzn/////X///owsH/////X///o7ypVP////r///0Xyyf////9f//+lf/////r///0f/////q///0f/////q///0tJf////1///6Xkv////X///pa9X////1///6P/////X///oVUv////X///pVykl/////X///pL/////X///pZyv////1///6L/////X///o2V/////r///0f/////q///0q/////X///pL/////X///pa9/////q///0f/////q///0st4P////1///6XSSX////9f//+lLP/////X///pL/////X///oqlf/////q///0nK//tAxNkv2HGXs/7QA8BLsva/2gB//X///paS/////X///otJf////1///6WSX////9f//+ktf////X///owf/////q///0f/////q///0t/////X///pP/////X///o1/////q///0e/////X///pV/////1///6U/////X///pa/////X///pL/////X///pL/////X///o0v/////q///0pf/////X///p/////9f//+l/////1///6P/////q///0q/////X///pL/////X///pfr/////X///pf/////X///pJZf////1///6PKJff////X///o7rpd/////X///papW3/////X///pJL/////X///opf/////X///o4v/////X///on/////1///6L/////X///pUn/////X///pSrwuqlKv/7QMTZj9fZl7P+0AO/R7L2P9oAd/////X///qlKnCyo4tJf////1///6W0l/////X///pEr/////X///oVU5V/////X///o4v/////X///orw4n/////X///pf/////X///on/////1///6P/////q///0V/////X///on/////1///6WWUv////X///pakl/////X///pJf/////X///ooq/////X///o5X/////X///or/////9f//+lFK/////X///pHf////1///6W/////X///pKS/////X///pKXf////X///okpd/////X///o3/////1///6WSS/////X///pP/////X///os/////9f//+lP/////X///pS/////X///o//7QMTbo9fFl7P+0AO+J7L2P9oAf/////q///0f/////q///0f/////q///0V/////X///qqVSqqv////1///6W0qqrw7/////X///paaaaq/////X///pppppr/////X///prqqqqv////1///6aaqqq/////X///prqqqqv////1///6aaqqq/////X///pppppr/////X///pppppr/////X///pppppr/////X///pppppr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqqv////1///6aaqqq/////X///pqqqqq/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNsv19GXs/7QA8BHsva/2gB/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/7QMTZr9fRl7P+0AO+J7L2P9oAf/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNmL1+GXsf7QA8BbsvY/2gAKQAQAAAwMDAT2Y4MGDAiQ4+FxIQEBM5ZkODBgReOPgLHCIFQZpJHCYiJkUphEeEwu05pgEZl18DhQmAgHHAZGMzmJxCKEOEUJgcFKSwmmzMMDAdHDVNHEAcfJfGdaBgVjhgwmj2IxEQoVSrU0f///+WZnMymptcpqdXK5Vqrfq9jXudvN5Z2v////7lv93Z7O5nM5nM5nM5nM5nM5nM5nM5nM5nMBQDY21tcXN5vXJnN0BnNzO6G5tcBu1tXG2OjW5tcXFxdDczcBuYG5m4G4DAUAwM5m4FxdAUBQFAUBQFAUBQDYOxnNzczcXG22224ujoG4zc3MAYDAUBQFANjAOhoZzTOaZzTOabnXY6Ojbo6OjcGbgzQDYGjoG4G//tAxNs318GXsf7QALzRzfJZVDSXbWxtnM5pmtM1pnM4tprXOTbDTW5tprDmcWNtrYOBoZycnNycnNyc2w21uc3NzcwZoG4NjAYG1saA3OzAOBtrbjmgLkB0NDOaZrTO5pmttbnQGbczm5ycnJycnNycnNzDmbm5gGw1pnJhoDc3OW5zm5ttm223TbQbQ0G5ttbbU22gMDczm22tnNvLNbmBpbnNzA3OgMDbm5gaA0NM5pmtM5pnc0zucW1rXObW2tttcZybnJzd3JtttXG3OTbDmbnJzc3NzcwNoaA0NrY25ucXOcnNycnJycnJzcnJzDm5ycG5ydA3B0DcG4OgLi6YDAUBQFAUBQFAUBQDYzbbbbbboaGc2gM5wbnDQDAUBQFA//tQxOQv1+GXsf7QAL4MvY/2gAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAMDaDY25vTm9Ob4Ojo6zWmdDQ0G5ttbnN3cG5yc3OTm5ObnJyb4Ojo6Ojro66zro6Oz3YDdHbW5ycnJyb4OgOgbjbo6OgM7m5gbgwDcwNDQ222232223Q0NA3NzA3MDcwDcwNzcwOcNAbnJtt0dHebdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dnZzMDQ23Nzk5vXd3c3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc'],
+                    volume: 0.3,
+                    preload: true
+                })
+            },
+            
+            // Track sound settings
+            settings: {
+                soundEnabled: true,
+                hapticEnabled: true,
+                volume: 0.5
+            },
+            
+            // Initialize sound manager
+            init: function() {
+                // Set initial volume
+                for (let sound in this.sounds) {
+                    this.sounds[sound].volume(this.settings.volume);
+                }
+                
+                // Setup settings panel
+                const settingsToggle = document.getElementById('settings-toggle');
+                const settingsPanel = document.getElementById('settings-panel');
+                const soundToggle = document.getElementById('sound-toggle');
+                const hapticToggle = document.getElementById('haptic-toggle');
+                const volumeControl = document.getElementById('volume-control');
+                
+                if (settingsToggle && settingsPanel) {
+                    settingsToggle.addEventListener('click', function() {
+                        settingsPanel.classList.toggle('active');
+                        if (SoundManager.settings.soundEnabled) {
+                            SoundManager.playSound('click');
+                        }
+                    });
+                }
+                
+                if (soundToggle) {
+                    soundToggle.checked = this.settings.soundEnabled;
+                    soundToggle.addEventListener('change', function() {
+                        SoundManager.settings.soundEnabled = this.checked;
+                        if (this.checked) {
+                            SoundManager.playSound('click');
+                        }
+                    });
+                }
+                
+                if (hapticToggle) {
+                    hapticToggle.checked = this.settings.hapticEnabled;
+                    hapticToggle.addEventListener('change', function() {
+                        SoundManager.settings.hapticEnabled = this.checked;
+                        if (SoundManager.settings.soundEnabled) {
+                            SoundManager.playSound('click');
+                        }
+                        
+                        if (SoundManager.settings.hapticEnabled) {
+                            SoundManager.triggerHaptic(50);
+                        }
+                    });
+                }
+                
+                if (volumeControl) {
+                    volumeControl.value = this.settings.volume * 100;
+                    volumeControl.addEventListener('input', function() {
+                        const volume = this.value / 100;
+                        SoundManager.settings.volume = volume;
+                        
+                        // Update all sound volumes
+                        for (let sound in SoundManager.sounds) {
+                            SoundManager.sounds[sound].volume(volume);
+                        }
+                    });
+                }
+                
+                // Visualizer setup
+                this.visualizer = document.getElementById('audio-visualizer');
+                
+                // Add sound events to elements
+                this.addSoundEvents();
+            },
+            
+            // Play a sound
+            playSound: function(soundName) {
+                if (!this.settings.soundEnabled) return;
+                
+                if (this.sounds[soundName]) {
+                    this.sounds[soundName].play();
+                    this.showVisualizer();
+                }
+            },
+            
+            // Show audio visualizer
+            showVisualizer: function() {
+                if (!this.visualizer) return;
+                
+                this.visualizer.classList.add('active');
+                setTimeout(() => {
+                    this.visualizer.classList.remove('active');
+                }, 300);
+            },
+            
+            // Trigger haptic feedback
+            triggerHaptic: function(duration = 20) {
+                if (!this.settings.hapticEnabled) return;
+                
+                // Check if vibration API is available
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(duration);
+                }
+            },
+            
+            // Add sound events to interactive elements
+            addSoundEvents: function() {
+                // Navigation links
+                document.querySelectorAll('.nav-link, .btn, .social-link, .view-cert-btn, .info-item, .skill-item, .skill-tag')
+                    .forEach(el => {
+                        el.addEventListener('mouseenter', () => {
+                            SoundManager.playSound('hover');
+                        });
+                        
+                        el.addEventListener('click', () => {
+                            SoundManager.playSound('click');
+                            SoundManager.triggerHaptic(50);
+                        });
+                    });
+                
+                // Form submission
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        SoundManager.playSound('success');
+                        SoundManager.triggerHaptic(100);
+                    });
+                }
+                
+                // Scroll sound (throttled)
+                let scrollTimeout;
+                window.addEventListener('scroll', function() {
+                    if (!scrollTimeout) {
+                        scrollTimeout = setTimeout(function() {
+                            SoundManager.playSound('scroll');
+                            scrollTimeout = null;
+                        }, 150);
+                    }
+                });
+                
+                // Modal open/close
+                const viewCertBtns = document.querySelectorAll('.view-cert-btn');
+                const closeModal = document.querySelector('.close-modal');
+                
+                viewCertBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        SoundManager.playSound('open');
+                        SoundManager.triggerHaptic(70);
+                    });
+                });
+                
+                if (closeModal) {
+                    closeModal.addEventListener('click', () => {
+                        SoundManager.playSound('click');
+                        SoundManager.triggerHaptic(40);
+                    });
+                }
+                
+                // Canvas particles interaction
+                const canvas = document.getElementById('creative-canvas');
+                if (canvas) {
+                    canvas.addEventListener('mousemove', () => {
+                        // Throttle this sound to avoid too many sounds
+                        if (Math.random() > 0.97) {
+                            SoundManager.playSound('hover');
+                        }
+                    });
+                    
+                    canvas.addEventListener('click', () => {
+                        SoundManager.playSound('click');
+                        SoundManager.triggerHaptic(30);
+                    });
+                }
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             // Mobile menu toggle with enhanced animation
             const mobileToggle = document.getElementById('mobile-toggle');
@@ -2530,6 +2905,9 @@
 
             // Call updateActiveNav once on page load
             updateActiveNav();
+            
+            // Initialize Sound Manager
+            SoundManager.init();
         });
 
         // Ensure certificate viewing works correctly
