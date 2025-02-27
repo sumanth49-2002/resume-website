@@ -1366,6 +1366,7 @@
             transform: scale(0.8) translateY(30px);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
+            background-color: white;
         }
         
         .cert-modal.active .cert-modal-content {
@@ -1382,6 +1383,7 @@
             font-weight: bold;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
+            z-index: 2001;
         }
         
         .close-modal:hover {
@@ -2077,477 +2079,17 @@
         <img id="cert-modal-img" class="cert-modal-content" alt="Certificate">
     </div>
 
-    <!-- Improved Modal Styles -->
-    <style>
-    /* Fixed Certificate Modal with Enhanced Animation */
-    .cert-modal {
-        display: none;
-        position: fixed;
-        z-index: 2000;
-        padding-top: 50px;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.8);
-        opacity: 0;
-        transition: all 0.4s ease;
-    }
-    
-    .cert-modal.active {
-        opacity: 1;
-    }
-    
-    .cert-modal-content {
-        margin: auto;
-        display: block;
-        width: 80%;
-        max-width: 800px;
-        max-height: 80vh;
-        border: 3px solid var(--text-accent);
-        transform: scale(0.8) translateY(30px);
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        opacity: 0;
-        background-color: white;
-    }
-    
-    .cert-modal.active .cert-modal-content {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-    
-    .close-modal {
-        position: absolute;
-        top: 15px;
-        right: 35px;
-        color: var(--white);
-        font-size: 40px;
-        font-weight: bold;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        cursor: pointer;
-        z-index: 2001;
-    }
-    
-    .close-modal:hover {
-        color: var(--text-accent);
-        transform: rotate(90deg);
-    }
-    </style>
-
     <!-- Particles.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 
     <script>
-        // Mobile menu toggle with enhanced animation
-        const mobileToggle = document.getElementById('mobile-toggle');
-        const navLinks = document.getElementById('nav-links');
-
-        mobileToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            if (navLinks.classList.contains('active')) {
-                this.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                this.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-
-        // Document click to close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navLinks.contains(e.target) && e.target !== mobileToggle) {
-                navLinks.classList.remove('active');
-                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-
-        // Enhanced header on scroll
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Contact form with enhanced animation
-        const contactForm = document.getElementById('contact-form');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Simulate form submission
-            const submitBtn = this.querySelector('.form-submit');
-            const originalText = submitBtn.innerText;
-            
-            submitBtn.innerText = 'Sending...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Message sent successfully!');
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                contactForm.reset();
-            }, 1500);
-        });
-
-        // Enhanced scroll animations with Intersection Observer
-        const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in');
-        
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        
-        fadeElements.forEach(element => {
-            fadeObserver.observe(element);
-        });
-        
-        // Timeline Animation with Intersection Observer
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    timelineObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-        
-        timelineItems.forEach(item => {
-            timelineObserver.observe(item);
-        });
-        
-        // Skills Item Animation with Intersection Observer
-        const skillItems = document.querySelectorAll('.skill-item');
-        
-        const skillObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('active');
-                        // Animate progress bars when skill items become visible
-                        const progressBar = entry.target.querySelector('.progress-bar');
-                        if (progressBar) {
-                            const width = progressBar.getAttribute('data-width') + '%';
-                            progressBar.style.width = width;
-                        }
-                    }, index * 150); // Staggered animation
-                    skillObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        skillItems.forEach(item => {
-            skillObserver.observe(item);
-        });
-        
-        // Education Cards Animation with Intersection Observer
-        const educationCards = document.querySelectorAll('.education-card');
-        
-        const educationObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('active');
-                    }, index * 150); // Staggered animation
-                    educationObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        educationCards.forEach(card => {
-            educationObserver.observe(card);
-        });
-        
-        // Achievement Cards Animation with Intersection Observer
-        const achievementCards = document.querySelectorAll('.achievement-card');
-        
-        const achievementObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('active');
-                    }, index * 150); // Staggered animation
-                    achievementObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        achievementCards.forEach(card => {
-            achievementObserver.observe(card);
-        });
-        
-        // Radar Chart Animation with Intersection Observer
-        const radarData = document.getElementById('radar-data');
-        
-        const radarObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    radarObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        radarObserver.observe(radarData);
-
-        // Enhanced active navigation link based on scroll
-        function updateActiveNav() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let currentId = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                
-                if (window.scrollY >= sectionTop - 200) {
-                    currentId = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').substring(1) === currentId) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        
-        // Update nav on scroll with throttling
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-            if (!scrollTimeout) {
-                scrollTimeout = setTimeout(function() {
-                    updateActiveNav();
-                    scrollTimeout = null;
-                }, 20);
-            }
-        });
-        
-        // Certificate modal functionality with enhanced animation
-        const certModal = document.getElementById('cert-modal');
-        const certModalImg = document.getElementById('cert-modal-img');
-        const closeModal = document.querySelector('.close-modal');
-        const viewCertBtns = document.querySelectorAll('.view-cert-btn');
-        
-        viewCertBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const certPath = this.getAttribute('data-cert');
-                certModalImg.src = certPath;
-                certModal.style.display = 'block';
-                setTimeout(() => {
-                    certModal.classList.add('active');
-                }, 10);
-            });
-        });
-        
-        closeModal.addEventListener('click', function() {
-            certModal.classList.remove('active');
-            setTimeout(() => {
-                certModal.style.display = 'none';
-            }, 400);
-        });
-        
-        // Also close modal when clicking outside the image
-        certModal.addEventListener('click', function(e) {
-            if (e.target === certModal) {
-                certModal.classList.remove('active');
-                setTimeout(() => {
-                    certModal.style.display = 'none';
-                }, 400);
-            }
-        });
-
-        // Particles.js initialization - Create ambient moving particles
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS("particles-js", {
-                "particles": {
-                    "number": {
-                        "value": 40,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#9b6c49"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.3,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": true,
-                            "speed": 2,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#9b6c49",
-                        "opacity": 0.2,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 1,
-                        "direction": "none",
-                        "random": true,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 0.8
-                            }
-                        },
-                        "push": {
-                            "particles_nb": 3
-                        }
-                    }
-                },
-                "retina_detect": true
-            });
-        }
-
-        // Initialize skill progress bars for the new design
-        function initSkillBars() {
-            document.querySelectorAll('.skill-progress-bar').forEach(bar => {
-                const value = bar.getAttribute('data-value');
-                setTimeout(() => {
-                    bar.style.width = value + '%';
-                }, 300);
-            });
-        }
-        
-        // Enhanced certificate modal functionality with fallback
-        function initCertificateModal() {
-            const certModal = document.getElementById('cert-modal');
-            const certModalImg = document.getElementById('cert-modal-img');
-            const closeModal = document.querySelector('.close-modal');
-            const viewCertBtns = document.querySelectorAll('.view-cert-btn');
-            
-            // Clear any existing event listeners
-            viewCertBtns.forEach(btn => {
-                const newBtn = btn.cloneNode(true);
-                btn.parentNode.replaceChild(newBtn, btn);
-            });
-            
-            // Add fresh event listeners
-            document.querySelectorAll('.view-cert-btn').forEach(btn => {
-                btn.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const certPath = this.getAttribute('data-cert');
-                    
-                    // Set the image source to the certificate file
-                    certModalImg.src = certPath;
-                    
-                    // Handle image loading errors
-                    certModalImg.onerror = function() {
-                        this.src = 'https://via.placeholder.com/800x600/9b6c49/FFFFFF?text=Certificate+Not+Found';
-                    };
-                    
-                    certModal.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        certModal.classList.add('active');
-                    }, 10);
-                });
-            });
-            
-            // Close button functionality
-            if (closeModal) {
-                closeModal.addEventListener('click', function() {
-                    certModal.classList.remove('active');
-                    setTimeout(() => {
-                        certModal.style.display = 'none';
-                    }, 400);
-                });
-            }
-            
-            // Close on outside click
-            window.addEventListener('click', function(e) {
-                if (e.target === certModal) {
-                    certModal.classList.remove('active');
-                    setTimeout(() => {
-                        certModal.style.display = 'none';
-                    }, 400);
-                }
-            });
-        }
-        
-        // Fixed mobile menu issue by adding proper event handlers and menu transitions
-        function initMobileMenu() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle with enhanced animation
             const mobileToggle = document.getElementById('mobile-toggle');
             const navLinks = document.getElementById('nav-links');
-            const navLinksItems = document.querySelectorAll('.nav-link');
-            
+
             if (mobileToggle && navLinks) {
-                // Clear any existing event listeners
-                mobileToggle.replaceWith(mobileToggle.cloneNode(true));
-                const newMobileToggle = document.getElementById('mobile-toggle');
-                
-                // Add proper event listener
-                newMobileToggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
+                mobileToggle.addEventListener('click', function() {
                     navLinks.classList.toggle('active');
                     if (navLinks.classList.contains('active')) {
                         this.innerHTML = '<i class="fas fa-times"></i>';
@@ -2555,32 +2097,361 @@
                         this.innerHTML = '<i class="fas fa-bars"></i>';
                     }
                 });
-                
-                // Ensure links close the menu when clicked
-                navLinksItems.forEach(link => {
-                    link.addEventListener('click', function(e) {
+            }
+
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks) {
                         navLinks.classList.remove('active');
-                        newMobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        if (mobileToggle) {
+                            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    }
+                });
+            });
+
+            // Document click to close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navLinks && mobileToggle && !navLinks.contains(e.target) && e.target !== mobileToggle) {
+                    navLinks.classList.remove('active');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Enhanced header on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
+                if (header) {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                }
+            });
+
+            // Contact form with enhanced animation
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulate form submission
+                    const submitBtn = this.querySelector('.form-submit');
+                    const originalText = submitBtn.innerText;
+                    
+                    submitBtn.innerText = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        alert('Message sent successfully!');
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                        contactForm.reset();
+                    }, 1500);
+                });
+            }
+
+            // Enhanced scroll animations with Intersection Observer
+            if ('IntersectionObserver' in window) {
+                const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in');
+                
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            fadeObserver.unobserve(entry.target);
+                        }
                     });
+                }, { threshold: 0.15 });
+                
+                fadeElements.forEach(element => {
+                    fadeObserver.observe(element);
                 });
                 
-                // Close menu when clicking outside
-                document.addEventListener('click', function(e) {
-                    if (!navLinks.contains(e.target) && e.target !== newMobileToggle) {
-                        navLinks.classList.remove('active');
-                        newMobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                // Timeline Animation with Intersection Observer
+                const timelineItems = document.querySelectorAll('.timeline-item');
+                
+                const timelineObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            timelineObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                timelineItems.forEach(item => {
+                    timelineObserver.observe(item);
+                });
+                
+                // Skills Item Animation with Intersection Observer
+                const skillItems = document.querySelectorAll('.skill-item');
+                
+                const skillObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                                // Animate progress bars when skill items become visible
+                                const progressBar = entry.target.querySelector('.progress-bar');
+                                if (progressBar) {
+                                    const width = progressBar.getAttribute('data-width') + '%';
+                                    progressBar.style.width = width;
+                                }
+                            }, index * 150); // Staggered animation
+                            skillObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                skillItems.forEach(item => {
+                    skillObserver.observe(item);
+                });
+                
+                // Education Cards Animation with Intersection Observer
+                const educationCards = document.querySelectorAll('.education-card');
+                
+                const educationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                            }, index * 150); // Staggered animation
+                            educationObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                educationCards.forEach(card => {
+                    educationObserver.observe(card);
+                });
+                
+                // Achievement Cards Animation with Intersection Observer
+                const achievementCards = document.querySelectorAll('.achievement-card');
+                
+                const achievementObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                            }, index * 150); // Staggered animation
+                            achievementObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                achievementCards.forEach(card => {
+                    achievementObserver.observe(card);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in, .timeline-item, .skill-item, .education-card, .achievement-card').forEach(el => {
+                    el.classList.add('active');
+                });
+                
+                // Fallback for progress bars
+                document.querySelectorAll('.progress-bar').forEach(bar => {
+                    const width = bar.getAttribute('data-width') + '%';
+                    bar.style.width = width;
+                });
+            }
+
+            // Enhanced active navigation link based on scroll
+            function updateActiveNav() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let currentId = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.scrollY >= sectionTop - 200) {
+                        currentId = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === currentId) {
+                        link.classList.add('active');
                     }
                 });
             }
-        }
-
-        // Initialize on page load
-        window.addEventListener('load', function() {
-            updateActiveNav();
-            initSkillBars();
-            initMobileMenu();
-            initCertificateModal();
             
+            // Update nav on scroll with throttling
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (!scrollTimeout) {
+                    scrollTimeout = setTimeout(function() {
+                        updateActiveNav();
+                        scrollTimeout = null;
+                    }, 20);
+                }
+            });
+            
+            // Initialize skill progress bars
+            function initSkillBars() {
+                document.querySelectorAll('.skill-progress-bar').forEach(bar => {
+                    const value = bar.getAttribute('data-value');
+                    setTimeout(() => {
+                        bar.style.width = value + '%';
+                    }, 300);
+                });
+            }
+            
+            // Call initSkillBars on page load
+            initSkillBars();
+
+            // Certificate modal functionality with enhanced animation
+            const certModal = document.getElementById('cert-modal');
+            const certModalImg = document.getElementById('cert-modal-img');
+            const closeModal = document.querySelector('.close-modal');
+            const viewCertBtns = document.querySelectorAll('.view-cert-btn');
+            
+            if (certModal && certModalImg && closeModal) {
+                // Set up event listeners for each certificate button
+                viewCertBtns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const certPath = this.getAttribute('data-cert');
+                        
+                        // Set the image source
+                        certModalImg.src = certPath;
+                        
+                        // Handle image loading errors
+                        certModalImg.onerror = function() {
+                            this.src = 'https://via.placeholder.com/800x600/9b6c49/FFFFFF?text=Certificate+Not+Found';
+                        };
+                        
+                        // Show the modal
+                        certModal.style.display = 'block';
+                        
+                        // Add the active class after a short delay for animation
+                        setTimeout(() => {
+                            certModal.classList.add('active');
+                        }, 10);
+                    });
+                });
+                
+                // Close button functionality
+                closeModal.addEventListener('click', function() {
+                    certModal.classList.remove('active');
+                    setTimeout(() => {
+                        certModal.style.display = 'none';
+                    }, 400);
+                });
+                
+                // Close on outside click
+                window.addEventListener('click', function(e) {
+                    if (e.target === certModal) {
+                        certModal.classList.remove('active');
+                        setTimeout(() => {
+                            certModal.style.display = 'none';
+                        }, 400);
+                    }
+                });
+            }
+
+            // Particles.js initialization - Create ambient moving particles
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    "particles": {
+                        "number": {
+                            "value": 40,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#9b6c49"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#9b6c49",
+                            "opacity": 0.2,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.8
+                                }
+                            },
+                            <!-- This is the end of the HTML file with proper closing tags -->
+                            "push": {
+                                "particles_nb": 3
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+
             // For mobile devices, reduce animation complexity for better performance
             if (window.innerWidth < 768) {
                 document.querySelectorAll('.floating-shape').forEach(shape => {
@@ -2589,7 +2460,7 @@
                 
                 if (typeof particlesJS !== 'undefined') {
                     // Reduce particles for mobile
-                    particlesJS.load('particles-js', {
+                    particlesJS("particles-js", {
                         "particles": {
                             "number": {
                                 "value": 20
@@ -2601,7 +2472,88 @@
                     });
                 }
             }
+
+            // Call updateActiveNav once on page load
+            updateActiveNav();
         });
+
+        // Ensure certificate viewing works correctly even if the page is loaded after the DOMContentLoaded event
+        function initCertificateViewer() {
+            const certModal = document.getElementById('cert-modal');
+            const certModalImg = document.getElementById('cert-modal-img');
+            const closeModal = document.querySelector('.close-modal');
+            const viewCertBtns = document.querySelectorAll('.view-cert-btn');
+            
+            if (!certModal || !certModalImg || !closeModal) return;
+            
+            // Set up event listeners for each certificate button
+            viewCertBtns.forEach(btn => {
+                btn.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const certPath = this.getAttribute('data-cert');
+                    console.log('Opening certificate:', certPath);
+                    
+                    // Set the image source
+                    certModalImg.src = certPath;
+                    
+                    // Handle image loading errors
+                    certModalImg.onerror = function() {
+                        console.log('Certificate image failed to load. Using placeholder.');
+                        this.src = 'https://via.placeholder.com/800x600/9b6c49/FFFFFF?text=Certificate+Not+Found';
+                    };
+                    
+                    // Show the modal
+                    certModal.style.display = 'block';
+                    
+                    // Add the active class after a short delay for animation
+                    setTimeout(() => {
+                        certModal.classList.add('active');
+                    }, 10);
+                    
+                    return false;
+                };
+            });
+            
+            // Close button functionality
+            if (closeModal) {
+                closeModal.onclick = function() {
+                    certModal.classList.remove('active');
+                    setTimeout(() => {
+                        certModal.style.display = 'none';
+                    }, 400);
+                };
+            }
+            
+            // Close on outside click
+            window.addEventListener('click', function(e) {
+                if (e.target === certModal) {
+                    certModal.classList.remove('active');
+                    setTimeout(() => {
+                        certModal.style.display = 'none';
+                    }, 400);
+                }
+            });
+            
+            console.log('Certificate viewer initialized with', viewCertBtns.length, 'certificates');
+        }
+
+        // Run this on page load and also after a slight delay to ensure everything is loaded
+        setTimeout(initCertificateViewer, 1000);
+        
+        // Ensure skill bars initialize correctly
+        setTimeout(() => {
+            document.querySelectorAll('.skill-progress-bar').forEach(bar => {
+                const value = bar.getAttribute('data-value');
+                bar.style.width = value + '%';
+            });
+            
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                const width = bar.getAttribute('data-width') + '%';
+                bar.style.width = width;
+            });
+        }, 1000);
     </script>
 </body>
 </html>
