@@ -6,6 +6,7 @@
     <title>Sumanth M N | Finance Professional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         /* Base Styles */
         :root {
@@ -33,7 +34,7 @@
             position: relative;
         }
 
-        /* Animated Background */
+        /* Enhanced Animated Background */
         .animated-background {
             position: fixed;
             top: 0;
@@ -41,14 +42,15 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.3;
+            opacity: 0.5; /* Increased opacity from 0.3 */
             pointer-events: none;
+            background: radial-gradient(circle at 80% 20%, rgba(155, 108, 73, 0.1) 0%, transparent 50%);
         }
 
         .floating-shape {
             position: absolute;
             background: var(--text-accent);
-            opacity: 0.05;
+            opacity: 0.1; /* Increased opacity from 0.05 */
             border-radius: 50%;
             animation: float 15s infinite ease-in-out;
         }
@@ -85,18 +87,71 @@
             animation-delay: -2s;
         }
 
+        /* New animated shapes */
+        .shape5 {
+            width: 180px;
+            height: 180px;
+            top: 70%;
+            left: 40%;
+            animation-delay: -7s;
+            background: linear-gradient(135deg, var(--text-accent) 0%, transparent 70%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .shape6 {
+            width: 120px;
+            height: 120px;
+            top: 15%;
+            left: 50%;
+            animation-delay: -3s;
+            background: linear-gradient(45deg, var(--text-accent) 0%, transparent 70%);
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+        }
+
         @keyframes float {
             0%, 100% {
                 transform: translateY(0) translateX(0) rotate(0deg);
             }
             25% {
-                transform: translateY(-15px) translateX(10px) rotate(5deg);
+                transform: translateY(-25px) translateX(15px) rotate(5deg);
             }
             50% {
-                transform: translateY(-5px) translateX(15px) rotate(10deg);
+                transform: translateY(-15px) translateX(25px) rotate(10deg);
             }
             75% {
-                transform: translateY(-10px) translateX(5px) rotate(5deg);
+                transform: translateY(-20px) translateX(10px) rotate(5deg);
+            }
+        }
+
+        /* Enhanced particle animation */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: var(--text-accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0.8;
             }
         }
 
@@ -119,7 +174,7 @@
             position: relative;
         }
 
-        /* Animation Classes */
+        /* Enhanced Animation Classes */
         .fade-in {
             opacity: 0;
             transform: translateY(40px);
@@ -129,6 +184,39 @@
         .fade-in.active {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .zoom-in.active {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .delay-1 {
@@ -167,13 +255,14 @@
             position: fixed;
             width: 100%;
             top: 0;
-            background-color: var(--background);
+            background-color: rgba(245, 242, 234, 0.9);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             transition: var(--transition);
         }
 
         header.scrolled {
-            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
             padding: 15px 0;
         }
 
@@ -199,10 +288,10 @@
 
         @keyframes pulse {
             0% {
-                box-shadow: 0 0 0 0 rgba(155, 108, 73, 0.4);
+                box-shadow: 0 0 0 0 rgba(155, 108, 73, 0.6);
             }
             70% {
-                box-shadow: 0 0 0 10px rgba(155, 108, 73, 0);
+                box-shadow: 0 0 0 15px rgba(155, 108, 73, 0);
             }
             100% {
                 box-shadow: 0 0 0 0 rgba(155, 108, 73, 0);
@@ -226,7 +315,7 @@
             content: '';
             position: absolute;
             width: 0;
-            height: 1px;
+            height: 2px;
             bottom: -5px;
             left: 0;
             background-color: var(--text-accent);
@@ -261,6 +350,7 @@
             flex-direction: column;
             justify-content: center;
             padding-top: 80px;
+            background: linear-gradient(180deg, rgba(245, 242, 234, 0.8) 0%, rgba(245, 242, 234, 1) 100%);
         }
 
         .hero-content {
@@ -317,6 +407,7 @@
             margin-bottom: 10px;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -332,7 +423,7 @@
             left: 50%;
             width: 0;
             height: 0;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
@@ -520,7 +611,7 @@
 
         /* Skills Section */
         .skills-section {
-            background-color: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, var(--background) 100%);
         }
 
         .skills-content {
@@ -532,9 +623,10 @@
         .skill-item {
             background-color: var(--background);
             padding: 30px;
-            border-radius: 5px;
+            border-radius: 10px;
             transition: all 0.5s ease;
             border-bottom: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .skill-item:hover {
@@ -593,11 +685,12 @@
         .education-card {
             background-color: var(--white);
             padding: 30px;
-            border-radius: 5px;
+            border-radius: 10px;
             transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .education-card::before {
@@ -642,7 +735,7 @@
 
         /* Certifications Section */
         .achievements-section {
-            background-color: var(--white);
+            background: linear-gradient(135deg, var(--background) 0%, var(--white) 100%);
         }
 
         .achievements-grid {
@@ -654,9 +747,10 @@
         .achievement-card {
             background-color: var(--background);
             padding: 30px;
-            border-radius: 5px;
+            border-radius: 10px;
             transition: all 0.5s ease;
             border-top: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
         .achievement-card:hover {
@@ -741,6 +835,22 @@
         }
 
         /* Contact Section */
+        .contact-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(155, 108, 73, 0.05) 0%, rgba(155, 108, 73, 0) 75%);
+            z-index: -1;
+        }
+
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -857,6 +967,26 @@
 
         .form-submit:hover::after {
             width: 100%;
+        }
+
+        /* Form status messages */
+        .form-status {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Footer */
@@ -991,6 +1121,23 @@
             transform: rotate(90deg);
         }
 
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         /* Responsive Styles */
         @media (max-width: 1024px) {
             .container {
@@ -1097,7 +1244,12 @@
         <div class="floating-shape shape2"></div>
         <div class="floating-shape shape3"></div>
         <div class="floating-shape shape4"></div>
+        <div class="floating-shape shape5"></div>
+        <div class="floating-shape shape6"></div>
     </div>
+
+    <!-- Particles animation -->
+    <div class="particles" id="particles"></div>
 
     <!-- Header -->
     <header id="header">
@@ -1139,14 +1291,14 @@
     </section>
 
     <!-- About Section -->
-    <section class="section" id="about">
+    <section class="section" id="about" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">About Me</h2>
                 <p class="section-subtitle">My Introduction</p>
             </div>
             <div class="about-content">
-                <div class="about-text fade-in">
+                <div class="about-text fade-in-left">
                     <p>I am a Finance professional with a strong foundation in Investment Banking principles. My expertise includes financial analysis, valuation methods, and management accounting practices that drive strategic decision-making.</p>
                     <p>I am passionate about mergers and acquisitions, financial modeling, and helping organizations achieve their growth objectives through sound financial strategies. I bring strong analytical skills and the ability to communicate complex financial concepts effectively.</p>
                     <div class="about-info">
@@ -1176,7 +1328,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-image fade-in delay-4">
+                <div class="about-image fade-in-right delay-4">
                     <img src="profile-pic.jpg" alt="Sumanth M N" id="profile-pic" class="profile-image">
                 </div>
             </div>
@@ -1184,7 +1336,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="section" id="experience">
+    <section class="section" id="experience" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Experience</h2>
@@ -1247,14 +1399,14 @@
     </section>
 
     <!-- Skills Section -->
-    <section class="section skills-section" id="skills">
+    <section class="section skills-section" id="skills" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Skills</h2>
                 <p class="section-subtitle">My Expertise</p>
             </div>
             <div class="skills-content">
-                <div class="skill-item fade-in">
+                <div class="skill-item fade-in zoom-in">
                     <div class="skill-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -1264,7 +1416,7 @@
                         <div class="progress-bar" data-width="95"></div>
                     </div>
                 </div>
-                <div class="skill-item fade-in delay-1">
+                <div class="skill-item fade-in zoom-in delay-1">
                     <div class="skill-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
@@ -1274,7 +1426,7 @@
                         <div class="progress-bar" data-width="90"></div>
                     </div>
                 </div>
-                <div class="skill-item fade-in delay-2">
+                <div class="skill-item fade-in zoom-in delay-2">
                     <div class="skill-icon">
                         <i class="fas fa-handshake"></i>
                     </div>
@@ -1284,7 +1436,7 @@
                         <div class="progress-bar" data-width="85"></div>
                     </div>
                 </div>
-                <div class="skill-item fade-in delay-3">
+                <div class="skill-item fade-in zoom-in delay-3">
                     <div class="skill-icon">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
@@ -1294,7 +1446,7 @@
                         <div class="progress-bar" data-width="92"></div>
                     </div>
                 </div>
-                <div class="skill-item fade-in delay-4">
+                <div class="skill-item fade-in zoom-in delay-4">
                     <div class="skill-icon">
                         <i class="fas fa-comments-dollar"></i>
                     </div>
@@ -1304,7 +1456,7 @@
                         <div class="progress-bar" data-width="88"></div>
                     </div>
                 </div>
-                <div class="skill-item fade-in delay-5">
+                <div class="skill-item fade-in zoom-in delay-5">
                     <div class="skill-icon">
                         <i class="fas fa-tasks"></i>
                     </div>
@@ -1319,32 +1471,32 @@
     </section>
 
     <!-- Education Section -->
-    <section class="section" id="education">
+    <section class="section" id="education" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Education</h2>
                 <p class="section-subtitle">Academic Background</p>
             </div>
             <div class="education-cards">
-                <div class="education-card fade-in">
+                <div class="education-card fade-in zoom-in">
                     <div class="education-dates">Aug 2023 – June 2025</div>
                     <h3 class="education-degree">Master of Business Administration</h3>
                     <p class="education-institution">Centre for Management Studies (Jain University)</p>
                     <p class="education-description">Specialization in Finance with a current SGPA of 7.76 (2nd Semester)</p>
                 </div>
-                <div class="education-card fade-in delay-1">
+                <div class="education-card fade-in zoom-in delay-1">
                     <div class="education-dates">2020 - 2023</div>
                     <h3 class="education-degree">Bachelor of Commerce</h3>
                     <p class="education-institution">RG Institute of Commerce and Management</p>
                     <p class="education-description">Completed with a C.G.P.A of 7.64</p>
                 </div>
-                <div class="education-card fade-in delay-2">
+                <div class="education-card fade-in zoom-in delay-2">
                     <div class="education-dates">2018 - 2020</div>
                     <h3 class="education-degree">Pre-University | Commerce</h3>
                     <p class="education-institution">Sir MV PU College</p>
                     <p class="education-description">Achieved 85.33% in Commerce stream</p>
                 </div>
-                <div class="education-card fade-in delay-3">
+                <div class="education-card fade-in zoom-in delay-3">
                     <div class="education-dates">2017 - 2018</div>
                     <h3 class="education-degree">10th Standard | CBSE</h3>
                     <p class="education-institution">Smt Pushpa Shamanur Mahalingappa Residencial School</p>
@@ -1355,14 +1507,14 @@
     </section>
 
     <!-- Achievements Section -->
-    <section class="section achievements-section" id="achievements">
+    <section class="section achievements-section" id="achievements" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Certifications</h2>
                 <p class="section-subtitle">Professional Development</p>
             </div>
             <div class="achievements-grid">
-                <div class="achievement-card fade-in">
+                <div class="achievement-card fade-in zoom-in">
                     <h3 class="achievement-title">JPMorgan Chase Investment Banking Job Simulation</h3>
                     <p class="achievement-date">February 2024 | Forage</p>
                     <ul class="achievement-details">
@@ -1372,7 +1524,7 @@
                     </ul>
                     <button class="view-cert-btn" data-cert="jpmorgan-cert.jpg">View Certificate</button>
                 </div>
-                <div class="achievement-card fade-in delay-1">
+                <div class="achievement-card fade-in zoom-in delay-1">
                     <h3 class="achievement-title">Discounted Cash Flow Modeling</h3>
                     <p class="achievement-date">November 2024 | Coursera Project Network</p>
                     <p class="achievement-description">
@@ -1380,7 +1532,7 @@
                     </p>
                     <button class="view-cert-btn" data-cert="dcf-cert.jpg">View Certificate</button>
                 </div>
-                <div class="achievement-card fade-in delay-2">
+                <div class="achievement-card fade-in zoom-in delay-2">
                     <h3 class="achievement-title">Tableau Fundamentals</h3>
                     <p class="achievement-date">November 2024 | Corporate Finance Institute</p>
                     <p class="achievement-description">
@@ -1388,7 +1540,7 @@
                     </p>
                     <button class="view-cert-btn" data-cert="tableau-cert.jpg">View Certificate</button>
                 </div>
-                <div class="achievement-card fade-in delay-3">
+                <div class="achievement-card fade-in zoom-in delay-3">
                     <h3 class="achievement-title">Fin Quest 2024 Participant</h3>
                     <p class="achievement-date">February 2024 | IMA Bangalore Chapter</p>
                     <p class="achievement-description">
@@ -1401,15 +1553,18 @@
     </section>
 
     <!-- Contact Section -->
-    <section class="section" id="contact">
+    <section class="section contact-section" id="contact" data-aos="fade-up">
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Contact</h2>
                 <p class="section-subtitle">Get In Touch</p>
             </div>
+            
+            <div id="form-status" class="form-status"></div>
+            
             <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-item fade-in">
+                    <div class="contact-item fade-in-left">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
@@ -1419,7 +1574,7 @@
                             <a href="mailto:sumanthmn49@gmail.com">sumanthmn49@gmail.com</a>
                         </div>
                     </div>
-                    <div class="contact-item fade-in delay-1">
+                    <div class="contact-item fade-in-left delay-1">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
@@ -1428,7 +1583,7 @@
                             <p>+91 6363222380</p>
                         </div>
                     </div>
-                    <div class="contact-item fade-in delay-2">
+                    <div class="contact-item fade-in-left delay-2">
                         <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
@@ -1437,7 +1592,7 @@
                             <p>Bangalore, Karnataka, India</p>
                         </div>
                     </div>
-                    <div class="contact-item fade-in delay-3">
+                    <div class="contact-item fade-in-left delay-3">
                         <div class="contact-icon">
                             <i class="fab fa-linkedin-in"></i>
                         </div>
@@ -1446,7 +1601,7 @@
                             <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">Connect with me</a>
                         </div>
                     </div>
-                    <div class="contact-item fade-in delay-4">
+                    <div class="contact-item fade-in-left delay-4">
                         <div class="contact-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
@@ -1456,20 +1611,23 @@
                         </div>
                     </div>
                 </div>
-                <form class="contact-form fade-in delay-3" id="contact-form">
+                <form class="contact-form fade-in-right delay-3" id="contact-form">
                     <div class="form-group">
-                        <input type="text" class="form-input" id="name" placeholder="Your Name" required>
+                        <input type="text" class="form-input" id="name" name="name" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-input" id="email" placeholder="Your Email" required>
+                        <input type="email" class="form-input" id="email" name="email" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-input" id="subject" placeholder="Subject" required>
+                        <input type="text" class="form-input" id="subject" name="subject" placeholder="Subject" required>
                     </div>
                     <div class="form-group">
-                        <textarea class="form-input form-textarea" id="message" placeholder="Your Message" required></textarea>
+                        <textarea class="form-input form-textarea" id="message" name="message" placeholder="Your Message" required></textarea>
                     </div>
-                    <button type="submit" class="form-submit">Send Message</button>
+                    <button type="submit" class="form-submit">
+                        Send Message
+                        <span class="spinner" id="form-spinner"></span>
+                    </button>
                 </form>
             </div>
         </div>
@@ -1497,7 +1655,59 @@
         <img id="cert-modal-img" class="cert-modal-content">
     </div>
 
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- EmailJS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <script>
+        // Initialize AOS Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100
+            });
+        });
+
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+        })();
+
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 30;
+            
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 4 + 1;
+                
+                // Random animation delay
+                const delay = Math.random() * 15;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Create particles on load
+        window.addEventListener('load', createParticles);
+
         // Mobile menu toggle
         const mobileToggle = document.getElementById('mobile-toggle');
         const navLinks = document.getElementById('nav-links');
@@ -1529,24 +1739,61 @@
             }
         });
 
-        // Contact form
+        // Contact form submission with EmailJS
         const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const formSpinner = document.getElementById('form-spinner');
+        
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Simulate form submission
-            const submitBtn = this.querySelector('.form-submit');
-            const originalText = submitBtn.innerText;
+            // Show loading spinner
+            formSpinner.style.display = 'inline-block';
             
-            submitBtn.innerText = 'Sending...';
+            const submitBtn = this.querySelector('.form-submit');
             submitBtn.disabled = true;
             
-            setTimeout(() => {
-                alert('Message sent successfully!');
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                contactForm.reset();
-            }, 1500);
+            // Prepare form data for EmailJS
+            const templateParams = {
+                from_name: document.getElementById('name').value,
+                from_email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value,
+                to_email: 'sumanthmn49@gmail.com'
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('service_id', 'template_id', templateParams) // Replace with your service ID and template ID
+                .then(function() {
+                    // Success message
+                    formStatus.className = 'form-status status-success';
+                    formStatus.style.display = 'block';
+                    formStatus.innerHTML = 'Your message has been sent successfully!';
+                    contactForm.reset();
+                    
+                    // Hide spinner
+                    formSpinner.style.display = 'none';
+                    submitBtn.disabled = false;
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }, function(error) {
+                    // Error message
+                    formStatus.className = 'form-status status-error';
+                    formStatus.style.display = 'block';
+                    formStatus.innerHTML = 'There was an error sending your message. Please try again later.';
+                    
+                    // Hide spinner
+                    formSpinner.style.display = 'none';
+                    submitBtn.disabled = false;
+                    
+                    // Hide error message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                });
         });
 
         // Typing effect for name
@@ -1576,7 +1823,7 @@
         });
 
         // Scroll animations
-        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .zoom-in');
         
         function checkFade() {
             const triggerBottom = window.innerHeight * 0.85;
