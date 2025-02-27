@@ -320,70 +320,122 @@
             position: relative;
         }
 
-        /* Finance Icon Animation - Replaces Avatar */
-        .finance-icon-container {
+        /* Animated Character Saying Hello - Replaces Avatar */
+        .greeting-animation-container {
             position: absolute;
             right: -80px;
             top: 0;
             width: 150px;
             height: 150px;
-            perspective: 1000px;
         }
 
-        .finance-icon-inner {
+        .greeting-animation {
             position: relative;
             width: 100%;
             height: 100%;
-            text-align: center;
-            transform-style: preserve-3d;
-            animation: rotateCube 15s infinite ease;
         }
 
-        .finance-icon-face {
+        .character {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-size: 2.5rem;
-            backface-visibility: hidden;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 100px;
+        }
+
+        .head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: #e6c9a8;
+            border-radius: 50%;
+            border: 2px solid #333;
+            z-index: 2;
+        }
+
+        .body {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 50px;
             background-color: var(--text-accent);
-            border-radius: 20%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: transform 0.6s ease;
+            border-radius: 10px;
+            z-index: 1;
         }
-        
-        .face-1 {
-            transform: rotateY(0deg) translateZ(75px);
+
+        .arm {
+            position: absolute;
+            width: 15px;
+            height: 40px;
+            background-color: var(--text-accent);
+            border-radius: 6px;
+            z-index: 0;
         }
-        
-        .face-2 {
-            transform: rotateY(90deg) translateZ(75px);
+
+        .arm-left {
+            top: 50px;
+            left: 15%;
+            transform-origin: top center;
         }
-        
-        .face-3 {
-            transform: rotateY(180deg) translateZ(75px);
+
+        .arm-right {
+            top: 50px;
+            right: 15%;
+            transform-origin: top center;
+            animation: waveArm 2s infinite ease-in-out;
         }
-        
-        .face-4 {
-            transform: rotateY(270deg) translateZ(75px);
+
+        @keyframes waveArm {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-20deg); }
+            75% { transform: rotate(20deg); }
         }
-        
-        @keyframes rotateCube {
-            0%, 100% {
-                transform: rotateY(0deg);
-            }
-            25% {
-                transform: rotateY(90deg);
-            }
-            50% {
-                transform: rotateY(180deg);
-            }
-            75% {
-                transform: rotateY(270deg);
-            }
+
+        .speech-bubble {
+            position: absolute;
+            top: 0;
+            right: -15px;
+            padding: 10px 15px;
+            background-color: white;
+            border-radius: 20px;
+            border: 2px solid #333;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 3;
+            animation: popIn 0.5s ease-out forwards, bounce 3s 0.5s infinite ease-in-out;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            80% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .hero-greeting {
@@ -576,7 +628,7 @@
             transform: rotate(15deg) scale(1.2);
         }
 
-        /* Skills Visualization - Replaces Profile Picture */
+        /* Enhanced Skills Visualization with Cards - Replaces Profile Picture */
         .skills-visualization {
             display: flex;
             flex-direction: column;
@@ -599,99 +651,148 @@
             font-size: 1.2rem;
             font-weight: 500;
             color: var(--text-dark);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             text-align: center;
-        }
-
-        .radar-chart {
-            width: 280px;
-            height: 280px;
             position: relative;
-            margin-bottom: 20px;
+            display: inline-block;
         }
-
-        .radar-chart-labels {
+        
+        .skills-chart-title::after {
+            content: '';
             position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--text-accent);
+            transition: width 0.5s ease;
+        }
+        
+        .skills-visualization:hover .skills-chart-title::after {
             width: 100%;
-            height: 100%;
+        }
+        
+        .skills-card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .skills-card-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .skills-card-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .skills-card-container::-webkit-scrollbar-thumb {
+            background: var(--text-accent);
+            border-radius: 10px;
         }
 
-        .label {
-            position: absolute;
-            font-size: 0.75rem;
+        .skill-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background-color: rgba(245, 242, 234, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            transform: translateX(50px);
+            opacity: 0;
+            animation: slideInCards 0.5s forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+        }
+        
+        .skill-card:nth-child(1) { --order: 1; }
+        .skill-card:nth-child(2) { --order: 2; }
+        .skill-card:nth-child(3) { --order: 3; }
+        .skill-card:nth-child(4) { --order: 4; }
+        .skill-card:nth-child(5) { --order: 5; }
+        .skill-card:nth-child(6) { --order: 6; }
+        
+        @keyframes slideInCards {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+            background-color: rgba(245, 242, 234, 0.9);
+        }
+        
+        .skill-card-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--text-accent);
+            color: white;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover .skill-card-icon {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .skill-card-content {
+            flex: 1;
+        }
+        
+        .skill-card-content h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 8px;
             color: var(--text-dark);
-            font-weight: 600;
-            white-space: nowrap;
         }
-
-        .label-1 { top: 0; left: 50%; transform: translateX(-50%); }
-        .label-2 { top: 25%; right: 0; }
-        .label-3 { bottom: 25%; right: 0; }
-        .label-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
-        .label-5 { bottom: 25%; left: 0; }
-        .label-6 { top: 25%; left: 0; }
-
-        .radar-chart-area {
-            width: 100%;
+        
+        .skill-card-bar {
+            height: 6px;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .skill-card-progress {
             height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--text-accent), var(--chart-color-2));
+            border-radius: 3px;
             position: relative;
+            transition: width 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
-
-        .radar-web {
+        
+        .skill-card-progress::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            border: 1px dashed var(--text-light);
-            opacity: 0.2;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
         }
-
-        .web-1 { transform: scale(0.2); }
-        .web-2 { transform: scale(0.4); }
-        .web-3 { transform: scale(0.6); }
-        .web-4 { transform: scale(0.8); }
-        .web-5 { transform: scale(1.0); }
-
-        .radar-data {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            clip-path: polygon(
-                50% 0%, 
-                100% 38%, 
-                82% 100%, 
-                18% 100%, 
-                0% 38%
-            );
-            background-color: rgba(155, 108, 73, 0.7);
-            transform: translate(-50%, -50%);
-            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        
+        .skill-card-value {
+            text-align: right;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-accent);
         }
-
-        .radar-data.active {
-            width: 80%;
-            height: 80%;
-        }
-
-        .radar-point {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: var(--text-accent);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .point-1 { top: 10%; left: 50%; }
-        .point-2 { top: 30%; right: 10%; }
-        .point-3 { bottom: 30%; right: 10%; }
-        .point-4 { bottom: 10%; left: 50%; }
-        .point-5 { bottom: 30%; left: 10%; }
-        .point-6 { top: 30%; left: 10%; }
 
         /* Enhanced Experience Section */
         .experience-timeline {
@@ -1387,7 +1488,7 @@
                 font-size: 2.2rem;
             }
             
-            .finance-icon-container {
+            .greeting-animation-container {
                 position: relative;
                 right: auto;
                 top: auto;
@@ -1396,9 +1497,8 @@
                 margin: 0 auto 25px;
             }
             
-            .radar-chart {
-                width: 220px;
-                height: 220px;
+            .skills-card-container {
+                max-width: 320px;
             }
             
             .nav-links {
@@ -1564,20 +1664,17 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <!-- Finance Icon Animation - Replaces Avatar -->
-                <div class="finance-icon-container slide-in-right">
-                    <div class="finance-icon-inner">
-                        <div class="finance-icon-face face-1">
-                            <i class="fas fa-chart-line"></i>
+                <!-- Animated Character Saying Hello - Replaces Avatar -->
+                <div class="greeting-animation-container slide-in-right">
+                    <div class="greeting-animation">
+                        <div class="character">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
                         </div>
-                        <div class="finance-icon-face face-2">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <div class="finance-icon-face face-3">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <div class="finance-icon-face face-4">
-                            <i class="fas fa-wallet"></i>
+                        <div class="speech-bubble">
+                            <span>Hello!</span>
                         </div>
                     </div>
                 </div>
@@ -1637,31 +1734,81 @@
                     </div>
                 </div>
                 
-                <!-- Skills Visualization - Replaces Profile Picture -->
+                <!-- Skills Visualization - Enhanced skill cards that replace Profile Picture -->
                 <div class="skills-visualization slide-in-right delay-2">
                     <h3 class="skills-chart-title">Core Competencies</h3>
-                    <div class="radar-chart">
-                        <div class="radar-chart-labels">
-                            <div class="label label-1">Financial Analysis</div>
-                            <div class="label label-2">Valuation Models</div>
-                            <div class="label label-3">M&A Process</div>
-                            <div class="label label-4">Financial Modeling</div>
-                            <div class="label label-5">Communication</div>
-                            <div class="label label-6">Strategic Planning</div>
+                    <div class="skills-card-container">
+                        <div class="skill-card" data-skill="Financial Analysis" data-value="95">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>Financial Analysis</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">95%</div>
+                            </div>
                         </div>
-                        <div class="radar-chart-area">
-                            <div class="radar-web web-1"></div>
-                            <div class="radar-web web-2"></div>
-                            <div class="radar-web web-3"></div>
-                            <div class="radar-web web-4"></div>
-                            <div class="radar-web web-5"></div>
-                            <div class="radar-data" id="radar-data"></div>
-                            <div class="radar-point point-1"></div>
-                            <div class="radar-point point-2"></div>
-                            <div class="radar-point point-3"></div>
-                            <div class="radar-point point-4"></div>
-                            <div class="radar-point point-5"></div>
-                            <div class="radar-point point-6"></div>
+                        <div class="skill-card" data-skill="Valuation Models" data-value="90">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>Valuation Models</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">90%</div>
+                            </div>
+                        </div>
+                        <div class="skill-card" data-skill="M&A Process" data-value="85">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>M&A Process</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">85%</div>
+                            </div>
+                        </div>
+                        <div class="skill-card" data-skill="Financial Modeling" data-value="92">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>Financial Modeling</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">92%</div>
+                            </div>
+                        </div>
+                        <div class="skill-card" data-skill="Communication" data-value="88">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-comments-dollar"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>Communication</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">88%</div>
+                            </div>
+                        </div>
+                        <div class="skill-card" data-skill="Strategic Planning" data-value="87">
+                            <div class="skill-card-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="skill-card-content">
+                                <h4>Strategic Planning</h4>
+                                <div class="skill-card-bar">
+                                    <div class="skill-card-progress"></div>
+                                </div>
+                                <div class="skill-card-value">87%</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2316,9 +2463,62 @@
             });
         }
 
+        // Initialize skill card progress bars
+        function initSkillCards() {
+            document.querySelectorAll('.skill-card').forEach(card => {
+                const value = card.getAttribute('data-value');
+                const progressBar = card.querySelector('.skill-card-progress');
+                setTimeout(() => {
+                    progressBar.style.width = value + '%';
+                }, 500);
+            });
+        }
+        
+        // Fixed mobile menu issue by adding proper event handlers and menu transitions
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-link');
+            
+            if (mobileToggle && navLinks) {
+                // Clear any existing event listeners
+                mobileToggle.replaceWith(mobileToggle.cloneNode(true));
+                const newMobileToggle = document.getElementById('mobile-toggle');
+                
+                // Add proper event listener
+                newMobileToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    if (navLinks.classList.contains('active')) {
+                        this.innerHTML = '<i class="fas fa-times"></i>';
+                    } else {
+                        this.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+                
+                // Ensure links close the menu when clicked
+                navLinksItems.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        navLinks.classList.remove('active');
+                        newMobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navLinks.contains(e.target) && e.target !== newMobileToggle) {
+                        navLinks.classList.remove('active');
+                        newMobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+        }
+
         // Initialize on page load
         window.addEventListener('load', function() {
             updateActiveNav();
+            initSkillCards();
+            initMobileMenu();
             
             // For mobile devices, reduce animation complexity for better performance
             if (window.innerWidth < 768) {
