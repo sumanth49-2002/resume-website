@@ -351,10 +351,107 @@
             justify-content: center;
             padding-top: 80px;
             background: linear-gradient(180deg, rgba(245, 242, 234, 0.8) 0%, rgba(245, 242, 234, 1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* PARALLAX SCROLLING - New Styles */
+        .parallax-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130%;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        .hero-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        .about-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+        }
+
+        .skills-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        .education-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+        }
+
+        .achievements-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        .contact-parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+        }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            opacity: 0.85;
+            z-index: -1;
+        }
+
+        /* Parallax decoration elements */
+        .parallax-decoration {
+            position: absolute;
+            background-color: var(--text-accent);
+            opacity: 0.05;
+            border-radius: 50%;
+            z-index: -1;
+            will-change: transform;
+        }
+
+        .decoration-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+        }
+
+        .decoration-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
         }
 
         .hero-content {
             max-width: 800px;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-greeting {
@@ -466,6 +563,8 @@
         /* Section Styles */
         .section-header {
             margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
         }
 
         .section-title {
@@ -502,6 +601,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .about-text p {
@@ -552,6 +653,7 @@
         /* Experience Section */
         .experience-timeline {
             position: relative;
+            z-index: 2;
         }
 
         .timeline-item {
@@ -612,12 +714,15 @@
         /* Skills Section */
         .skills-section {
             background: linear-gradient(135deg, var(--white) 0%, var(--background) 100%);
+            position: relative;
         }
 
         .skills-content {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .skill-item {
@@ -680,6 +785,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .education-card {
@@ -736,12 +843,15 @@
         /* Certifications Section */
         .achievements-section {
             background: linear-gradient(135deg, var(--background) 0%, var(--white) 100%);
+            position: relative;
         }
 
         .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .achievement-card {
@@ -855,6 +965,8 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 50px;
+            position: relative;
+            z-index: 2;
         }
 
         .contact-info {
@@ -1138,6 +1250,64 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Mouse scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 5;
+        }
+
+        .scroll-indicator:hover {
+            opacity: 1;
+        }
+
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--text-accent);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .mouse::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-accent);
+            border-radius: 50%;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 20px);
+                opacity: 0;
+            }
+        }
+
+        .scroll-text {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         /* Responsive Styles */
         @media (max-width: 1024px) {
             .container {
@@ -1269,8 +1439,16 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
+    <!-- Hero Section with Parallax -->
+    <section class="hero parallax-container" id="home">
+        <!-- Parallax Background -->
+        <div class="parallax-bg hero-parallax-bg" data-speed="0.5"></div>
+        <div class="parallax-overlay"></div>
+        
+        <!-- Parallax Decorations -->
+        <div class="parallax-decoration decoration-1" data-speed="0.3"></div>
+        <div class="parallax-decoration decoration-2" data-speed="0.2"></div>
+        
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-greeting fade-in">Hello, I am <span class="accent typed-text" id="name-text">Sumanth M N</span></h1>
@@ -1288,10 +1466,20 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <p class="scroll-text">Scroll Down</p>
+        </div>
     </section>
 
-    <!-- About Section -->
-    <section class="section" id="about" data-aos="fade-up">
+    <!-- About Section with Parallax -->
+    <section class="section parallax-container" id="about" data-aos="fade-up">
+        <!-- Parallax Background -->
+        <div class="parallax-bg about-parallax-bg" data-speed="0.4"></div>
+        <div class="parallax-overlay"></div>
+        
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">About Me</h2>
@@ -1336,7 +1524,8 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="section" id="experience" data-aos="fade-up">
+    <section class="section parallax-container" id="experience" data-aos="fade-up">
+        <!-- No specific parallax background for this section to maintain readability -->
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Experience</h2>
@@ -1398,8 +1587,12 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="section skills-section" id="skills" data-aos="fade-up">
+    <!-- Skills Section with Parallax -->
+    <section class="section skills-section parallax-container" id="skills" data-aos="fade-up">
+        <!-- Parallax Background -->
+        <div class="parallax-bg skills-parallax-bg" data-speed="0.3"></div>
+        <div class="parallax-overlay"></div>
+        
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Skills</h2>
@@ -1470,8 +1663,12 @@
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section class="section" id="education" data-aos="fade-up">
+    <!-- Education Section with Parallax -->
+    <section class="section parallax-container" id="education" data-aos="fade-up">
+        <!-- Parallax Background -->
+        <div class="parallax-bg education-parallax-bg" data-speed="0.3"></div>
+        <div class="parallax-overlay"></div>
+        
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Education</h2>
@@ -1506,8 +1703,12 @@
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section class="section achievements-section" id="achievements" data-aos="fade-up">
+    <!-- Achievements Section with Parallax -->
+    <section class="section achievements-section parallax-container" id="achievements" data-aos="fade-up">
+        <!-- Parallax Background -->
+        <div class="parallax-bg achievements-parallax-bg" data-speed="0.2"></div>
+        <div class="parallax-overlay"></div>
+        
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Certifications</h2>
@@ -1552,8 +1753,12 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="section contact-section" id="contact" data-aos="fade-up">
+    <!-- Contact Section with Parallax -->
+    <section class="section contact-section parallax-container" id="contact" data-aos="fade-up">
+        <!-- Parallax Background -->
+        <div class="parallax-bg contact-parallax-bg" data-speed="0.3"></div>
+        <div class="parallax-overlay"></div>
+        
         <div class="container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Contact</h2>
@@ -1669,7 +1874,33 @@
                 once: true,
                 offset: 100
             });
+            
+            // Initialize the parallax effect
+            initParallax();
         });
+
+        // Parallax effect function
+        function initParallax() {
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Parallax backgrounds
+                const parallaxBgs = document.querySelectorAll('.parallax-bg');
+                parallaxBgs.forEach(bg => {
+                    const speed = bg.getAttribute('data-speed') || 0.5;
+                    const yPos = -(scrollTop * speed);
+                    bg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                });
+                
+                // Parallax decorations
+                const decorations = document.querySelectorAll('.parallax-decoration');
+                decorations.forEach(item => {
+                    const speed = item.getAttribute('data-speed') || 0.2;
+                    const yPos = -(scrollTop * speed);
+                    item.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                });
+            });
+        }
 
         // Initialize EmailJS
         (function() {
@@ -1736,6 +1967,17 @@
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
+            }
+        });
+
+        // Hide scroll indicator after scrolling
+        window.addEventListener('scroll', function() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator && window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+                setTimeout(() => {
+                    scrollIndicator.style.display = 'none';
+                }, 300);
             }
         });
 
