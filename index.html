@@ -6,6 +6,10 @@
     <title>Sumanth M N | Finance Professional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Added Google Fonts for improved typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Base Styles */
         :root {
@@ -25,7 +29,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            /* Updated font family for more modern look */
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
         }
 
         body {
@@ -188,10 +193,12 @@
             transition-delay: 0.6s;
         }
 
-        /* Typography */
+        /* Typography - Enhanced with updated fonts */
         h1, h2, h3, h4, h5 {
-            font-weight: 400;
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
             line-height: 1.3;
+            letter-spacing: -0.02em;
         }
 
         .accent {
@@ -236,6 +243,7 @@
             transition: transform 0.4s ease;
             overflow: hidden;
             position: relative;
+            font-family: 'Playfair Display', serif;
         }
         
         .logo::before {
@@ -272,6 +280,7 @@
             color: var(--text-dark);
             padding: 5px 0;
             overflow: hidden;
+            font-weight: 500;
         }
 
         .nav-link:after {
@@ -439,16 +448,19 @@
         }
 
         .hero-greeting {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             margin-bottom: 20px;
             position: relative;
+            font-weight: 600;
         }
 
         .hero-title {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-light);
             margin-bottom: 25px;
             max-width: 700px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
         }
 
         .hero-subtitle {
@@ -457,6 +469,7 @@
             margin-bottom: 35px;
             max-width: 600px;
             line-height: 1.8;
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn-container {
@@ -480,6 +493,8 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         .btn::before {
@@ -559,8 +574,8 @@
         }
 
         .section-title {
-            font-size: 2rem;
-            font-weight: 300;
+            font-size: 2.5rem;
+            font-weight: 600;
             margin-bottom: 15px;
             position: relative;
             display: inline-block;
@@ -584,10 +599,13 @@
 
         .section-subtitle {
             color: var(--text-light);
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
-        /* About Section with Skills Visualization */
+        /* About Section with Creative Animation */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -598,6 +616,7 @@
         .about-text p {
             margin-bottom: 20px;
             line-height: 1.8;
+            font-size: 1.05rem;
         }
 
         .about-info {
@@ -628,112 +647,95 @@
             transform: rotate(15deg) scale(1.2);
         }
 
-        /* Enhanced Skills Visualization matching screenshot design */
-        .skills-visualization {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            padding: 25px;
+        /* NEW CREATIVE ANIMATION - Abstract Flowing Canvas */
+        .creative-canvas-container {
             background-color: var(--white);
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
+            overflow: hidden;
+            position: relative;
+            height: 360px;
+            width: 100%;
         }
 
-        .skills-visualization:hover {
+        .creative-canvas-container:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
-        .skills-chart-title {
+        .creative-canvas-title {
             font-size: 1.3rem;
             font-weight: 500;
             color: var(--text-dark);
             margin-bottom: 20px;
             text-align: center;
-        }
-        
-        .skills-list-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-        }
-        
-        .skill-list-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
             position: relative;
+            z-index: 2;
+        }
+        
+        #creative-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .skill-tag {
+            padding: 6px 14px;
+            background-color: rgba(155, 108, 73, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.5s forwards;
         }
         
-        .skill-list-item:nth-child(1) { animation-delay: 0.1s; }
-        .skill-list-item:nth-child(2) { animation-delay: 0.2s; }
-        .skill-list-item:nth-child(3) { animation-delay: 0.3s; }
-        .skill-list-item:nth-child(4) { animation-delay: 0.4s; }
-        .skill-list-item:nth-child(5) { animation-delay: 0.5s; }
-        .skill-list-item:nth-child(6) { animation-delay: 0.6s; }
+        .skill-tag:nth-child(1) { animation-delay: 0.1s; }
+        .skill-tag:nth-child(2) { animation-delay: 0.2s; }
+        .skill-tag:nth-child(3) { animation-delay: 0.3s; }
+        .skill-tag:nth-child(4) { animation-delay: 0.4s; }
+        .skill-tag:nth-child(5) { animation-delay: 0.5s; }
+        .skill-tag:nth-child(6) { animation-delay: 0.6s; }
+        
+        .skill-tag:hover {
+            background-color: var(--text-accent);
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+        }
         
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-        
-        .skill-icon-box {
-            width: 45px;
-            height: 45px;
-            background-color: var(--text-accent);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        
-        .skill-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .skill-name {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-dark);
-        }
-        
-        .skill-progress-container {
-            height: 6px;
-            background-color: #f2f2f2;
-            border-radius: 3px;
-            width: 100%;
-            overflow: hidden;
-        }
-        
-        .skill-progress-bar {
-            height: 100%;
-            background-color: var(--text-accent);
-            width: 0%;
-            transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        
-        .skill-percentage {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-accent);
-            min-width: 40px;
-            text-align: right;
         }
 
         /* Enhanced Experience Section */
@@ -764,7 +766,7 @@
         }
 
         .timeline-date {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--text-accent);
             font-weight: 600;
         }
@@ -804,8 +806,8 @@
         }
 
         .timeline-title {
-            font-size: 1.2rem;
-            font-weight: 500;
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 5px;
         }
 
@@ -813,6 +815,11 @@
             font-size: 1rem;
             color: var(--text-light);
             margin-bottom: 15px;
+        }
+
+        .timeline-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         /* Skills Section with Interactive Elements */
@@ -960,11 +967,12 @@
             font-size: 0.9rem;
             color: var(--text-accent);
             margin-bottom: 10px;
+            font-weight: 500;
         }
 
         .education-degree {
             font-size: 1.2rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 10px;
         }
 
@@ -1010,7 +1018,7 @@
 
         .achievement-title {
             font-size: 1.2rem;
-            font-weight: 500;
+            font-weight: 600;
             margin-bottom: 10px;
         }
 
@@ -1018,6 +1026,7 @@
             font-size: 0.9rem;
             color: var(--text-accent);
             margin-bottom: 15px;
+            font-weight: 500;
         }
 
         .achievement-description {
@@ -1037,6 +1046,7 @@
             margin-bottom: 10px;
             transition: transform 0.4s ease;
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .achievement-details li:hover {
@@ -1068,6 +1078,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-family: 'Poppins', sans-serif;
         }
         
         .view-cert-btn::after {
@@ -1131,7 +1142,7 @@
         .contact-details h3 {
             font-size: 1.1rem;
             margin-bottom: 5px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .contact-details p, 
@@ -1166,6 +1177,7 @@
             color: var(--text-dark);
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
 
         .form-input:focus {
@@ -1177,6 +1189,7 @@
         .form-input::placeholder {
             color: var(--text-light);
             transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
         }
         
         .form-input:focus::placeholder {
@@ -1202,6 +1215,8 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
         }
         
         .form-submit::before {
@@ -1255,17 +1270,18 @@
         .footer-text {
             color: var(--text-light);
             margin-bottom: 15px;
+            font-size: 1.05rem;
         }
 
         .footer-tagline {
-            font-size: 1.8rem;
-            font-weight: 300;
+            font-size: 2rem;
+            font-weight: 600;
             margin-bottom: 25px;
         }
 
         .footer-tagline span {
             color: var(--text-accent);
-            font-weight: 500;
+            font-weight: 700;
             position: relative;
             display: inline-block;
         }
@@ -1397,23 +1413,12 @@
                 font-size: 2.5rem;
             }
             
-            .finance-icon-container {
-                right: -60px;
-                width: 130px;
-                height: 130px;
-            }
-            
-            .radar-chart {
-                width: 240px;
-                height: 240px;
-            }
-            
             .about-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
             
-            .skills-visualization {
+            .creative-canvas-container {
                 order: -1;
                 margin-bottom: 20px;
             }
@@ -1439,10 +1444,6 @@
                 width: 120px;
                 height: 120px;
                 margin: 0 auto 25px;
-            }
-            
-            .skills-card-container {
-                max-width: 320px;
             }
             
             .nav-links {
@@ -1554,11 +1555,6 @@
             .footer-tagline {
                 font-size: 1.5rem;
             }
-            
-            .radar-chart {
-                width: 200px;
-                height: 200px;
-            }
         }
 
         /* Particle Effects */
@@ -1639,7 +1635,7 @@
         </div>
     </section>
 
-    <!-- About Section with Skills Visualization -->
+    <!-- About Section with Creative Canvas Animation (replaces Skills Visualization) -->
     <section class="section" id="about">
         <div class="container">
             <div class="section-header fade-in">
@@ -1678,87 +1674,18 @@
                     </div>
                 </div>
                 
-                <!-- Skills Visualization - Improved simple design matching screenshot -->
-                <div class="skills-visualization slide-in-right delay-2">
-                    <h3 class="skills-chart-title">Core Competencies</h3>
-                    <div class="skills-list-container">
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">Financial Analysis</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="95"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">95%</div>
-                        </div>
-                        
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-calculator"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">Valuation Models</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="90"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">90%</div>
-                        </div>
-                        
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">M&A Process</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">85%</div>
-                        </div>
-                        
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-file-invoice-dollar"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">Financial Modeling</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="92"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">92%</div>
-                        </div>
-                        
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-comments-dollar"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">Communication</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="88"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">88%</div>
-                        </div>
-                        
-                        <div class="skill-list-item">
-                            <div class="skill-icon-box">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                            <div class="skill-content">
-                                <div class="skill-name">Strategic Planning</div>
-                                <div class="skill-progress-container">
-                                    <div class="skill-progress-bar" data-value="87"></div>
-                                </div>
-                            </div>
-                            <div class="skill-percentage">87%</div>
-                        </div>
+                <!-- NEW CREATIVE ANIMATION - Abstract Flowing Canvas - Replaces Skills Visualization -->
+                <div class="creative-canvas-container slide-in-right delay-2">
+                    <h3 class="creative-canvas-title">Core Competencies</h3>
+                    <div class="canvas-overlay"></div>
+                    <canvas id="creative-canvas"></canvas>
+                    <div class="skill-tags">
+                        <div class="skill-tag">Financial Analysis</div>
+                        <div class="skill-tag">Valuation Models</div>
+                        <div class="skill-tag">M&A Process</div>
+                        <div class="skill-tag">Financial Modeling</div>
+                        <div class="skill-tag">Communication</div>
+                        <div class="skill-tag">Strategic Planning</div>
                     </div>
                 </div>
             </div>
@@ -2073,7 +2000,7 @@
         </div>
     </footer>
 
-    <!-- Certificate Modal with Enhanced Animation - Fixed for visibility issues -->
+    <!-- Certificate Modal with Enhanced Animation -->
     <div id="cert-modal" class="cert-modal">
         <span class="close-modal">&times;</span>
         <img id="cert-modal-img" class="cert-modal-content" alt="Certificate">
@@ -2292,19 +2219,6 @@
                     }, 20);
                 }
             });
-            
-            // Initialize skill progress bars
-            function initSkillBars() {
-                document.querySelectorAll('.skill-progress-bar').forEach(bar => {
-                    const value = bar.getAttribute('data-value');
-                    setTimeout(() => {
-                        bar.style.width = value + '%';
-                    }, 300);
-                });
-            }
-            
-            // Call initSkillBars on page load
-            initSkillBars();
 
             // Certificate modal functionality with enhanced animation
             const certModal = document.getElementById('cert-modal');
@@ -2442,7 +2356,6 @@
                                     "opacity": 0.8
                                 }
                             },
-                            <!-- This is the end of the HTML file with proper closing tags -->
                             "push": {
                                 "particles_nb": 3
                             }
@@ -2452,32 +2365,174 @@
                 });
             }
 
+            // Creative Canvas Animation Setup
+            const setupCreativeCanvas = () => {
+                const canvas = document.getElementById('creative-canvas');
+                if (!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                const parent = canvas.parentElement;
+                
+                // Set canvas to match container size
+                canvas.width = parent.offsetWidth;
+                canvas.height = parent.offsetHeight;
+                
+                // Particles config
+                const particleCount = 70;
+                const connectionDistance = 80;
+                const colorPalette = [
+                    '#9b6c49', // Primary accent
+                    '#c89f7e', // Secondary
+                    '#6e4c32', // Darker accent
+                    '#a67c56', // Medium accent
+                    '#d9b99b'  // Light accent
+                ];
+                
+                // Create particles
+                let particles = [];
+                
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.vx = (Math.random() - 0.5) * 0.8;
+                        this.vy = (Math.random() - 0.5) * 0.8;
+                        this.radius = Math.random() * 2 + 1;
+                        this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                        this.opacity = Math.random() * 0.5 + 0.2;
+                    }
+                    
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.globalAlpha = this.opacity;
+                        ctx.fill();
+                        ctx.globalAlpha = 1;
+                    }
+                    
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        
+                        // Bounce off edges
+                        if (this.x > canvas.width || this.x < 0) {
+                            this.vx = -this.vx;
+                        }
+                        
+                        if (this.y > canvas.height || this.y < 0) {
+                            this.vy = -this.vy;
+                        }
+                        
+                        // Draw connections between particles
+                        particles.forEach(particle => {
+                            const distance = Math.sqrt(
+                                Math.pow(this.x - particle.x, 2) + 
+                                Math.pow(this.y - particle.y, 2)
+                            );
+                            
+                            if (distance < connectionDistance && this !== particle) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = this.color;
+                                ctx.globalAlpha = 0.1 * (1 - distance / connectionDistance);
+                                ctx.lineWidth = 0.5;
+                                ctx.moveTo(this.x, this.y);
+                                ctx.lineTo(particle.x, particle.y);
+                                ctx.stroke();
+                                ctx.globalAlpha = 1;
+                            }
+                        });
+                        
+                        this.draw();
+                    }
+                }
+                
+                // Initialize particles
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+                
+                // Animation loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    particles.forEach(particle => {
+                        particle.update();
+                    });
+                }
+                
+                animate();
+                
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    canvas.width = parent.offsetWidth;
+                    canvas.height = parent.offsetHeight;
+                });
+                
+                // Make particles follow cursor on hover
+                canvas.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+                    
+                    particles.forEach(particle => {
+                        const dx = mouseX - particle.x;
+                        const dy = mouseY - particle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            const force = 0.05;
+                            const angle = Math.atan2(dy, dx);
+                            particle.vx += Math.cos(angle) * force;
+                            particle.vy += Math.sin(angle) * force;
+                        }
+                    });
+                });
+                
+                // Add interaction for skill tags
+                const skillTags = document.querySelectorAll('.skill-tag');
+                skillTags.forEach(tag => {
+                    tag.addEventListener('mouseenter', () => {
+                        // Create burst effect
+                        for (let i = 0; i < 5; i++) {
+                            const p = new Particle();
+                            const rect = tag.getBoundingClientRect();
+                            const canvasRect = canvas.getBoundingClientRect();
+                            
+                            p.x = rect.left - canvasRect.left + rect.width / 2;
+                            p.y = rect.top - canvasRect.top + rect.height / 2;
+                            p.vx = (Math.random() - 0.5) * 3;
+                            p.vy = (Math.random() - 0.5) * 3;
+                            p.radius = Math.random() * 3 + 2;
+                            p.opacity = 0.8;
+                            
+                            particles.push(p);
+                            
+                            // Remove extra particles to avoid performance issues
+                            if (particles.length > particleCount + 10) {
+                                particles.shift();
+                            }
+                        }
+                    });
+                });
+            };
+            
+            // Initialize the creative canvas
+            setupCreativeCanvas();
+
             // For mobile devices, reduce animation complexity for better performance
             if (window.innerWidth < 768) {
                 document.querySelectorAll('.floating-shape').forEach(shape => {
                     shape.style.animation = 'none';
                 });
-                
-                if (typeof particlesJS !== 'undefined') {
-                    // Reduce particles for mobile
-                    particlesJS("particles-js", {
-                        "particles": {
-                            "number": {
-                                "value": 20
-                            },
-                            "move": {
-                                "speed": 0.5
-                            }
-                        }
-                    });
-                }
             }
 
             // Call updateActiveNav once on page load
             updateActiveNav();
         });
 
-        // Ensure certificate viewing works correctly even if the page is loaded after the DOMContentLoaded event
+        // Ensure certificate viewing works correctly
         function initCertificateViewer() {
             const certModal = document.getElementById('cert-modal');
             const certModalImg = document.getElementById('cert-modal-img');
