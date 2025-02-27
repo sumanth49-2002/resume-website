@@ -777,6 +777,22 @@
         .footer-tagline span {
             color: var(--accent);
         }
+        
+        /* Beating heart animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .heart-icon {
+            color: #ff6b6b;
+            display: inline-block;
+            animation: heartbeat 1s infinite;
+            margin: 0 10px;
+        }
 
         .footer-social {
             display: flex;
@@ -978,7 +994,7 @@
             <div class="hero-content">
                 <p class="hero-greeting">Hello, I'm</p>
                 <h1 class="hero-name">Sumanth <span>M N</span></h1>
-                <h2 class="hero-title">Finance Professional | Investment Banking Specialist</h2>
+                <h2 class="hero-title">Finance Professional | Investment Banking Aspirant</h2>
                 <p class="hero-description">A final-year MBA student specializing in Finance with a passion for Investment Banking. I possess strong communication skills and expertise in financial analysis, valuation, and management accounting.</p>
                 <a href="#contact" class="btn">Get In Touch</a>
                 <a href="Sumanth_MN_CV.pdf" download class="btn btn-secondary">Download CV</a>
@@ -991,9 +1007,8 @@
 
     <!-- Social Links -->
     <div class="social-links">
-        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:sumanth_mn23@cms.ac.in" class="social-link"><i class="fas fa-envelope"></i></a>
     </div>
 
     <!-- About Section -->
@@ -1013,6 +1028,10 @@
                             <span>sumanth_mn23@cms.ac.in</span>
                         </div>
                         <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>sumanthmn49@gmail.com</span>
+                        </div>
+                        <div class="info-item">
                             <i class="fas fa-phone"></i>
                             <span>+91 6363222380</span>
                         </div>
@@ -1023,6 +1042,10 @@
                         <div class="info-item">
                             <i class="fas fa-graduation-cap"></i>
                             <span>MBA Finance</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-laptop-code"></i>
+                            <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">Coursera Profile</a>
                         </div>
                     </div>
                 </div>
@@ -1247,7 +1270,8 @@
                         </div>
                         <div class="contact-details">
                             <h3>Email</h3>
-                            <a href="mailto:sumanth_mn23@cms.ac.in">sumanth_mn23@cms.ac.in</a>
+                            <a href="mailto:sumanth_mn23@cms.ac.in">sumanth_mn23@cms.ac.in</a><br>
+                            <a href="mailto:sumanthmn49@gmail.com">sumanthmn49@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1274,7 +1298,16 @@
                         </div>
                         <div class="contact-details">
                             <h3>LinkedIn</h3>
-                            <a href="#">Connect with me</a>
+                            <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">Connect with me</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Coursera</h3>
+                            <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">View my learning profile</a>
                         </div>
                     </div>
                 </div>
@@ -1304,12 +1337,12 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p class="footer-text">Finance Professional & Investment Banking Specialist</p>
-            <h2 class="footer-tagline">I analyze <span>financial systems</span></h2>
+            <p class="footer-text">Finance Professional & Investment Banking Aspirant</p>
+            <h2 class="footer-tagline">I <i class="fas fa-heart heart-icon"></i> <span>FINANCE</span></h2>
             <div class="footer-social">
-                <a href="#" class="footer-link"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" class="footer-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="footer-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" class="footer-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:sumanth_mn23@cms.ac.in" class="footer-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.coursera.org/learner/sumanth-mn-6224" class="footer-link" target="_blank"><i class="fas fa-graduation-cap"></i></a>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Sumanth M N. All Rights Reserved.</p>
