@@ -5,21 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sumanth M N - Finance Professional and Investment Banking Aspirant Portfolio">
     <title>Sumanth M N | Finance Professional</title>
-    
-    <!-- Resource hints for better performance -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Deferred loading of non-critical CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Fallback for CSS if JavaScript is disabled -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     </noscript>
     
     <style>
@@ -230,27 +222,9 @@
         }
 
         @media (prefers-reduced-motion: no-preference) {
-            .floating-shape {
-                animation: float 20s infinite ease-in-out;
-            }
-            
-            .shape1 {
-                animation-delay: 0s;
-            }
-            
-            .shape2 {
-                animation-delay: -5s;
-            }
-            
-            .shape3 {
-                animation-delay: -10s;
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
-            
-            .shape4 {
-                animation-delay: -15s;
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            }
+            .floating-shape {animation: float 20s infinite ease-in-out;}
+            .shape1 {animation-delay: 0s;}
+            .shape2 {animation-delay: -5s;}
         }
         
         .shape1 {
@@ -267,22 +241,6 @@
             top: 60%;
             left: 80%;
             background: linear-gradient(225deg, var(--chart-color-2), var(--chart-color-3));
-        }
-        
-        .shape3 {
-            width: 150px;
-            height: 150px;
-            top: 30%;
-            left: 70%;
-            background: linear-gradient(45deg, var(--chart-color-3), var(--text-accent));
-        }
-        
-        .shape4 {
-            width: 100px;
-            height: 100px;
-            top: 80%;
-            left: 20%;
-            background: linear-gradient(315deg, var(--text-accent), var(--chart-color-3));
         }
 
         @keyframes float {
@@ -549,7 +507,6 @@
             position: relative;
         }
 
-        /* Animated Character Saying Hello - Replaces Avatar */
         .greeting-animation-container {
             position: absolute;
             right: -80px;
@@ -557,13 +514,11 @@
             width: 150px;
             height: 150px;
         }
-
         .greeting-animation {
             position: relative;
             width: 100%;
             height: 100%;
         }
-
         .character {
             position: absolute;
             bottom: 0;
@@ -572,7 +527,6 @@
             width: 80px;
             height: 100px;
         }
-
         .head {
             position: absolute;
             top: 0;
@@ -585,7 +539,6 @@
             border: 2px solid #333;
             z-index: 2;
         }
-
         .body {
             position: absolute;
             top: 45px;
@@ -597,7 +550,6 @@
             border-radius: 10px;
             z-index: 1;
         }
-
         .arm {
             position: absolute;
             width: 15px;
@@ -606,13 +558,11 @@
             border-radius: 6px;
             z-index: 0;
         }
-
         .arm-left {
             top: 50px;
             left: 15%;
             transform-origin: top center;
         }
-
         .arm-right {
             top: 50px;
             right: 15%;
@@ -1712,41 +1662,17 @@
             outline: none;
         }
 
-        /* Enhanced Responsive Styles */
         @media (max-width: 1024px) {
-            .hero-greeting {
-                font-size: 2.5rem;
-            }
-            
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .creative-canvas-container {
-                order: -1;
-                margin-bottom: 20px;
-            }
-            
-            /* Reduce particle count for better performance */
-            :root {
-                --particle-count: 30;
-            }
+            .hero-greeting {font-size: 2.5rem;}
+            .about-content {grid-template-columns: 1fr; gap: 40px;}
+            .creative-canvas-container {order: -1; margin-bottom: 20px;}
+            :root {--particle-count: 30;}
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-            
-            .hero {
-                padding-top: 80px;
-            }
-            
-            .hero-greeting {
-                font-size: 2.2rem;
-            }
-            
+            .container {padding: 0 15px;}
+            .hero {padding-top: 80px;}
+            .hero-greeting {font-size: 2.2rem;}
             .greeting-animation-container {
                 position: relative;
                 right: auto;
@@ -1755,7 +1681,6 @@
                 height: 120px;
                 margin: 0 auto 25px;
             }
-            
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -1771,110 +1696,36 @@
                 z-index: 999;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
             }
-
-            .nav-links.active {
-                right: 0;
-            }
-
-            .mobile-toggle {
-                display: block;
-                z-index: 1000;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .timeline-item {
-                flex-direction: column;
-            }
-            
+            .nav-links.active {right: 0;}
+            .mobile-toggle {display: block; z-index: 1000;}
+            .section-title {font-size: 1.8rem;}
+            .timeline-item {flex-direction: column;}
             .timeline-left {
                 flex: 0 0 auto;
                 padding-right: 0;
                 text-align: left;
                 margin-bottom: 15px;
             }
-            
-            .timeline-right {
-                padding-left: 20px;
-            }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .btn-container {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-            
-            /* Further reduce particles on smaller screens */
-            :root {
-                --particle-count: 15;
-            }
+            .timeline-right {padding-left: 20px;}
+            .contact-content {grid-template-columns: 1fr; gap: 30px;}
+            .btn-container {flex-direction: column; width: 100%;}
+            .btn {width: 100%; text-align: center;}
+            :root {--particle-count: 15;}
         }
 
         @media (max-width: 480px) {
-            section {
-                padding: 50px 0;
-            }
-            
-            .hero-greeting {
-                font-size: 1.8rem;
-            }
-            
-            .hero-title {
-                font-size: 1.1rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-                line-height: 1.7;
-            }
-            
-            .about-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-header {
-                margin-bottom: 35px;
-            }
-            
-            .timeline-right {
-                padding-left: 15px;
-            }
-            
-            .timeline-title {
-                font-size: 1.1rem;
-            }
-            
-            .skills-content, 
-            .education-cards, 
-            .achievements-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .skill-item, 
-            .education-card, 
-            .achievement-card {
-                padding: 20px;
-            }
-            
-            .footer-tagline {
-                font-size: 1.5rem;
-            }
-            
-            /* Minimal animations for smallest screens */
-            :root {
-                --particle-count: 10;
-            }
+            section {padding: 50px 0;}
+            .hero-greeting {font-size: 1.8rem;}
+            .hero-title {font-size: 1.1rem;}
+            .hero-subtitle {font-size: 1rem; line-height: 1.7;}
+            .about-info {grid-template-columns: 1fr;}
+            .section-header {margin-bottom: 35px;}
+            .timeline-right {padding-left: 15px;}
+            .timeline-title {font-size: 1.1rem;}
+            .skills-content, .education-cards, .achievements-grid {grid-template-columns: 1fr;}
+            .skill-item, .education-card, .achievement-card {padding: 20px;}
+            .footer-tagline {font-size: 1.5rem;}
+            :root {--particle-count: 10;}
         }
 
         /* Reduce motion for users who prefer it */
@@ -1913,18 +1764,11 @@
     <!-- Skip to content for accessibility -->
     <a href="#main" class="skip-link">Skip to content</a>
     
-    <!-- Animated Background - Enhanced -->
     <div class="animated-background" aria-hidden="true">
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
-        <div class="floating-shape shape3"></div>
-        <div class="floating-shape shape4"></div>
     </div>
-    
-    <!-- Particle Background - will be loaded via JavaScript -->
     <div id="particles-js" aria-hidden="true"></div>
-
-    <!-- Header -->
     <header id="header">
         <div class="container header-container">
             <a href="#home" class="logo" aria-label="Logo">SM</a>
@@ -1943,8 +1787,6 @@
             </nav>
         </div>
     </header>
-    
-    <!-- Mobile navigation overlay -->
     <div class="nav-overlay" id="nav-overlay"></div>
 
     <!-- Main Content -->
@@ -3270,134 +3112,56 @@
 
             // Initialize particles.js with optimized settings
             if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
-                // Adjust particle count based on screen size and motion preference
-                let particleCount = 40; // Default
-                
-                if (window.innerWidth < 768) {
-                    particleCount = 20;
-                } else if (window.innerWidth < 480) {
-                    particleCount = 10;
-                }
-                
-                // Reduce further for reduced motion preference
-                if (isReducedMotion) {
-                    particleCount = Math.floor(particleCount / 2);
-                }
+                let particleCount = window.innerWidth < 480 ? 10 : (window.innerWidth < 768 ? 20 : 40);
+                if (isReducedMotion) particleCount = Math.floor(particleCount / 2);
                 
                 particlesJS("particles-js", {
                     "particles": {
-                        "number": {
-                            "value": particleCount,
-                            "density": {
-                                "enable": true,
-                                "value_area": 800
-                            }
-                        },
-                        "color": {
-                            "value": "#9b6c49"
-                        },
-                        "shape": {
-                            "type": "circle",
-                            "stroke": {
-                                "width": 0,
-                                "color": "#000000"
-                            },
-                            "polygon": {
-                                "nb_sides": 5
-                            }
-                        },
+                        "number": {"value": particleCount, "density": {"enable": true, "value_area": 800}},
+                        "color": {"value": "#9b6c49"},
+                        "shape": {"type": "circle", "stroke": {"width": 0}},
                         "opacity": {
                             "value": 0.3,
                             "random": true,
-                            "anim": {
-                                "enable": !isReducedMotion,
-                                "speed": 1,
-                                "opacity_min": 0.1,
-                                "sync": false
-                            }
+                            "anim": {"enable": !isReducedMotion, "speed": 1, "opacity_min": 0.1}
                         },
                         "size": {
                             "value": 3,
                             "random": true,
-                            "anim": {
-                                "enable": !isReducedMotion,
-                                "speed": 2,
-                                "size_min": 0.1,
-                                "sync": false
-                            }
+                            "anim": {"enable": !isReducedMotion, "speed": 2, "size_min": 0.1}
                         },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 150,
-                            "color": "#9b6c49",
-                            "opacity": 0.2,
-                            "width": 1
-                        },
+                        "line_linked": {"enable": true, "distance": 150, "color": "#9b6c49", "opacity": 0.2, "width": 1},
                         "move": {
                             "enable": true,
                             "speed": isReducedMotion ? 0.5 : 1,
-                            "direction": "none",
                             "random": true,
-                            "straight": false,
-                            "out_mode": "out",
-                            "bounce": false,
-                            "attract": {
-                                "enable": false,
-                                "rotateX": 600,
-                                "rotateY": 1200
-                            }
+                            "out_mode": "out"
                         }
                     },
                     "interactivity": {
                         "detect_on": "canvas",
                         "events": {
-                            "onhover": {
-                                "enable": !isReducedMotion,
-                                "mode": "grab"
-                            },
-                            "onclick": {
-                                "enable": !isReducedMotion,
-                                "mode": "push"
-                            },
+                            "onhover": {"enable": !isReducedMotion, "mode": "grab"},
+                            "onclick": {"enable": !isReducedMotion, "mode": "push"},
                             "resize": true
                         },
                         "modes": {
-                            "grab": {
-                                "distance": 140,
-                                "line_linked": {
-                                    "opacity": 0.8
-                                }
-                            },
-                            "push": {
-                                "particles_nb": isReducedMotion ? 1 : 3
-                            }
+                            "grab": {"distance": 140, "line_linked": {"opacity": 0.8}},
+                            "push": {"particles_nb": isReducedMotion ? 1 : 3}
                         }
                     },
                     "retina_detect": true
                 });
-            } else {
-                // If particles.js is not available, load it
-                const particlesElement = document.getElementById('particles-js');
-                if (particlesElement && !isReducedMotion) {
-                    loadScript('https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js')
-                        .then(() => {
-                            if (typeof particlesJS !== 'undefined') {
-                                // Initialize with settings above (code would be repeated here)
-                                // Simplified for brevity
-                                particlesJS("particles-js", {
-                                    "particles": {
-                                        "number": { "value": 20 },
-                                        "color": { "value": "#9b6c49" },
-                                        // ... other settings would be here
-                                    }
-                                });
-                            }
-                        })
-                        .catch(() => {
-                            // Silently fail if particles.js can't be loaded
-                            console.warn('Particles.js could not be loaded. Skipping background effect.');
-                        });
-                }
+            } else if (document.getElementById('particles-js') && !isReducedMotion) {
+                loadScript('https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js')
+                    .then(() => {
+                        if (typeof particlesJS !== 'undefined') {
+                            particlesJS("particles-js", {
+                                "particles": {"number": {"value": 20}, "color": {"value": "#9b6c49"}}
+                            });
+                        }
+                    })
+                    .catch(() => {});
             }
 
             // Call updateActiveNav once on page load
