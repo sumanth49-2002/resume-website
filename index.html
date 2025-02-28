@@ -1,47 +1,15 @@
-<a href="#main" class="skip-link">Skip to content</a>
-    
-    <div class="animated-background" aria-hidden="true">
-        <div class="floating-shape shape1"></div>
-        <div class="floating-shape shape2"></div>
-    </div>
-    
-    <div id="particles-js" aria-hidden="true"></div>
-    
-    <header id="header">
-        <div class="container header-container">
-            <a href="#home" class="logo" aria-label="Logo">SM</a>
-            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-            <nav>
-                <div class="nav-links" id="nav-links">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#education" class="nav-link">Education</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-    
-    <div class="nav-overlay" id="nav-overlay"></div><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sumanth M N - Finance Professional and Investment Banking Aspirant Portfolio">
     <title>Sumanth M N | Finance Professional</title>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Added Google Fonts for improved typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </noscript>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Sound and Haptics Toggle Styles */
         .settings-toggle {
@@ -62,6 +30,120 @@
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
+        .settings-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 999;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 200px;
+        }
+        
+        .settings-panel.active {
+            transform: scale(1);
+        }
+        
+        .settings-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .settings-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .settings-label {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--text-accent);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .volume-control {
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        /* Audio visual feedback */
+        .audio-visualizer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            z-index: 2000;
+            pointer-events: none;
+            transform: scaleX(0);
+            transform-origin: center;
+            background: linear-gradient(90deg, var(--text-accent), var(--chart-color-2));
+            transition: transform 0.5s ease-out;
+            opacity: 0.7;
+        }
+        
+        .audio-visualizer.active {
+            transform: scaleX(1);
+        }
+    
         /* Base Styles */
         :root {
             --background: #f5f2ea;
@@ -74,13 +156,13 @@
             --chart-color-1: #9b6c49;
             --chart-color-2: #c89f7e;
             --chart-color-3: #6e4c32;
-            --focus-outline: 2px solid #9b6c49;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Updated font family for more modern look */
             font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
         }
 
@@ -92,7 +174,7 @@
             position: relative;
         }
 
-        /* Animated Background with reduced size */
+        /* Enhanced Animated Background */
         .animated-background {
             position: fixed;
             top: 0;
@@ -102,36 +184,51 @@
             z-index: -1;
             opacity: 0.2;
             pointer-events: none;
-            overflow: hidden;
         }
 
         .floating-shape {
             position: absolute;
             opacity: 0.08;
             border-radius: 50%;
-            will-change: transform;
+            animation: float 20s infinite ease-in-out;
         }
 
-        @media (prefers-reduced-motion: no-preference) {
-            .floating-shape {animation: float 20s infinite ease-in-out;}
-            .shape1 {animation-delay: 0s;}
-            .shape2 {animation-delay: -5s;}
-        }
-        
         .shape1 {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             top: 10%;
             left: 15%;
             background: linear-gradient(135deg, var(--text-accent), var(--chart-color-2));
+            animation-delay: 0s;
         }
 
         .shape2 {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             top: 60%;
             left: 80%;
             background: linear-gradient(225deg, var(--chart-color-2), var(--chart-color-3));
+            animation-delay: -5s;
+        }
+        
+        .shape3 {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            left: 70%;
+            background: linear-gradient(45deg, var(--chart-color-3), var(--text-accent));
+            animation-delay: -10s;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        
+        .shape4 {
+            width: 100px;
+            height: 100px;
+            top: 80%;
+            left: 20%;
+            background: linear-gradient(315deg, var(--text-accent), var(--chart-color-3));
+            animation-delay: -15s;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
 
         @keyframes float {
@@ -155,12 +252,6 @@
             transition: var(--transition);
         }
 
-        /* Focus styles for accessibility */
-        a:focus, button:focus, input:focus, textarea:focus {
-            outline: var(--focus-outline);
-            outline-offset: 2px;
-        }
-
         /* Container */
         .container {
             width: 100%;
@@ -174,56 +265,49 @@
             position: relative;
         }
 
-        /* Enhanced Animation Classes - will only apply for users who don't prefer reduced motion */
-        .fade-in, .slide-in-left, .slide-in-right, .zoom-in {
+        /* Enhanced Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.active {
             opacity: 1;
             transform: translateY(0);
         }
-
-        @media (prefers-reduced-motion: no-preference) {
-            .fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-            
-            .fade-in.active {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            
-            .slide-in-left {
-                opacity: 0;
-                transform: translateX(-50px);
-                transition: opacity 0.7s ease, transform 0.7s ease;
-            }
-            
-            .slide-in-left.active {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            
-            .slide-in-right {
-                opacity: 0;
-                transform: translateX(50px);
-                transition: opacity 0.7s ease, transform 0.7s ease;
-            }
-            
-            .slide-in-right.active {
-                opacity: 1;
-                transform: translateX(0);
-            }
-            
-            .zoom-in {
-                opacity: 0;
-                transform: scale(0.8);
-                transition: opacity 0.7s ease, transform 0.7s ease;
-            }
-            
-            .zoom-in.active {
-                opacity: 1;
-                transform: scale(1);
-            }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        
+        .slide-in-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        
+        .slide-in-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        
+        .zoom-in.active {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .delay-1 {
@@ -307,11 +391,11 @@
             transition: all 0.6s ease;
         }
         
-        .logo:hover, .logo:focus {
+        .logo:hover {
             transform: scale(1.1) rotate(5deg);
         }
         
-        .logo:hover::before, .logo:focus::before {
+        .logo:hover::before {
             top: 100%;
             left: 100%;
         }
@@ -343,11 +427,11 @@
             transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1);
         }
 
-        .nav-link:hover, .nav-link:focus {
+        .nav-link:hover {
             color: var(--text-accent);
         }
 
-        .nav-link:hover:after, .nav-link:focus:after, .nav-link.active:after {
+        .nav-link:hover:after, .nav-link.active:after {
             width: 100%;
         }
 
@@ -359,35 +443,15 @@
             font-size: 1.5rem;
             cursor: pointer;
             z-index: 1001;
-            padding: 5px;
         }
 
-        /* Mobile navigation overlay */
-        .nav-overlay {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-        
-        .nav-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Hero Section - Reduced height and better content layout */
+        /* Hero Section with Financial Chart Animation */
         .hero {
-            min-height: 80vh; /* Reduced from 100vh */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 80px;
+            padding-top: 100px;
             padding-bottom: 40px;
             position: relative;
             overflow: hidden;
@@ -396,14 +460,9 @@
         .hero-content {
             max-width: 800px;
             position: relative;
-            z-index: 2;
-            background-color: rgba(245, 242, 234, 0.7);
-            padding: 30px;
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
+        /* Animated Character Saying Hello - Replaces Avatar */
         .greeting-animation-container {
             position: absolute;
             right: -80px;
@@ -411,11 +470,13 @@
             width: 150px;
             height: 150px;
         }
+
         .greeting-animation {
             position: relative;
             width: 100%;
             height: 100%;
         }
+
         .character {
             position: absolute;
             bottom: 0;
@@ -424,6 +485,7 @@
             width: 80px;
             height: 100px;
         }
+
         .head {
             position: absolute;
             top: 0;
@@ -436,6 +498,7 @@
             border: 2px solid #333;
             z-index: 2;
         }
+
         .body {
             position: absolute;
             top: 45px;
@@ -447,6 +510,7 @@
             border-radius: 10px;
             z-index: 1;
         }
+
         .arm {
             position: absolute;
             width: 15px;
@@ -455,21 +519,18 @@
             border-radius: 6px;
             z-index: 0;
         }
+
         .arm-left {
             top: 50px;
             left: 15%;
             transform-origin: top center;
         }
+
         .arm-right {
             top: 50px;
             right: 15%;
             transform-origin: top center;
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-            .arm-right {
-                animation: waveArm 2s infinite ease-in-out;
-            }
+            animation: waveArm 2s infinite ease-in-out;
         }
 
         @keyframes waveArm {
@@ -489,16 +550,9 @@
             font-weight: bold;
             font-size: 0.9rem;
             z-index: 3;
-            opacity: 1;
-            transform: scale(1);
-        }
-        
-        @media (prefers-reduced-motion: no-preference) {
-            .speech-bubble {
-                animation: popIn 0.5s ease-out forwards, bounce 3s 0.5s infinite ease-in-out;
-                opacity: 0;
-                transform: scale(0.5);
-            }
+            animation: popIn 0.5s ease-out forwards, bounce 3s 0.5s infinite ease-in-out;
+            opacity: 0;
+            transform: scale(0.5);
         }
 
         .speech-bubble::after {
@@ -574,7 +628,6 @@
             z-index: 1;
             font-family: 'Poppins', sans-serif;
             letter-spacing: 0.5px;
-            cursor: pointer;
         }
 
         .btn::before {
@@ -589,13 +642,13 @@
             z-index: -1;
         }
 
-        .btn:hover, .btn:focus {
+        .btn:hover {
             background: var(--text-dark);
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .btn:hover::before, .btn:focus::before {
+        .btn:hover::before {
             left: 100%;
         }
 
@@ -605,7 +658,7 @@
             color: var(--text-accent);
         }
 
-        .btn-outline:hover, .btn-outline:focus {
+        .btn-outline:hover {
             background: var(--text-accent);
             color: var(--white);
         }
@@ -624,7 +677,7 @@
             position: relative;
         }
 
-        .social-link:hover, .social-link:focus {
+        .social-link:hover {
             color: var(--text-accent);
             transform: translateY(-8px) scale(1.2);
         }
@@ -642,7 +695,7 @@
             transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
         }
         
-        .social-link:hover::after, .social-link:focus::after {
+        .social-link:hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
@@ -714,21 +767,20 @@
             padding: 8px 0;
         }
 
-        .info-item:hover, .info-item:focus-within {
+        .info-item:hover {
             transform: translateX(10px);
         }
 
         .info-item i {
             color: var(--text-accent);
             transition: transform 0.4s ease;
-            min-width: 16px; /* Ensure icons align properly */
         }
 
-        .info-item:hover i, .info-item:focus-within i {
+        .info-item:hover i {
             transform: rotate(15deg) scale(1.2);
         }
 
-        /* Creative Canvas Container - with performance optimizations */
+        /* NEW CREATIVE ANIMATION - Abstract Flowing Canvas */
         .creative-canvas-container {
             background-color: var(--white);
             padding: 25px;
@@ -741,7 +793,7 @@
             width: 100%;
         }
 
-        .creative-canvas-container:hover, .creative-canvas-container:focus-within {
+        .creative-canvas-container:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
@@ -794,30 +846,22 @@
             color: var(--text-accent);
             transition: all 0.3s ease;
             cursor: pointer;
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            .skill-tag {
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.5s forwards;
-            }
-            
-            .skill-tag:nth-child(1) { animation-delay: 0.1s; }
-            .skill-tag:nth-child(2) { animation-delay: 0.2s; }
-            .skill-tag:nth-child(3) { animation-delay: 0.3s; }
-            .skill-tag:nth-child(4) { animation-delay: 0.4s; }
-            .skill-tag:nth-child(5) { animation-delay: 0.5s; }
-            .skill-tag:nth-child(6) { animation-delay: 0.6s; }
-        }
+        .skill-tag:nth-child(1) { animation-delay: 0.1s; }
+        .skill-tag:nth-child(2) { animation-delay: 0.2s; }
+        .skill-tag:nth-child(3) { animation-delay: 0.3s; }
+        .skill-tag:nth-child(4) { animation-delay: 0.4s; }
+        .skill-tag:nth-child(5) { animation-delay: 0.5s; }
+        .skill-tag:nth-child(6) { animation-delay: 0.6s; }
         
-        .skill-tag:hover, .skill-tag:focus {
+        .skill-tag:hover {
             background-color: var(--text-accent);
             color: white;
             transform: translateY(-5px) scale(1.05);
-            outline: none;
         }
         
         @keyframes fadeInUp {
@@ -844,21 +888,14 @@
             flex: 0 0 150px;
             padding-right: 25px;
             text-align: right;
-            opacity: 1;
-            transform: translateX(0);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            .timeline-left {
-                opacity: 0;
-                transform: translateX(-30px);
-                transition: all 0.6s ease;
-            }
-            
-            .timeline-item.active .timeline-left {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .timeline-item.active .timeline-left {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .timeline-date {
@@ -873,22 +910,15 @@
             border-left: 1px solid var(--text-accent);
             padding-bottom: 20px;
             position: relative;
-            opacity: 1;
-            transform: translateX(0);
+            opacity: 0;
+            transform: translateX(30px);
+            transition: all 0.6s ease;
+            transition-delay: 0.2s;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            .timeline-right {
-                opacity: 0;
-                transform: translateX(30px);
-                transition: all 0.6s ease;
-                transition-delay: 0.2s;
-            }
-            
-            .timeline-item.active .timeline-right {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .timeline-item.active .timeline-right {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .timeline-right::before {
@@ -903,8 +933,7 @@
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .timeline-item:hover .timeline-right::before,
-        .timeline-item:focus-within .timeline-right::before {
+        .timeline-item:hover .timeline-right::before {
             transform: scale(1.8);
             box-shadow: 0 0 10px rgba(155, 108, 73, 0.5);
         }
@@ -945,23 +974,16 @@
             border-radius: 8px;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-bottom: 3px solid transparent;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        
+        .skill-item.active {
             transform: translateY(0);
             opacity: 1;
         }
-        
-        @media (prefers-reduced-motion: no-preference) {
-            .skill-item {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            
-            .skill-item.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
 
-        .skill-item:hover, .skill-item:focus-within {
+        .skill-item:hover {
             transform: translateY(-15px) scale(1.03);
             border-bottom: 3px solid var(--text-accent);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
@@ -974,8 +996,7 @@
             transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
 
-        .skill-item:hover .skill-icon, 
-        .skill-item:focus-within .skill-icon {
+        .skill-item:hover .skill-icon {
             transform: scale(1.2) rotate(10deg);
             color: var(--text-dark);
         }
@@ -1021,7 +1042,6 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             animation: shimmer 2s infinite;
-            will-change: transform;
         }
         
         @keyframes shimmer {
@@ -1045,20 +1065,13 @@
             overflow: hidden;
             z-index: 1;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
-            transform: translateY(0);
-            opacity: 1;
+            transform: translateY(50px);
+            opacity: 0;
         }
         
-        @media (prefers-reduced-motion: no-preference) {
-            .education-card {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            
-            .education-card.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .education-card.active {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .education-card::before {
@@ -1074,12 +1087,12 @@
             transition: transform 0.5s ease;
         }
 
-        .education-card:hover, .education-card:focus-within {
+        .education-card:hover {
             transform: translateY(-15px) scale(1.03);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .education-card:hover::before, .education-card:focus-within::before {
+        .education-card:hover::before {
             transform: translateY(0);
         }
 
@@ -1121,23 +1134,16 @@
             border-radius: 8px;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-top: 3px solid transparent;
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        
+        .achievement-card.active {
             transform: scale(1);
             opacity: 1;
         }
-        
-        @media (prefers-reduced-motion: no-preference) {
-            .achievement-card {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            
-            .achievement-card.active {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
 
-        .achievement-card:hover, .achievement-card:focus-within {
+        .achievement-card:hover {
             transform: translateY(-15px) scale(1.03);
             border-top: 3px solid var(--text-accent);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
@@ -1220,13 +1226,12 @@
             z-index: -1;
         }
 
-        .view-cert-btn:hover, .view-cert-btn:focus {
+        .view-cert-btn:hover {
             color: var(--white);
             transform: translateY(-3px);
-            outline: none;
         }
         
-        .view-cert-btn:hover::after, .view-cert-btn:focus::after {
+        .view-cert-btn:hover::after {
             left: 0;
         }
 
@@ -1252,7 +1257,7 @@
             border-radius: 8px;
         }
 
-        .contact-item:hover, .contact-item:focus-within {
+        .contact-item:hover {
             transform: translateX(10px);
             background-color: rgba(155, 108, 73, 0.05);
         }
@@ -1261,11 +1266,9 @@
             font-size: 1.3rem;
             color: var(--text-accent);
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            min-width: 1.3rem; /* Ensure proper alignment */
         }
 
-        .contact-item:hover .contact-icon,
-        .contact-item:focus-within .contact-icon {
+        .contact-item:hover .contact-icon {
             transform: scale(1.3) rotate(15deg);
         }
 
@@ -1282,8 +1285,7 @@
             font-size: 0.95rem;
         }
 
-        .contact-details a:hover, 
-        .contact-details a:focus {
+        .contact-details a:hover {
             color: var(--text-accent);
             text-decoration: underline;
         }
@@ -1362,16 +1364,13 @@
             z-index: -1;
         }
 
-        .form-submit:hover, 
-        .form-submit:focus {
+        .form-submit:hover {
             background-color: var(--text-dark);
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            outline: none;
         }
         
-        .form-submit:hover::before,
-        .form-submit:focus::before {
+        .form-submit:hover::before {
             left: 100%;
         }
 
@@ -1392,13 +1391,8 @@
             top: -150%;
             left: -50%;
             background: radial-gradient(rgba(155, 108, 73, 0.03), transparent 70%);
+            animation: rotateBg 30s infinite linear;
             pointer-events: none;
-        }
-        
-        @media (prefers-reduced-motion: no-preference) {
-            .footer::before {
-                animation: rotateBg 30s infinite linear;
-            }
         }
         
         @keyframes rotateBg {
@@ -1446,13 +1440,8 @@
         .heart-icon {
             color: #ff6b6b;
             display: inline-block;
+            animation: heartbeat 1.2s infinite;
             margin: 0 10px;
-        }
-        
-        @media (prefers-reduced-motion: no-preference) {
-            .heart-icon {
-                animation: heartbeat 1.2s infinite;
-            }
         }
 
         @keyframes heartbeat {
@@ -1482,13 +1471,11 @@
             font-size: 1.1rem;
         }
 
-        .footer-social a:hover,
-        .footer-social a:focus {
+        .footer-social a:hover {
             transform: translateY(-8px);
             background-color: var(--text-accent);
             color: var(--white);
             box-shadow: 0 10px 20px rgba(155, 108, 73, 0.3);
-            outline: none;
         }
 
         .footer-bottom {
@@ -1498,7 +1485,7 @@
             color: var(--text-light);
         }
 
-        /* Certificate Modal with Enhanced Animation and Accessibility */
+        /* Certificate Modal with Enhanced Animation */
         .cert-modal {
             display: none;
             position: fixed;
@@ -1546,30 +1533,43 @@
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: pointer;
             z-index: 2001;
-            background: none;
-            border: none;
-            padding: 0 10px;
-            line-height: 1;
         }
         
-        .close-modal:hover,
-        .close-modal:focus {
+        .close-modal:hover {
             color: var(--text-accent);
             transform: rotate(90deg);
-            outline: none;
         }
 
+        /* Enhanced Responsive Styles */
         @media (max-width: 1024px) {
-            .hero-greeting {font-size: 2.5rem;}
-            .about-content {grid-template-columns: 1fr; gap: 40px;}
-            .creative-canvas-container {order: -1; margin-bottom: 20px;}
-            :root {--particle-count: 30;}
+            .hero-greeting {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .creative-canvas-container {
+                order: -1;
+                margin-bottom: 20px;
+            }
         }
 
         @media (max-width: 768px) {
-            .container {padding: 0 15px;}
-            .hero {padding-top: 80px;}
-            .hero-greeting {font-size: 2.2rem;}
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding-top: 80px;
+            }
+            
+            .hero-greeting {
+                font-size: 2.2rem;
+            }
+            
             .greeting-animation-container {
                 position: relative;
                 right: auto;
@@ -1578,6 +1578,7 @@
                 height: 120px;
                 margin: 0 auto 25px;
             }
+            
             .nav-links {
                 position: fixed;
                 top: 0;
@@ -1593,499 +1594,538 @@
                 z-index: 999;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
             }
-            .nav-links.active {right: 0;}
-            .mobile-toggle {display: block; z-index: 1000;}
-            .section-title {font-size: 1.8rem;}
-            .timeline-item {flex-direction: column;}
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-toggle {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
             .timeline-left {
                 flex: 0 0 auto;
                 padding-right: 0;
                 text-align: left;
                 margin-bottom: 15px;
             }
-            .timeline-right {padding-left: 20px;}
-            .contact-content {grid-template-columns: 1fr; gap: 30px;}
-            .btn-container {flex-direction: column; width: 100%;}
-            .btn {width: 100%; text-align: center;}
-            :root {--particle-count: 15;}
+            
+            .timeline-right {
+                padding-left: 20px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
-            section {padding: 50px 0;}
-            .hero-greeting {font-size: 1.8rem;}
-            .hero-title {font-size: 1.1rem;}
-            .hero-subtitle {font-size: 1rem; line-height: 1.7;}
-            .about-info {grid-template-columns: 1fr;}
-            .section-header {margin-bottom: 35px;}
-            .timeline-right {padding-left: 15px;}
-            .timeline-title {font-size: 1.1rem;}
-            .skills-content, .education-cards, .achievements-grid {grid-template-columns: 1fr;}
-            .skill-item, .education-card, .achievement-card {padding: 20px;}
-            .footer-tagline {font-size: 1.5rem;}
-            :root {--particle-count: 10;}
-        }
-
-        /* Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            *, ::before, ::after {
-                animation-duration: 0.001s !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001s !important;
-                scroll-behavior: auto !important;
+            section {
+                padding: 50px 0;
             }
             
-            .floating-shape, .arm-right, .speech-bubble, 
-            .progress-bar::after, .footer::before, .heart-icon {
-                animation: none !important;
+            .hero-greeting {
+                font-size: 1.8rem;
             }
             
-            .fade-in, .slide-in-left, .slide-in-right, .zoom-in,
-            .timeline-left, .timeline-right, .skill-item,
-            .education-card, .achievement-card {
-                opacity: 1 !important;
-                transform: none !important;
-                transition: none !important;
+            .hero-title {
+                font-size: 1.1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            
+            .about-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                margin-bottom: 35px;
+            }
+            
+            .timeline-right {
+                padding-left: 15px;
+            }
+            
+            .timeline-title {
+                font-size: 1.1rem;
+            }
+            
+            .skills-content, 
+            .education-cards, 
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-item, 
+            .education-card, 
+            .achievement-card {
+                padding: 20px;
+            }
+            
+            .footer-tagline {
+                font-size: 1.5rem;
             }
         }
 
-        /* Accessibility focus outline for all interactive elements */
-        a:focus-visible, button:focus-visible, input:focus-visible, 
-        textarea:focus-visible, .skill-tag:focus-visible, 
-        .view-cert-btn:focus-visible {
-            outline: var(--focus-outline);
-            outline-offset: 2px;
+        /* Particle Effects */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            opacity: 0.3;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <!-- Skip to content for accessibility -->
-    <a href="#main" class="skip-link">Skip to content</a>
-    
-    <div class="animated-background" aria-hidden="true">
+    <!-- Animated Background - Enhanced -->
+    <div class="animated-background">
         <div class="floating-shape shape1"></div>
         <div class="floating-shape shape2"></div>
+        <div class="floating-shape shape3"></div>
+        <div class="floating-shape shape4"></div>
     </div>
-    <div id="particles-js" aria-hidden="true"></div>
+    
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
     <header id="header">
         <div class="container header-container">
-            <a href="#home" class="logo" aria-label="Logo">SM</a>
-            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
+            <a href="#home" class="logo">SM</a>
+            <button class="mobile-toggle" id="mobile-toggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <nav>
-                <div class="nav-links" id="nav-links">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#education" class="nav-link">Education</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </div>
-            </nav>
+            <div class="nav-links" id="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
         </div>
     </header>
-    <div class="nav-overlay" id="nav-overlay"></div>
 
-    <!-- Main Content -->
-    <main id="main">
-        <!-- Hero Section with Finance Icons Animation -->
-        <section class="hero" id="home">
-            <div class="container">
-                <div class="hero-content">
-                    <!-- Animated Character Saying Hello - Replaces Avatar -->
-                    <div class="greeting-animation-container slide-in-right" aria-hidden="true">
-                        <div class="greeting-animation">
-                            <div class="character">
-                                <div class="head"></div>
-                                <div class="body"></div>
-                                <div class="arm arm-left"></div>
-                                <div class="arm arm-right"></div>
-                            </div>
-                            <div class="speech-bubble">
-                                <span>Hello!</span>
-                            </div>
+    <!-- Hero Section with Finance Icons Animation -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Animated Character Saying Hello - Replaces Avatar -->
+                <div class="greeting-animation-container slide-in-right">
+                    <div class="greeting-animation">
+                        <div class="character">
+                            <div class="head"></div>
+                            <div class="body"></div>
+                            <div class="arm arm-left"></div>
+                            <div class="arm arm-right"></div>
+                        </div>
+                        <div class="speech-bubble">
+                            <span>Hello!</span>
                         </div>
                     </div>
-                    <h1 class="hero-greeting fade-in">Hello, I am <span class="accent">Sumanth M N</span></h1>
-                    <h2 class="hero-title fade-in delay-1">Finance Professional | Investment Banking Aspirant</h2>
-                    <p class="hero-subtitle fade-in delay-2">A final-year MBA student specializing in Finance with a passion for Investment Banking. I possess strong communication skills and expertise in financial analysis, valuation, and management accounting.</p>
-                    <div class="btn-container fade-in delay-2">
-                        <a href="#contact" class="btn">Get In Touch</a>
-                        <a href="Sumanth_MN_CV.pdf" download class="btn btn-outline">Download CV</a>
+                </div>
+                <h1 class="hero-greeting fade-in">Hello, I am <span class="accent">Sumanth M N</span></h1>
+                <h2 class="hero-title fade-in delay-1">Finance Professional | Investment Banking Aspirant</h2>
+                <p class="hero-subtitle fade-in delay-2">A final-year MBA student specializing in Finance with a passion for Investment Banking. I possess strong communication skills and expertise in financial analysis, valuation, and management accounting.</p>
+                <div class="btn-container fade-in delay-2">
+                    <a href="#contact" class="btn">Get In Touch</a>
+                    <a href="Sumanth_MN_CV.pdf" download class="btn btn-outline">Download CV</a>
+                </div>
+                
+                <div class="social-links fade-in delay-3">
+                    <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:sumanth_mn23@cms.ac.in" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.coursera.org/learner/sumanth-mn-6224" class="social-link" target="_blank"><i class="fas fa-graduation-cap"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Creative Canvas Animation (replaces Skills Visualization) -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">My Introduction</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>I am a Finance professional with a strong foundation in Investment Banking principles. My expertise includes financial analysis, valuation methods, and management accounting practices that drive strategic decision-making.</p>
+                    <p>I am passionate about mergers and acquisitions, financial modeling, and helping organizations achieve their growth objectives through sound financial strategies. I bring strong analytical skills and the ability to communicate complex financial concepts effectively.</p>
+                    <div class="about-info">
+                        <div class="info-item slide-in-left delay-1">
+                            <i class="fas fa-envelope"></i>
+                            <span>sumanth_mn23@cms.ac.in</span>
+                        </div>
+                        <div class="info-item slide-in-left delay-1">
+                            <i class="fas fa-envelope"></i>
+                            <span>sumanthmn49@gmail.com</span>
+                        </div>
+                        <div class="info-item slide-in-left delay-2">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 6363222380</span>
+                        </div>
+                        <div class="info-item slide-in-left delay-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bangalore, Karnataka</span>
+                        </div>
+                        <div class="info-item slide-in-left delay-3">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>MBA Finance</span>
+                        </div>
+                        <div class="info-item slide-in-left delay-3">
+                            <i class="fas fa-laptop-code"></i>
+                            <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">Coursera Profile</a>
+                        </div>
                     </div>
-                    
-                    <div class="social-links fade-in delay-3">
-                        <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" class="social-link" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                        <a href="mailto:sumanth_mn23@cms.ac.in" class="social-link" aria-label="Email Me"><i class="fas fa-envelope" aria-hidden="true"></i></a>
-                        <a href="https://www.coursera.org/learner/sumanth-mn-6224" class="social-link" target="_blank" aria-label="Coursera Profile"><i class="fas fa-graduation-cap" aria-hidden="true"></i></a>
+                </div>
+                
+                <!-- NEW CREATIVE ANIMATION - Abstract Flowing Canvas - Replaces Skills Visualization -->
+                <div class="creative-canvas-container slide-in-right delay-2">
+                    <h3 class="creative-canvas-title">Core Competencies</h3>
+                    <div class="canvas-overlay"></div>
+                    <canvas id="creative-canvas"></canvas>
+                    <div class="skill-tags">
+                        <div class="skill-tag">Financial Analysis</div>
+                        <div class="skill-tag">Valuation Models</div>
+                        <div class="skill-tag">M&A Process</div>
+                        <div class="skill-tag">Financial Modeling</div>
+                        <div class="skill-tag">Communication</div>
+                        <div class="skill-tag">Strategic Planning</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Section with Creative Canvas Animation (replaces Skills Visualization) -->
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">About Me</h2>
-                    <p class="section-subtitle">My Introduction</p>
-                </div>
-                <div class="about-content">
-                    <div class="about-text fade-in">
-                        <p>I am a Finance professional with a strong foundation in Investment Banking principles. My expertise includes financial analysis, valuation methods, and management accounting practices that drive strategic decision-making.</p>
-                        <p>I am passionate about mergers and acquisitions, financial modeling, and helping organizations achieve their growth objectives through sound financial strategies. I bring strong analytical skills and the ability to communicate complex financial concepts effectively.</p>
-                        <div class="about-info">
-                            <div class="info-item slide-in-left delay-1">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <span>sumanth_mn23@cms.ac.in</span>
-                            </div>
-                            <div class="info-item slide-in-left delay-1">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <span>sumanthmn49@gmail.com</span>
-                            </div>
-                            <div class="info-item slide-in-left delay-2">
-                                <i class="fas fa-phone" aria-hidden="true"></i>
-                                <span>+91 6363222380</span>
-                            </div>
-                            <div class="info-item slide-in-left delay-2">
-                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                                <span>Bangalore, Karnataka</span>
-                            </div>
-                            <div class="info-item slide-in-left delay-3">
-                                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
-                                <span>MBA Finance</span>
-                            </div>
-                            <div class="info-item slide-in-left delay-3">
-                                <i class="fas fa-laptop-code" aria-hidden="true"></i>
-                                <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">Coursera Profile</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- CREATIVE CANVAS - with performance optimization -->
-                    <div class="creative-canvas-container slide-in-right delay-2">
-                        <h3 class="creative-canvas-title">Core Competencies</h3>
-                        <div class="canvas-overlay" aria-hidden="true"></div>
-                        <canvas id="creative-canvas" aria-hidden="true"></canvas>
-                        <div class="skill-tags" role="list">
-                            <div class="skill-tag" tabindex="0" role="listitem">Financial Analysis</div>
-                            <div class="skill-tag" tabindex="0" role="listitem">Valuation Models</div>
-                            <div class="skill-tag" tabindex="0" role="listitem">M&A Process</div>
-                            <div class="skill-tag" tabindex="0" role="listitem">Financial Modeling</div>
-                            <div class="skill-tag" tabindex="0" role="listitem">Communication</div>
-                            <div class="skill-tag" tabindex="0" role="listitem">Strategic Planning</div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Experience Section with Enhanced Animation -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">My Journey</p>
             </div>
-        </section>
-
-        <!-- Experience Section with Enhanced Animation -->
-        <section class="section" id="experience">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Experience</h2>
-                    <p class="section-subtitle">My Journey</p>
-                </div>
-                <div class="experience-timeline">
-                    <div class="timeline-item" id="timeline-1">
-                        <div class="timeline-left">
-                            <div class="timeline-date">February 2024</div>
-                        </div>
-                        <div class="timeline-right">
-                            <h3 class="timeline-title">Investment Banking Job Simulation</h3>
-                            <p class="timeline-company">JPMorgan Chase</p>
-                            <p class="timeline-description">
-                                • Identified an ideal M&A target for a client based on strategic and financial criteria<br>
-                                • Constructed a DCF model to calculate the valuation of the M&A target<br>
-                                • Adjusted the model to account for a competitor bid and supply chain interruption<br>
-                                • Created a 2-pager for the client containing a company profile and auction process summary
-                            </p>
-                        </div>
+            <div class="experience-timeline">
+                <div class="timeline-item" id="timeline-1">
+                    <div class="timeline-left">
+                        <div class="timeline-date">February 2024</div>
                     </div>
-                    <div class="timeline-item" id="timeline-2">
-                        <div class="timeline-left">
-                            <div class="timeline-date">February 2024</div>
-                        </div>
-                        <div class="timeline-right">
-                            <h3 class="timeline-title">Fin Quest 2024</h3>
-                            <p class="timeline-company">IMA Bangalore Chapter</p>
-                            <p class="timeline-description">
-                                Participated as a member of the Institute of Management Accountants (IMA) in Fin Quest 2024, focusing on financial innovations, strategic management accounting, and emerging trends in finance.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item" id="timeline-3">
-                        <div class="timeline-left">
-                            <div class="timeline-date">2022</div>
-                        </div>
-                        <div class="timeline-right">
-                            <h3 class="timeline-title">CONCERENZA - 1st Place</h3>
-                            <p class="timeline-company">RG Institute of Commerce and Management</p>
-                            <p class="timeline-description">
-                                Secured first place in a prestigious finance competition, demonstrating strong financial analysis and problem-solving skills.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item" id="timeline-4">
-                        <div class="timeline-left">
-                            <div class="timeline-date">2023</div>
-                        </div>
-                        <div class="timeline-right">
-                            <h3 class="timeline-title">IGNATIUS 2K23 - 2nd Place</h3>
-                            <p class="timeline-company">Mangalore University</p>
-                            <p class="timeline-description">
-                                Achieved second place in this competitive finance event, showcasing advanced financial knowledge and analytical capabilities.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section with Interactive Elements -->
-        <section class="section skills-section" id="skills">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Skills</h2>
-                    <p class="section-subtitle">My Expertise</p>
-                </div>
-                <div class="skills-content">
-                    <div class="skill-item" id="skill-1">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="skill-title">Financial Analysis</h3>
-                        <p class="skill-description">Comprehensive analysis of financial statements to evaluate performance and make informed decisions.</p>
-                        <div class="skill-progress" aria-label="Financial Analysis skill level: 95%">
-                            <div class="progress-bar" data-width="95" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item" id="skill-2">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <h3 class="skill-title">Valuation Models</h3>
-                        <p class="skill-description">Expertise in DCF, DDM, and relative valuation methods to determine company worth.</p>
-                        <div class="skill-progress" aria-label="Valuation Models skill level: 90%">
-                            <div class="progress-bar" data-width="90" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item" id="skill-3">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3 class="skill-title">M&A Process</h3>
-                        <p class="skill-description">Understanding of mergers and acquisitions processes, from screening to implementation.</p>
-                        <div class="skill-progress" aria-label="M&A Process skill level: 85%">
-                            <div class="progress-bar" data-width="85" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item" id="skill-4">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <h3 class="skill-title">Financial Modeling</h3>
-                        <p class="skill-description">Building comprehensive financial models to project future performance and valuations.</p>
-                        <div class="skill-progress" aria-label="Financial Modeling skill level: 92%">
-                            <div class="progress-bar" data-width="92" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item" id="skill-5">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-comments-dollar"></i>
-                        </div>
-                        <h3 class="skill-title">Client Communication</h3>
-                        <p class="skill-description">Strong ability to communicate complex financial concepts to clients effectively.</p>
-                        <div class="skill-progress" aria-label="Client Communication skill level: 88%">
-                            <div class="progress-bar" data-width="88" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item" id="skill-6">
-                        <div class="skill-icon" aria-hidden="true">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <h3 class="skill-title">Strategic Planning</h3>
-                        <p class="skill-description">Developing strategic rationales and supporting decision-making processes.</p>
-                        <div class="skill-progress" aria-label="Strategic Planning skill level: 87%">
-                            <div class="progress-bar" data-width="87" aria-hidden="true"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section with Enhanced Animation -->
-        <section class="section" id="education">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Education</h2>
-                    <p class="section-subtitle">Academic Background</p>
-                </div>
-                <div class="education-cards">
-                    <div class="education-card" id="edu-1">
-                        <div class="education-dates">Aug 2023 – June 2025</div>
-                        <h3 class="education-degree">Master of Business Administration</h3>
-                        <p class="education-institution">Centre for Management Studies (Jain University)</p>
-                        <p class="education-description">Specialization in Finance with a current SGPA of 7.76 (2nd Semester)</p>
-                    </div>
-                    <div class="education-card" id="edu-2">
-                        <div class="education-dates">2020 - 2023</div>
-                        <h3 class="education-degree">Bachelor of Commerce</h3>
-                        <p class="education-institution">RG Institute of Commerce and Management</p>
-                        <p class="education-description">Completed with a C.G.P.A of 7.64</p>
-                    </div>
-                    <div class="education-card" id="edu-3">
-                        <div class="education-dates">2018 - 2020</div>
-                        <h3 class="education-degree">Pre-University | Commerce</h3>
-                        <p class="education-institution">Sir MV PU College</p>
-                        <p class="education-description">Achieved 85.33% in Commerce stream</p>
-                    </div>
-                    <div class="education-card" id="edu-4">
-                        <div class="education-dates">2017 - 2018</div>
-                        <h3 class="education-degree">10th Standard | CBSE</h3>
-                        <p class="education-institution">Smt Pushpa Shamanur Mahalingappa Residencial School</p>
-                        <p class="education-description">Completed with 70.66%</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Certifications Section with Interactive Cards -->
-        <section class="section achievements-section" id="achievements">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Certifications</h2>
-                    <p class="section-subtitle">Professional Development</p>
-                </div>
-                <div class="achievements-grid">
-                    <div class="achievement-card" id="cert-1">
-                        <h3 class="achievement-title">JPMorgan Chase Investment Banking Job Simulation</h3>
-                        <p class="achievement-date">February 2024 | Forage</p>
-                        <ul class="achievement-details">
-                            <li>Identified ideal M&A targets using strategic criteria</li>
-                            <li>Created a DCF valuation model with scenario analysis</li>
-                            <li>Prepared client-facing documentation</li>
-                        </ul>
-                        <button class="view-cert-btn" data-cert="jpmorgan-cert.jpg" aria-label="View JPMorgan Chase certification">View Certificate</button>
-                    </div>
-                    <div class="achievement-card" id="cert-2">
-                        <h3 class="achievement-title">Discounted Cash Flow Modeling</h3>
-                        <p class="achievement-date">November 2024 | Coursera Project Network</p>
-                        <p class="achievement-description">
-                            Completed certification in Discounted Cash Flow Modeling, enhancing skills in financial valuation techniques.
+                    <div class="timeline-right">
+                        <h3 class="timeline-title">Investment Banking Job Simulation</h3>
+                        <p class="timeline-company">JPMorgan Chase</p>
+                        <p class="timeline-description">
+                            • Identified an ideal M&A target for a client based on strategic and financial criteria<br>
+                            • Constructed a DCF model to calculate the valuation of the M&A target<br>
+                            • Adjusted the model to account for a competitor bid and supply chain interruption<br>
+                            • Created a 2-pager for the client containing a company profile and auction process summary
                         </p>
-                        <button class="view-cert-btn" data-cert="dcf-cert.jpg" aria-label="View DCF Modeling certification">View Certificate</button>
                     </div>
-                    <div class="achievement-card" id="cert-3">
-                        <h3 class="achievement-title">Tableau Fundamentals</h3>
-                        <p class="achievement-date">November 2024 | Corporate Finance Institute</p>
-                        <p class="achievement-description">
-                            Mastered data visualization techniques using Tableau for financial reporting and business intelligence.
-                        </p>
-                        <button class="view-cert-btn" data-cert="tableau-cert.jpg" aria-label="View Tableau certification">View Certificate</button>
+                </div>
+                <div class="timeline-item" id="timeline-2">
+                    <div class="timeline-left">
+                        <div class="timeline-date">February 2024</div>
                     </div>
-                    <div class="achievement-card" id="cert-4">
-                        <h3 class="achievement-title">Fin Quest 2024 Participant</h3>
-                        <p class="achievement-date">February 2024 | IMA Bangalore Chapter</p>
-                        <p class="achievement-description">
-                            Participated in a focused event on financial innovations and strategic management accounting.
+                    <div class="timeline-right">
+                        <h3 class="timeline-title">Fin Quest 2024</h3>
+                        <p class="timeline-company">IMA Bangalore Chapter</p>
+                        <p class="timeline-description">
+                            Participated as a member of the Institute of Management Accountants (IMA) in Fin Quest 2024, focusing on financial innovations, strategic management accounting, and emerging trends in finance.
                         </p>
-                        <button class="view-cert-btn" data-cert="finquest-cert.jpg" aria-label="View Fin Quest participation certificate">View Certificate</button>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-3">
+                    <div class="timeline-left">
+                        <div class="timeline-date">2022</div>
+                    </div>
+                    <div class="timeline-right">
+                        <h3 class="timeline-title">CONCERENZA - 1st Place</h3>
+                        <p class="timeline-company">RG Institute of Commerce and Management</p>
+                        <p class="timeline-description">
+                            Secured first place in a prestigious finance competition, demonstrating strong financial analysis and problem-solving skills.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-4">
+                    <div class="timeline-left">
+                        <div class="timeline-date">2023</div>
+                    </div>
+                    <div class="timeline-right">
+                        <h3 class="timeline-title">IGNATIUS 2K23 - 2nd Place</h3>
+                        <p class="timeline-company">Mangalore University</p>
+                        <p class="timeline-description">
+                            Achieved second place in this competitive finance event, showcasing advanced financial knowledge and analytical capabilities.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-            <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Contact</h2>
-                    <p class="section-subtitle">Get In Touch</p>
-                </div>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item slide-in-left">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Email</h3>
-                                <a href="mailto:sumanth_mn23@cms.ac.in">sumanth_mn23@cms.ac.in</a><br>
-                                <a href="mailto:sumanthmn49@gmail.com">sumanthmn49@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-item slide-in-left delay-1">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Phone</h3>
-                                <p>+91 6363222380</p>
-                            </div>
-                        </div>
-                        <div class="contact-item slide-in-left delay-1">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Location</h3>
-                                <p>Bangalore, Karnataka, India</p>
-                            </div>
-                        </div>
-                        <div class="contact-item slide-in-left delay-2">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fab fa-linkedin-in"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>LinkedIn</h3>
-                                <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" target="_blank">Connect with me</a>
-                            </div>
-                        </div>
-                        <div class="contact-item slide-in-left delay-2">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Coursera</h3>
-                                <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">View my learning profile</a>
-                            </div>
-                        </div>
+    <!-- Skills Section with Interactive Elements -->
+    <section class="section skills-section" id="skills">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Skills</h2>
+                <p class="section-subtitle">My Expertise</p>
+            </div>
+            <div class="skills-content">
+                <div class="skill-item" id="skill-1">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <form class="contact-form slide-in-right delay-1" id="contact-form" novalidate>
-                        <div class="form-group">
-                            <label for="name" class="sr-only">Your Name</label>
-                            <input type="text" class="form-input" id="name" placeholder="Your Name" required aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="sr-only">Your Email</label>
-                            <input type="email" class="form-input" id="email" placeholder="Your Email" required aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="subject" class="sr-only">Subject</label>
-                            <input type="text" class="form-input" id="subject" placeholder="Subject" required aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="message" class="sr-only">Your Message</label>
-                            <textarea class="form-input form-textarea" id="message" placeholder="Your Message" required aria-required="true"></textarea>
-                        </div>
-                        <button type="submit" class="form-submit">Send Message</button>
-                    </form>
+                    <h3 class="skill-title">Financial Analysis</h3>
+                    <p class="skill-description">Comprehensive analysis of financial statements to evaluate performance and make informed decisions.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="95"></div>
+                    </div>
+                </div>
+                <div class="skill-item" id="skill-2">
+                    <div class="skill-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="skill-title">Valuation Models</h3>
+                    <p class="skill-description">Expertise in DCF, DDM, and relative valuation methods to determine company worth.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="90"></div>
+                    </div>
+                </div>
+                <div class="skill-item" id="skill-3">
+                    <div class="skill-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="skill-title">M&A Process</h3>
+                    <p class="skill-description">Understanding of mergers and acquisitions processes, from screening to implementation.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="85"></div>
+                    </div>
+                </div>
+                <div class="skill-item" id="skill-4">
+                    <div class="skill-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="skill-title">Financial Modeling</h3>
+                    <p class="skill-description">Building comprehensive financial models to project future performance and valuations.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="92"></div>
+                    </div>
+                </div>
+                <div class="skill-item" id="skill-5">
+                    <div class="skill-icon">
+                        <i class="fas fa-comments-dollar"></i>
+                    </div>
+                    <h3 class="skill-title">Client Communication</h3>
+                    <p class="skill-description">Strong ability to communicate complex financial concepts to clients effectively.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="88"></div>
+                    </div>
+                </div>
+                <div class="skill-item" id="skill-6">
+                    <div class="skill-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3 class="skill-title">Strategic Planning</h3>
+                    <p class="skill-description">Developing strategic rationales and supporting decision-making processes.</p>
+                    <div class="skill-progress">
+                        <div class="progress-bar" data-width="87"></div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- Education Section with Enhanced Animation -->
+    <section class="section" id="education">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Education</h2>
+                <p class="section-subtitle">Academic Background</p>
+            </div>
+            <div class="education-cards">
+                <div class="education-card" id="edu-1">
+                    <div class="education-dates">Aug 2023 – June 2025</div>
+                    <h3 class="education-degree">Master of Business Administration</h3>
+                    <p class="education-institution">Centre for Management Studies (Jain University)</p>
+                    <p class="education-description">Specialization in Finance with a current SGPA of 7.76 (2nd Semester)</p>
+                </div>
+                <div class="education-card" id="edu-2">
+                    <div class="education-dates">2020 - 2023</div>
+                    <h3 class="education-degree">Bachelor of Commerce</h3>
+                    <p class="education-institution">RG Institute of Commerce and Management</p>
+                    <p class="education-description">Completed with a C.G.P.A of 7.64</p>
+                </div>
+                <div class="education-card" id="edu-3">
+                    <div class="education-dates">2018 - 2020</div>
+                    <h3 class="education-degree">Pre-University | Commerce</h3>
+                    <p class="education-institution">Sir MV PU College</p>
+                    <p class="education-description">Achieved 85.33% in Commerce stream</p>
+                </div>
+                <div class="education-card" id="edu-4">
+                    <div class="education-dates">2017 - 2018</div>
+                    <h3 class="education-degree">10th Standard | CBSE</h3>
+                    <p class="education-institution">Smt Pushpa Shamanur Mahalingappa Residencial School</p>
+                    <p class="education-description">Completed with 70.66%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section with Interactive Cards -->
+    <section class="section achievements-section" id="achievements">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Certifications</h2>
+                <p class="section-subtitle">Professional Development</p>
+            </div>
+            <div class="achievements-grid">
+                <div class="achievement-card" id="cert-1">
+                    <h3 class="achievement-title">JPMorgan Chase Investment Banking Job Simulation</h3>
+                    <p class="achievement-date">February 2024 | Forage</p>
+                    <ul class="achievement-details">
+                        <li>Identified ideal M&A targets using strategic criteria</li>
+                        <li>Created a DCF valuation model with scenario analysis</li>
+                        <li>Prepared client-facing documentation</li>
+                    </ul>
+                    <button class="view-cert-btn" data-cert="jpmorgan-cert.jpg">View Certificate</button>
+                </div>
+                <div class="achievement-card" id="cert-2">
+                    <h3 class="achievement-title">Discounted Cash Flow Modeling</h3>
+                    <p class="achievement-date">November 2024 | Coursera Project Network</p>
+                    <p class="achievement-description">
+                        Completed certification in Discounted Cash Flow Modeling, enhancing skills in financial valuation techniques.
+                    </p>
+                    <button class="view-cert-btn" data-cert="dcf-cert.jpg">View Certificate</button>
+                </div>
+                <div class="achievement-card" id="cert-3">
+                    <h3 class="achievement-title">Tableau Fundamentals</h3>
+                    <p class="achievement-date">November 2024 | Corporate Finance Institute</p>
+                    <p class="achievement-description">
+                        Mastered data visualization techniques using Tableau for financial reporting and business intelligence.
+                    </p>
+                    <button class="view-cert-btn" data-cert="tableau-cert.jpg">View Certificate</button>
+                </div>
+                <div class="achievement-card" id="cert-4">
+                    <h3 class="achievement-title">Fin Quest 2024 Participant</h3>
+                    <p class="achievement-date">February 2024 | IMA Bangalore Chapter</p>
+                    <p class="achievement-description">
+                        Participated in a focused event on financial innovations and strategic management accounting.
+                    </p>
+                    <button class="view-cert-btn" data-cert="finquest-cert.jpg">View Certificate</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Get In Touch</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item slide-in-left">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <a href="mailto:sumanth_mn23@cms.ac.in">sumanth_mn23@cms.ac.in</a><br>
+                            <a href="mailto:sumanthmn49@gmail.com">sumanthmn49@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item slide-in-left delay-1">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone</h3>
+                            <p>+91 6363222380</p>
+                        </div>
+                    </div>
+                    <div class="contact-item slide-in-left delay-1">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Bangalore, Karnataka, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item slide-in-left delay-2">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" target="_blank">Connect with me</a>
+                        </div>
+                    </div>
+                    <div class="contact-item slide-in-left delay-2">
+                        <div class="contact-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Coursera</h3>
+                            <a href="https://www.coursera.org/learner/sumanth-mn-6224" target="_blank">View my learning profile</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form slide-in-right delay-1" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" id="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-input form-textarea" id="message" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
 
     <!-- Enhanced Footer -->
     <footer class="footer">
         <div class="container">
             <p class="footer-text zoom-in">Finance Professional & Investment Banking Aspirant</p>
-            <h2 class="footer-tagline zoom-in delay-1">I <i class="fas fa-heart heart-icon" aria-hidden="true"></i> <span>FINANCE</span></h2>
+            <h2 class="footer-tagline zoom-in delay-1">I <i class="fas fa-heart heart-icon"></i> <span>FINANCE</span></h2>
             <div class="footer-social zoom-in delay-2">
-                <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" class="footer-link" target="_blank" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-                <a href="mailto:sumanth_mn23@cms.ac.in" class="footer-link" aria-label="Email Me"><i class="fas fa-envelope" aria-hidden="true"></i></a>
-                <a href="https://www.coursera.org/learner/sumanth-mn-6224" class="footer-link" target="_blank" aria-label="Coursera Profile"><i class="fas fa-graduation-cap" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/sumanth-mn-21b6bb28a" class="footer-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:sumanth_mn23@cms.ac.in" class="footer-link"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.coursera.org/learner/sumanth-mn-6224" class="footer-link" target="_blank"><i class="fas fa-graduation-cap"></i></a>
             </div>
             <div class="footer-bottom zoom-in delay-3">
                 <p>&copy; 2025 Sumanth M N. All Rights Reserved.</p>
@@ -2093,93 +2133,82 @@
         </div>
     </footer>
 
-    <!-- Certificate Modal with Enhanced Animation and Accessibility -->
-    <div id="cert-modal" class="cert-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Certificate Preview">
-        <button class="close-modal" aria-label="Close certificate preview">&times;</button>
+    <!-- Certificate Modal with Enhanced Animation -->
+    <div id="cert-modal" class="cert-modal">
+        <span class="close-modal">&times;</span>
         <img id="cert-modal-img" class="cert-modal-content" alt="Certificate">
     </div>
     
     <!-- Audio Visualizer Element -->
-    <div class="audio-visualizer" id="audio-visualizer" aria-hidden="true"></div>
+    <div class="audio-visualizer" id="audio-visualizer"></div>
     
     <!-- Settings Toggle and Panel -->
-    <button class="settings-toggle" id="settings-toggle" aria-label="Toggle Settings Panel" aria-expanded="false" aria-controls="settings-panel">
-        <i class="fas fa-sliders-h" aria-hidden="true"></i>
-    </button>
+    <div class="settings-toggle" id="settings-toggle">
+        <i class="fas fa-sliders-h"></i>
+    </div>
     
-    <div class="settings-panel" id="settings-panel" aria-hidden="true">
+    <div class="settings-panel" id="settings-panel">
         <div class="settings-title">Interactive Settings</div>
         
         <div class="settings-option">
-            <span class="settings-label" id="sound-label">Sound Effects</span>
+            <span class="settings-label">Sound Effects</span>
             <label class="toggle-switch">
-                <input type="checkbox" id="sound-toggle" checked aria-labelledby="sound-label">
+                <input type="checkbox" id="sound-toggle" checked>
                 <span class="toggle-slider"></span>
             </label>
         </div>
         
         <div class="settings-option">
-            <label for="volume-control" class="settings-label">Volume</label>
-            <input type="range" id="volume-control" class="volume-control" min="0" max="100" value="50" aria-labelledby="volume-label">
+            <span class="settings-label">Volume</span>
+            <input type="range" id="volume-control" class="volume-control" min="0" max="100" value="50">
         </div>
         
         <div class="settings-option">
-            <span class="settings-label" id="haptic-label">Haptic Feedback</span>
+            <span class="settings-label">Haptic Feedback</span>
             <label class="toggle-switch">
-                <input type="checkbox" id="haptic-toggle" checked aria-labelledby="haptic-label">
+                <input type="checkbox" id="haptic-toggle" checked>
                 <span class="toggle-slider"></span>
             </label>
         </div>
     </div>
 
-    <!-- Hidden styles for screen readers only -->
-    <style>
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
+    <!-- Particles.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
+    <!-- Howler.js for better audio handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
-    <!-- Load scripts asynchronously for better performance -->
     <script>
-        // Load external scripts efficiently
-        function loadScript(src, async = true, defer = true) {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement('script');
-                script.src = src;
-                script.async = async;
-                script.defer = defer;
-                script.onload = resolve;
-                script.onerror = reject;
-                document.body.appendChild(script);
-            });
-        }
-        
-        // Add passive event listeners where appropriate for better performance
-        const passiveOption = {passive: true};
-        
-        // Feature detection for passive event listeners
-        let supportsPassive = false;
-        try {
-            window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
-                get: function () { supportsPassive = true; }
-            }));
-        } catch(e) {}
-        
-        // Event listener options based on browser support
-        const listenerOptions = supportsPassive ? passiveOption : false;
-        
-        // Sound and Haptics Manager - Optimized for performance
+        // Sound and Haptics Manager
         const SoundManager = {
-            // Sound configuration - will be loaded only when enabled
-            sounds: {},
+            // Sound configuration
+            sounds: {
+                hover: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAClX2nYeAgHmmQNTsw9AAkwI/jUWSxZJ9EUwSVQR4WZg9gKo0pBECYYJJOZBMJhDTAIMAxBHhgxDC8DlD8I6kW5TwMpYHqLg8BFEMolC8QLkpxcAPCDx8VHzg0/8BH7fB6a/kQ5/gHcLCx87///ZxxiZP//+3UpAcPfjh3c8mMIZWUJFTxJmIIgzGEWFigE+HBQYC30cTQsYAEeYMgzGhx5jQcRlmcBg9ZkfUCBQAH7P3W2x/0/jLQPVA4A+JnL9jGdVGdJELFUJAE4CVCQBOALAsQCy8BQEALAAeXpJ22bx9hhECAAEv0MdOI7C09u7MIxBwADAG6JlCjQeQIQLLwFAQAsAB5aLsf9k3EBAAAAFtVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'],
+                    volume: 0.2,
+                    preload: true
+                }),
+                click: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAEKWecBeaAFgOLbhcUy4wNSRCEMXgQgDgKvxr8MAiMMAhMzJhwPxR4PwD8DpfmE6HhiAXAcQ0XjCg3AwOBKmWRBGbQdwB0HTiEw4QMCGgKGiRipBlgoYJmGKRgAQGAx8YzGJjBZgIeDBKUogJPDGqDBwCFSgZUYiGKhgogFTQ3MUoIEQgYFLgAMGDBjEJSKTCQgAxcIjH4TAQGEIoYyOAQJHxkMhgEKk8zWRERV0YoMDA//ABgHFAAgfuLHZaQwGAWY0QBgNgESS/9Z8h0eGNAaCGAUAH4/7YKU/1gGECBAAwAIEn/1GfU0sFQBhAy0BgAwB+P+5zF3/qAEIEAABYBALqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg=='],
+                    volume: 0.4,
+                    preload: true
+                }),
+                success: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAADAAAHzgDMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAAAExhdmY1OC43Ni4xMDAAAAAAAAAAAAAAAP/7QMQAAAVsXXhVGAAGfI3XCqMAARSQu2iyhkAYwmw7/BCGPPC/8IYYTx3h8B8EYHHD8P4H4f8uA/+CDhJ+XAf+CuIMh0eECQMUYAALgwFqB0k+DCYd7wBxAOJ04oECjIYMwD1MUjw71DAf4UBkKRhIeAhRiEoCQpjMgU4TYCmYMCAYGk5gIGWiCgQXAiAoWFj8lmDYDhIhJGAlOGBRHiQMIlKNgRKS2VU5NQ88dDiYGFgUbNCgMCCg4gHFQkAkdG0xCADgcBe5u9nV/+znrtw/S//1nVVMHCYGBBQMVHQEAAXuZn/f//9VBAD//D1VVAAAAAAAAQAAAZtHEAARAARc5uqK5vf9/3bT/6qgAA+AEAAAAAADVQAAAzUAEQAABFvm/////////f+qgAA//1VAAAAAAAAAAA=='],
+                    volume: 0.4,
+                    preload: true
+                }),
+                scroll: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAE/WeZYeAAFHKPM+s9AAXEICQQgHgcBwEKrx2XGHAgGYEBzMQTYSoGODXHQPgZAUQEeBgR4HAQgHAHLhz8xLR4g4CAOj6JK7zFqhgEIzMTIAByYTgGhHhYHxho6QAWMKFDQFQwMMIDShwxIsNeCzOq0a7JgwkYNHGFBphYCGiQXqMYJHGpgZhYMGAwhiEQYuIGPiJgo0YcEmAARjtaY4EGEgBgIeHFNq2LPCDAEwAHARh3Wy80EEjAw8AAHAATnOLTwwWJMUAS8AWAW9vyf9PrpvkuwsThAADADAAGm3/N//5s7mEAAjADAAEqbv///5m4cJgBGAGAAIrIIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIg=='],
+                    volume: 0.2,
+                    preload: true
+                }),
+                open: new Howl({
+                    src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAKoABjY2NjY2NjY2NjY2NjY2Nzc3Nzc3Nzc3Nzc3Nzc3OEhISEhISEhISEhISEhIS0tLS0tLS0tLS0tLS0tLTj4+Pj4+Pj4+Pj4+Pj4+P///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARdQCgQAf/////U9eLO3qAAAAAAAAAAAAAAAAAAAD/+0DEAAAKOZdz9BAABIw5rP5mmAEcHQYMGDP9gQHAUBgBwMDAhAAGDBwFAYOoDBggAxA7/AHQYQAYGCED4GEPj5V+HkDgAFyh8Pxc/Lh87gB8EeUTyoP9QCAPg+D4f5cH/KAPzoBB//n/5cPnflw/y4D/Lg/lAgAM18PhQB8ufl//eJVCCb3adNrDwMB4EA/A+IDhgANGAoSGAogGAwBGAoCmVHPmXZAmGY0mS0fGU42mxaemrLenJ4YDj4ZCiqddiAZBC6YPigFD5kgGwBe8xqH4JC5ik8zGp4HEkwmFgwHF0xkGECCoEAQAGcChEBgEDUOAFPR5YXHGdgAaFjCYNjAIMjAQGjAEIwcABZAFnAw8BcCE8YQDKYcBQYWBOJgiwGBSAIBDoC9wfQ0mBwCmBwIGAQMmBwRmKQ3mx4+GoJSmBYLgIAQoRhoEw4AgqDVXplbL2IlZrJmCwEAQMTAgGDAcHjBQTgILLx3RkkB5XWqyq1/K+mAALiwsZYL0vHIeBoEARH8eSB8mBwKGGJcnKyiGGxOmXuDHlCNhcEzB8GCUKwcAGQXj4Gg0WvTUdQdAAGWAAJBrqlUQpIR2GR9sBAIgkDRgEAxgQA5eCANBYAkATUPm/VF1gYqA6fB08YNAUBQawwMz0eOQwAAgYHBmqT1haNmX+OiYKAQAgLU/k/axFKqIiZWtpjhCgEI8fIoGNSs3NM1Wv8kZFUvK7LUlXb/Lr7WxMQu4q1CsF05vSSqkGmNtfX0ilYrN3lULBMITbrdpZ31A6sBgEPGBgoZBFB/lUjcepYgbhbmB4AAgCRO66Cw7Nw9nxmTTg3nnxn6p1xB2U9vJxYZgUBDTkFY2VbUMtLRYKgAAADUdnGo/uXYOPZnEcXU9wA1pYJK/Rf00MoG47UT5cEwIGDRQNhERuIi8gVDQ8AwCCVnRQEIMIxwdUmrQdwqkdyj3a293wMDGaxD0TGQIf/7UMTdg86xlr30wAMZq67eZtgAm1NKAECTYaUHEaK5JxSGlz9DToxoKgbQ2Io7EQd3jYBX1mRBPGlkMB0DcFAJCQiQ8PANlICxWX9xzMGAC7IqoFUTYBzOYTaRbFURrOUCgGI6DAkdnf3IfA4FrLbAOh0A+DQIDQLxmAIBQKC5cC0qnW80yFwFAVamWXKlPx4ARrMQMTMGAFDgJkqBaV4HDUKH9zcIQCHYoTEP3gB+BYBcvAAAHU5uWUlpWVAANLjUkrAAABAAMABQ6lDaOjlUB2wEBgYFHjBDwwkCXJXrN0d50awHAJAYAXEIFLR6z9b+ZgMCFABGAQCZgNAOYDQBmBAA5gJgOX+hVu5YMHgQkAKQAb6C2VK5b0ZXKBv/DEBAKAgAFATAcwMAlGTYnD20WTAogv5aElTsO4xkqcTU+Lk6UrDUqd2/fPm7dFFiutXLctS3Ny7lQ+LXWKKKx+7m7mE4lDBgx2NjOjFtUJoVa+VUkwK0X5B5Z5/pXQCYOcVjJUKcQNKqLFZEY9Xo7l+PNZZ1JqorTCVoJKoGDFFXI7G33JpxL/7YMTRB9VdlLn2zAObw7Leen7cF4AGFLLRvD8ZQ2YYYaYBQVdSIArVN4Hfqvf7NP25o8qWDzolGpumSQp0JIVOFJqutqyqoRrZAKRmVOBUgd6nZ7eAqAA6AXuaEgZgpKf+M6gJiIBlA0mQVAWUKYEyFAg0gCYBQKCc///8zOAgggmVBtQQDaUcFZdLJn///+paSplK4bMLEzGP//6nFILH/+WlNAsDzEAGBKKnOkKjQIgLCxhWVF1AMDTBIAGgxoCg////1KGAqDTBmKYAglQCmQVgeDh////4YAAUIFAEaTE0FQwIYgNyGO/EXjqnvJbvjkHSh/iwHQClxcDRw8YShBiojb2gqVQgYIAJm1ADnDwMgYCJgKAeYBQNgwE5gAAYYCABGBGBZgLgPSpJ6JCqAApgJACC/0bX2YBADAQAJgCgEX+q3YJBpANKAHgAMvZgALdWTM0MAQAB7/y6G/Mv/9nQ0VYP//7YMTLj9Vdlrn2zAMbg7a+emdcf/3UQBkN9ckqoMhoSTnAYDhhxigq7qZYdIK84lAIDBgS1L9i1vHCBRBv/X2RQAWyF0sDkosjXUCpSx4EhYJE6EAYAhYQBUu7vu95SZMoAZBQOmFsVRgDA0YCAImAsAoMAgCQKCZgCAAAgczAQAEy2AbMkASMYQPzE0AwwvwPAwCKoP5fz/9XfZgMAwBAOmAJAL+df4iAIa3BMgAb8r9izfDY//7c0FQCX/a/a0T+v7b6P+j9SlPRJKWQj//qoOoKJFf+2mmpYRoT8U39f///+oqioqIDioAJYBAANLUbDGYDgDGMqHFO1Kqmw+Ap0DAcBJM1s3yjrDACQ//+3FAohiVMxQkWiJx4vfqsQyVh1A4kOJqmGNZjSABoZ4EQuG5qE0UbEEsgAACuIAgMlnN2WYlUb5q3tQdQDXpmTQGYBYAGAaAwLAUYAgAP/7gMTID9ZBl7v2WAudK7bXZ+2Bf//+oGAOAYFgKYAwAmLv/+r//0AwCQDMAkAQKAI////RVMAUADARgov9VMDAUgJiT//+iIMAKATABAECAD//+oYAoBgJCBaIVgCBf//9JDDgk9QTXLVgkUBP//9UTAgCpgKwCAMCz//+tIYAwKBksDAUCxgLACBf///0oMAoCxhO3f///tY1G1QHAYCxgLACQF//9GkxBBRMSYVhwMgWYAYBkDf/+lIYGgPGTOVJgEgN//9Ev//0gMCQH//+nh0jv/6KGmAIAwDAA//0bP/9BzC5v//RHO//9YcwFf/+ghf/6rYrG7dbUKAANDtPqgAGCACbldBwCAGYAwCGACACxMYnZ7b/Xfw3bA4AjAEAIC//9R///sMaAQAAIYAf///UAwBAAMBf///0AwYD/0QDQFBv/7YMTZj9Zpdr8/bAvdvrq/37YF/+1ABgaAmYGP/////6MMDn////0QYqwZgT//+qGK0G+aZ31V1f///5cVLDpabRMXDpnOX/////VPOb9f////71r///4aBgDAGYAgBP///9FDAEH//4Cf/+6AYCP///0YYFhTf/9Q98tf///0r/////53K///HQ4JJMPg0H///97////+mQdB0VgSD4Ew9H////f/////+i+oCMxAPmH3v///3s//////OfqP//1cCAYDIKg8H///b///////R///9FMBARqKi8FxHJ///+//////9Lf//+qcVDpmAo///+//////0Qf//+lOipmAj///9P///////9FBCGIJho////t///////0YMGB//+yhwQBUqHf///X///////UAv/+0DE5K/XkZep9swLvQyy13/tgX/+qABQCQkFQBH///////SiIoB//+omAyAMnH///+v///////zYY///1LiwWLAP//////////Rv//+jJgD///qf////+n////+nxkEE0QTP///+r//////1JJ//+qSYEoLT//////////9P///+lhSD///9X/////4X///+nmIEGTJf////r///////0v//9ASJFD////p/////8T////qooUrf////X///////0I//9UkMP////9f/////g////ThIYQYQn///+3///////9P//+khgwhkD///9v///////0T//9VMCP//////////3/////+lSYEgTHEn//////f///////Sg4TDF//////////9/////+xMFgxD//////////3/////9WkhSFiYWQj//////////f////+lcRlQ///7UMTfqdfZl7P+0AO8h7L3P9oAd/////p/////8Sf//+qcQkhRDCmOJP///+r///////qL//9QMTkw4FERlZB/////2////+C///9QJcXgwFBuSEH////7f/////gv//9RiXH4PBQbCEE////R////+A///9UMQkhwmGhMoI////9X////4L//9TTAYDEZB4MBUsSA7////9X//+6iggKiGpAJgUCYYEYXFCQHf////X///qGAyEooKhITFBQsJE3////1///qKiosoKikohATFxMJfv////9f/uoqNLKKioi4TDocFi3////1//+osoKqqYcEoQE/////X///orJjS40mGhUMaX////9f//6K2NLKKqsqKSmJJf////1///qKiypTDIqLJpSSX////1///o0w+KirGnEkv////X///o8k//tAxNWz19mXs/7QA7+lsva/2gB4v/////r/////SIpSSX////1///6WnJJB/////X///pZWS/////X///6XrJf////1///6LLzn/////X///owsH/////X///o7ypVP////r///0Xyyf////9f//+lf/////r///0f/////q///0f/////q///0tJf////1///6Xkv////X///pa9X////1///6P/////X///oVUv////X///pVykl/////X///pL/////X///pZyv////1///6L/////X///o2V/////r///0f/////q///0q/////X///pL/////X///pa9/////q///0f/////q///0st4P////1///6XSSX////9f//+lLP/////X///pL/////X///oqlf/////q///0nK//tAxNkv2HGXs/7QA8BLsva/2gB//X///paS/////X///otJf////1///6WSX////9f//+ktf////X///owf/////q///0f/////q///0t/////X///pP/////X///o1/////q///0e/////X///pV/////1///6U/////X///pa/////X///pL/////X///pL/////X///o0v/////q///0pf/////X///p/////9f//+l/////1///6P/////q///0q/////X///pL/////X///pfr/////X///pf/////X///pJZf////1///6PKJff////X///o7rpd/////X///papW3/////X///pJL/////X///opf/////X///o4v/////X///on/////1///6L/////X///pUn/////X///pSrwuqlKv/7QMTZj9fZl7P+0AO/R7L2P9oAd/////X///qlKnCyo4tJf////1///6W0l/////X///pEr/////X///oVU5V/////X///o4v/////X///orw4n/////X///pf/////X///on/////1///6P/////q///0V/////X///on/////1///6WWUv////X///pakl/////X///pJf/////X///ooq/////X///o5X/////X///or/////9f//+lFK/////X///pHf////1///6W/////X///pKS/////X///pKXf////X///okpd/////X///o3/////1///6WSS/////X///pP/////X///os/////9f//+lP/////X///pS/////X///o//7QMTbo9fFl7P+0AO+J7L2P9oAf/////q///0f/////q///0f/////q///0V/////X///qqVSqqv////1///6W0qqrw7/////X///paaaaq/////X///pppppr/////X///prqqqqv////1///6aaqqq/////X///prqqqqv////1///6aaqqq/////X///pppppr/////X///pppppr/////X///pppppr/////X///pppppr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqqv////1///6aaqqq/////X///pqqqqq/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNsv19GXs/7QA8BHsva/2gB/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/7QMTZr9fRl7P+0AO+J7L2P9oAf/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNmL1+GXsf7QA8BbsvY/2gAKQAQAAAwMDAT2Y4MGDAiQ4+FxIQEBM5ZkODBgReOPgLHCIFQZpJHCYiJkUphEeEwu05pgEZl18DhQmAgHHAZGMzmJxCKEOEUJgcFKSwmmzMMDAdHDVNHEAcfJfGdaBgVjhgwmj2IxEQoVSrU0f///+WZnMymptcpqdXK5Vqrfq9jXudvN5Z2v////7lv93Z7O5nM5nM5nM5nM5nM5nM5nM5nM5nMBQDY21tcXN5vXJnN0BnNzO6G5tcBu1tXG2OjW5tcXFxdDczcBuYG5m4G4DAUAwM5m4FxdAUBQFAUBQFAUBQDYOxnNzczcXG22224ujoG4zc3MAYDAUBQFANjAOhoZzTOaZzTOabnXY6Ojbo6OjcGbgzQDYGjoG4G//tAxNs318GXsf7QALzRzfJZVDSXbWxtnM5pmtM1pnM4tprXOTbDTW5tprDmcWNtrYOBoZycnNycnNyc2w21uc3NzcwZoG4NjAYG1saA3OzAOBtrbjmgLkB0NDOaZrTO5pmttbnQGbczm5ycnJycnNycnNzDmbm5gGw1pnJhoDc3OW5zm5ttm223TbQbQ0G5ttbbU22gMDczm22tnNvLNbmBpbnNzA3OgMDbm5gaA0NM5pmtM5pnc0zucW1rXObW2tttcZybnJzd3JtttXG3OTbDmbnJzc3NzcwNoaA0NrY25ucXOcnNycnJycnJzcnJzDm5ycG5ydA3B0DcG4OgLi6YDAUBQFAUBQFAUBQDYzbbbbbboaGc2gM5wbnDQDAUBQFA//tQxOQv1+GXsf7QAL4MvY/2gAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAMDaDY25vTm9Ob4Ojo6zWmdDQ0G5ttbnN3cG5yc3OTm5ObnJyb4Ojo6Ojro66zro6Oz3YDdHbW5ycnJyb4OgOgbjbo6OgM7m5gbgwDcwNDQ222232223Q0NA3NzA3MDcwDcwNzcwOcNAbnJtt0dHebdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dnZzMDQ23Nzk5vXd3c3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc'],
+                    volume: 0.3,
+                    preload: true
+                })
+            },
             
             // Track sound settings
             settings: {
@@ -2190,23 +2219,9 @@
             
             // Initialize sound manager
             init: function() {
-                // Load sound library only if needed
-                if (localStorage.getItem('soundEnabled') === 'false') {
-                    this.settings.soundEnabled = false;
-                }
-                
-                if (localStorage.getItem('hapticEnabled') === 'false') {
-                    this.settings.hapticEnabled = false;
-                }
-                
-                const storedVolume = localStorage.getItem('volume');
-                if (storedVolume) {
-                    this.settings.volume = parseFloat(storedVolume);
-                }
-                
-                // Load Howler.js only if sound is enabled
-                if (this.settings.soundEnabled) {
-                    this.loadSoundLibrary();
+                // Set initial volume
+                for (let sound in this.sounds) {
+                    this.sounds[sound].volume(this.settings.volume);
                 }
                 
                 // Setup settings panel
@@ -2218,12 +2233,8 @@
                 
                 if (settingsToggle && settingsPanel) {
                     settingsToggle.addEventListener('click', function() {
-                        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                        this.setAttribute('aria-expanded', !isExpanded);
                         settingsPanel.classList.toggle('active');
-                        settingsPanel.setAttribute('aria-hidden', isExpanded);
-                        
-                        if (SoundManager.settings.soundEnabled && SoundManager.sounds.click) {
+                        if (SoundManager.settings.soundEnabled) {
                             SoundManager.playSound('click');
                         }
                     });
@@ -2233,14 +2244,8 @@
                     soundToggle.checked = this.settings.soundEnabled;
                     soundToggle.addEventListener('change', function() {
                         SoundManager.settings.soundEnabled = this.checked;
-                        localStorage.setItem('soundEnabled', this.checked);
-                        
-                        if (this.checked && !SoundManager.sounds.click) {
-                            SoundManager.loadSoundLibrary().then(() => {
-                                SoundManager.playSound('click');
-                            });
-                        } else if (!this.checked) {
-                            SoundManager.unloadSounds();
+                        if (this.checked) {
+                            SoundManager.playSound('click');
                         }
                     });
                 }
@@ -2249,9 +2254,7 @@
                     hapticToggle.checked = this.settings.hapticEnabled;
                     hapticToggle.addEventListener('change', function() {
                         SoundManager.settings.hapticEnabled = this.checked;
-                        localStorage.setItem('hapticEnabled', this.checked);
-                        
-                        if (SoundManager.settings.soundEnabled && SoundManager.sounds.click) {
+                        if (SoundManager.settings.soundEnabled) {
                             SoundManager.playSound('click');
                         }
                         
@@ -2266,13 +2269,10 @@
                     volumeControl.addEventListener('input', function() {
                         const volume = this.value / 100;
                         SoundManager.settings.volume = volume;
-                        localStorage.setItem('volume', volume);
                         
-                        // Update all sound volumes if sounds are loaded
-                        if (SoundManager.sounds.hover) {
-                            for (let sound in SoundManager.sounds) {
-                                SoundManager.sounds[sound].volume(volume);
-                            }
+                        // Update all sound volumes
+                        for (let sound in SoundManager.sounds) {
+                            SoundManager.sounds[sound].volume(volume);
                         }
                     });
                 }
@@ -2280,175 +2280,74 @@
                 // Visualizer setup
                 this.visualizer = document.getElementById('audio-visualizer');
                 
-                // Add sound events to elements - with performance optimization (event delegation)
+                // Add sound events to elements
                 this.addSoundEvents();
             },
             
-            // Load sound library on demand
-            loadSoundLibrary: async function() {
-                // Only load Howler.js if needed and not already loaded
-                if (!window.Howl) {
-                    try {
-                        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js');
-                    } catch (e) {
-                        console.warn('Failed to load sound library:', e);
-                        this.settings.soundEnabled = false;
-                        return Promise.reject(e);
-                    }
-                }
-                
-                // Define sounds if Howler loaded successfully
-                this.sounds = {
-                    hover: new Howl({
-                        src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAClX2nYeAgHmmQNTsw9AAkwI/jUWSxZJ9EUwSVQR4WZg9gKo0pBECYYJJOZBMJhDTAIMAxBHhgxDC8DlD8I6kW5TwMpYHqLg8BFEMolC8QLkpxcAPCDx8VHzg0/8BH7fB6a/kQ5/gHcLCx87///ZxxiZP//+3UpAcPfjh3c8mMIZWUJFTxJmIIgzGEWFigE+HBQYC30cTQsYAEeYMgzGhx5jQcRlmcBg9ZkfUCBQAH7P3W2x/0/jLQPVA4A+JnL9jGdVGdJELFUJAE4CVCQBOALAsQCy8BQEALAAeXpJ22bx9hhECAAEv0MdOI7C09u7MIxBwADAG6JlCjQeQIQLLwFAQAsAB5aLsf9k3EBAAAAFtVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV'],
-                        volume: 0.2 * this.settings.volume,
-                        preload: true
-                    }),
-                    click: new Howl({
-                        src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAEKWecBeaAFgOLbhcUy4wNSRCEMXgQgDgKvxr8MAiMMAhMzJhwPxR4PwD8DpfmE6HhiAXAcQ0XjCg3AwOBKmWRBGbQdwB0HTiEw4QMCGgKGiRipBlgoYJmGKRgAQGAx8YzGJjBZgIeDBKUogJPDGqDBwCFSgZUYiGKhgogFTQ3MUoIEQgYFLgAMGDBjEJSKTCQgAxcIjH4TAQGEIoYyOAQJHxkMhgEKk8zWRERV0YoMDA//ABgHFAAgfuLHZaQwGAWY0QBgNgESS/9Z8h0eGNAaCGAUAH4/7YKU/1gGECBAAwAIEn/1GfU0sFQBhAy0BgAwB+P+5zF3/qAEIEAABYBALqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqg=='],
-                        volume: 0.4 * this.settings.volume,
-                        preload: true
-                    }),
-                    success: new Howl({
-                        src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAADAAAHzgDMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzM////////////////zMzMzMzMzMzMzMzMzMzMzMzMzMzMAAAAAExhdmY1OC43Ni4xMDAAAAAAAAAAAAAAAP/7QMQAAAVsXXhVGAAGfI3XCqMAARSQu2iyhkAYwmw7/BCGPPC/8IYYTx3h8B8EYHHD8P4H4f8uA/+CDhJ+XAf+CuIMh0eECQMUYAALgwFqB0k+DCYd7wBxAOJ04oECjIYMwD1MUjw71DAf4UBkKRhIeAhRiEoCQpjMgU4TYCmYMCAYGk5gIGWiCgQXAiAoWFj8lmDYDhIhJGAlOGBRHiQMIlKNgRKS2VU5NQ88dDiYGFgUbNCgMCCg4gHFQkAkdG0xCADgcBe5u9nV/+znrtw/S//1nVVMHCYGBBQMVHQEAAXuZn/f//9VBAD//D1VVAAAAAAAAQAAAZtHEAARAARc5uqK5vf9/3bT/6qgAA+AEAAAAAADVQAAAzUAEQAABFvm/////////f+qgAA//1VAAAAAAAAAAA=='],
-                        volume: 0.4 * this.settings.volume,
-                        preload: true
-                    }),
-                    scroll: new Howl({
-                        src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARgAXgQAD/////g+h1MwAAAAAAAAAAAAAAAAAAAAD/+0DEAAAE/WeZYeAAFHKPM+s9AAXEICQQgHgcBwEKrx2XGHAgGYEBzMQTYSoGODXHQPgZAUQEeBgR4HAQgHAHLhz8xLR4g4CAOj6JK7zFqhgEIzMTIAByYTgGhHhYHxho6QAWMKFDQFQwMMIDShwxIsNeCzOq0a7JgwkYNHGFBphYCGiQXqMYJHGpgZhYMGAwhiEQYuIGPiJgo0YcEmAARjtaY4EGEgBgIeHFNq2LPCDAEwAHARh3Wy80EEjAw8AAHAATnOLTwwWJMUAS8AWAW9vyf9PrpvkuwsThAADADAAGm3/N//5s7mEAAjADAAEqbv///5m4cJgBGAGAAIrIIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIg=='],
-                        volume: 0.2 * this.settings.volume,
-                        preload: true
-                    }),
-                    open: new Howl({
-                        src: ['data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAAFAAAKoABjY2NjY2NjY2NjY2NjY2Nzc3Nzc3Nzc3Nzc3Nzc3OEhISEhISEhISEhISEhIS0tLS0tLS0tLS0tLS0tLTj4+Pj4+Pj4+Pj4+Pj4+P///////////////////////////////////////////8AAAA8TEFNRTMuMTAwBK8AAAAAAAAAAAARdQCgQAf/////U9eLO3qAAAAAAAAAAAAAAAAAAAD/+0DEAAAKOZdz9BAABIw5rP5mmAEcHQYMGDP9gQHAUBgBwMDAhAAGDBwFAYOoDBggAxA7/AHQYQAYGCED4GEPj5V+HkDgAFyh8Pxc/Lh87gB8EeUTyoP9QCAPg+D4f5cH/KAPzoBB//n/5cPnflw/y4D/Lg/lAgAM18PhQB8ufl//eJVCCb3adNrDwMB4EA/A+IDhgANGAoSGAogGAwBGAoCmVHPmXZAmGY0mS0fGU42mxaemrLenJ4YDj4ZCiqddiAZBC6YPigFD5kgGwBe8xqH4JC5ik8zGp4HEkwmFgwHF0xkGECCoEAQAGcChEBgEDUOAFPR5YXHGdgAaFjCYNjAIMjAQGjAEIwcABZAFnAw8BcCE8YQDKYcBQYWBOJgiwGBSAIBDoC9wfQ0mBwCmBwIGAQMmBwRmKQ3mx4+GoJSmBYLgIAQoRhoEw4AgqDVXplbL2IlZrJmCwEAQMTAgGDAcHjBQTgILLx3RkkB5XWqyq1/K+mAALiwsZYL0vHIeBoEARH8eSB8mBwKGGJcnKyiGGxOmXuDHlCNhcEzB8GCUKwcAGQXj4Gg0WvTUdQdAAGWAAJBrqlUQpIR2GR9sBAIgkDRgEAxgQA5eCANBYAkATUPm/VF1gYqA6fB08YNAUBQawwMz0eOQwAAgYHBmqT1haNmX+OiYKAQAgLU/k/axFKqIiZWtpjhCgEI8fIoGNSs3NM1Wv8kZFUvK7LUlXb/Lr7WxMQu4q1CsF05vSSqkGmNtfX0ilYrN3lULBMITbrdpZ31A6sBgEPGBgoZBFB/lUjcepYgbhbmB4AAgCRO66Cw7Nw9nxmTTg3nnxn6p1xB2U9vJxYZgUBDTkFY2VbUMtLRYKgAAADUdnGo/uXYOPZnEcXU9wA1pYJK/Rf00MoG47UT5cEwIGDRQNhERuIi8gVDQ8AwCCVnRQEIMIxwdUmrQdwqkdyj3a293wMDGaxD0TGQIf/7UMTdg86xlr30wAMZq67eZtgAm1NKAECTYaUHEaK5JxSGlz9DToxoKgbQ2Io7EQd3jYBX1mRBPGlkMB0DcFAJCQiQ8PANlICxWX9xzMGAC7IqoFUTYBzOYTaRbFURrOUCgGI6DAkdnf3IfA4FrLbAOh0A+DQIDQLxmAIBQKC5cC0qnW80yFwFAVamWXKlPx4ARrMQMTMGAFDgJkqBaV4HDUKH9zcIQCHYoTEP3gB+BYBcvAAAHU5uWUlpWVAANLjUkrAAABAAMABQ6lDaOjlUB2wEBgYFHjBDwwkCXJXrN0d50awHAJAYAXEIFLR6z9b+ZgMCFABGAQCZgNAOYDQBmBAA5gJgOX+hVu5YMHgQkAKQAb6C2VK5b0ZXKBv/DEBAKAgAFATAcwMAlGTYnD20WTAogv5aElTsO4xkqcTU+Lk6UrDUqd2/fPm7dFFiutXLctS3Ny7lQ+LXWKKKx+7m7mE4lDBgx2NjOjFtUJoVa+VUkwK0X5B5Z5/pXQCYOcVjJUKcQNKqLFZEY9Xo7l+PNZZ1JqorTCVoJKoGDFFXI7G33JpxL/7YMTRB9VdlLn2zAObw7Leen7cF4AGFLLRvD8ZQ2YYYaYBQVdSIArVN4Hfqvf7NP25o8qWDzolGpumSQp0JIVOFJqutqyqoRrZAKRmVOBUgd6nZ7eAqAA6AXuaEgZgpKf+M6gJiIBlA0mQVAWUKYEyFAg0gCYBQKCc///8zOAgggmVBtQQDaUcFZdLJn///+paSplK4bMLEzGP//6nFILH/+WlNAsDzEAGBKKnOkKjQIgLCxhWVF1AMDTBIAGgxoCg////1KGAqDTBmKYAglQCmQVgeDh////4YAAUIFAEaTE0FQwIYgNyGO/EXjqnvJbvjkHSh/iwHQClxcDRw8YShBiojb2gqVQgYIAJm1ADnDwMgYCJgKAeYBQNgwE5gAAYYCABGBGBZgLgPSpJ6JCqAApgJACC/0bX2YBADAQAJgCgEX+q3YJBpANKAHgAMvZgALdWTM0MAQAB7/y6G/Mv/9nQ0VYP//7YMTLj9Vdlrn2zAMbg7a+emdcf/3UQBkN9ckqoMhoSTnAYDhhxigq7qZYdIK84lAIDBgS1L9i1vHCBRBv/X2RQAWyF0sDkosjXUCpSx4EhYJE6EAYAhYQBUu7vu95SZMoAZBQOmFsVRgDA0YCAImAsAoMAgCQKCZgCAAAgczAQAEy2AbMkASMYQPzE0AwwvwPAwCKoP5fz/9XfZgMAwBAOmAJAL+df4iAIa3BMgAb8r9izfDY//7c0FQCX/a/a0T+v7b6P+j9SlPRJKWQj//qoOoKJFf+2mmpYRoT8U39f///+oqioqIDioAJYBAANLUbDGYDgDGMqHFO1Kqmw+Ap0DAcBJM1s3yjrDACQ//+3FAohiVMxQkWiJx4vfqsQyVh1A4kOJqmGNZjSABoZ4EQuG5qE0UbEEsgAACuIAgMlnN2WYlUb5q3tQdQDXpmTQGYBYAGAaAwLAUYAgAP/7gMTID9ZBl7v2WAudK7bXZ+2Bf//+oGAOAYFgKYAwAmLv/+r//0AwCQDMAkAQKAI////RVMAUADARgov9VMDAUgJiT//+iIMAKATABAECAD//+oYAoBgJCBaIVgCBf//9JDDgk9QTXLVgkUBP//9UTAgCpgKwCAMCz//+tIYAwKBksDAUCxgLACBf///0oMAoCxhO3f///tY1G1QHAYCxgLACQF//9GkxBBRMSYVhwMgWYAYBkDf/+lIYGgPGTOVJgEgN//9Ev//0gMCQH//+nh0jv/6KGmAIAwDAA//0bP/9BzC5v//RHO//9YcwFf/+ghf/6rYrG7dbUKAANDtPqgAGCACbldBwCAGYAwCGACACxMYnZ7b/Xfw3bA4AjAEAIC//9R///sMaAQAAIYAf///UAwBAAMBf///0AwYD/0QDQFBv/7YMTZj9Zpdr8/bAvdvrq/37YF/+1ABgaAmYGP/////6MMDn////0QYqwZgT//+qGK0G+aZ31V1f///5cVLDpabRMXDpnOX/////VPOb9f////71r///4aBgDAGYAgBP///9FDAEH//4Cf/+6AYCP///0YYFhTf/9Q98tf///0r/////53K///HQ4JJMPg0H///97////+mQdB0VgSD4Ew9H////f/////+i+oCMxAPmH3v///3s//////OfqP//1cCAYDIKg8H///b///////R///9FMBARqKi8FxHJ///+//////9Lf//+qcVDpmAo///+//////0Qf//+lOipmAj///9P///////9FBCGIJho////t///////0YMGB//+yhwQBUqHf///X///////UAv/+0DE5K/XkZep9swLvQyy13/tgX/+qABQCQkFQBH///////SiIoB//+omAyAMnH///+v///////zYY///1LiwWLAP//////////Rv//+jJgD///qf////+n////+nxkEE0QTP///+r//////1JJ//+qSYEoLT//////////9P///+lhSD///9X/////4X///+nmIEGTJf////r///////0v//9ASJFD////p/////8T////qooUrf////X///////0I//9UkMP////9f/////g////ThIYQYQn///+3///////9P//+khgwhkD///9v///////0T//9VMCP//////////3/////+lSYEgTHEn//////f///////Sg4TDF//////////9/////+xMFgxD//////////3/////9WkhSFiYWQj//////////f////+lcRlQ///7UMTfqdfZl7P+0AO8h7L3P9oAd/////p/////8Sf//+qcQkhRDCmOJP///+r///////qL//9QMTkw4FERlZB/////2////+C///9QJcXgwFBuSEH////7f/////gv//9RiXH4PBQbCEE////R////+A///9UMQkhwmGhMoI////9X////4L//9TTAYDEZB4MBUsSA7////9X//+6iggKiGpAJgUCYYEYXFCQHf////X///qGAyEooKhITFBQsJE3////1///qKiosoKikohATFxMJfv////9f/uoqNLKKioi4TDocFi3////1//+osoKqqYcEoQE/////X///orJjS40mGhUMaX////9f//6K2NLKKqsqKSmJJf////1///qKiypTDIqLJpSSX////1///o0w+KirGnEkv////X///o8k//tAxNWz19mXs/7QA7+lsva/2gB4v/////r/////SIpSSX////1///6WnJJB/////X///pZWS/////X///6XrJf////1///6LLzn/////X///owsH/////X///o7ypVP////r///0Xyyf////9f//+lf/////r///0f/////q///0f/////q///0tJf////1///6Xkv////X///pa9X////1///6P/////X///oVUv////X///pVykl/////X///pL/////X///pZyv////1///6L/////X///o2V/////r///0f/////q///0q/////X///pL/////X///pa9/////q///0f/////q///0st4P////1///6XSSX////9f//+lLP/////X///pL/////X///oqlf/////q///0nK//tAxNkv2HGXs/7QA8BLsva/2gB//X///paS/////X///otJf////1///6WSX////9f//+ktf////X///owf/////q///0f/////q///0t/////X///pP/////X///o1/////q///0e/////X///pV/////1///6U/////X///pa/////X///pL/////X///pL/////X///o0v/////q///0pf/////X///p/////9f//+l/////1///6P/////q///0q/////X///pL/////X///pfr/////X///pf/////X///pJZf////1///6PKJff////X///o7rpd/////X///papW3/////X///pJL/////X///opf/////X///o4v/////X///on/////1///6L/////X///pUn/////X///pSrwuqlKv/7QMTZj9fZl7P+0AO/R7L2P9oAd/////X///qlKnCyo4tJf////1///6W0l/////X///pEr/////X///oVU5V/////X///o4v/////X///orw4n/////X///pf/////X///on/////1///6P/////q///0V/////X///on/////1///6WWUv////X///pakl/////X///pJf/////X///ooq/////X///o5X/////X///or/////9f//+lFK/////X///pHf////1///6W/////X///pKS/////X///pKXf////X///okpd/////X///o3/////1///6WSS/////X///pP/////X///os/////9f//+lP/////X///pS/////X///o//7QMTbo9fFl7P+0AO+J7L2P9oAf/////q///0f/////q///0f/////q///0V/////X///qqVSqqv////1///6W0qqrw7/////X///paaaaq/////X///pppppr/////X///prqqqqv////1///6aaqqq/////X///prqqqqv////1///6aaqqq/////X///pppppr/////X///pppppr/////X///pppppr/////X///pppppr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqqv////1///6aaqqq/////X///pqqqqq/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNsv19GXs/7QA8BHsva/2gB/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/7QMTZr9fRl7P+0AO+J7L2P9oAf/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr/////X///pqqqqr//tAxNmL1+GXsf7QA8BbsvY/2gAKQAQAAAwMDAT2Y4MGDAiQ4+FxIQEBM5ZkODBgReOPgLHCIFQZpJHCYiJkUphEeEwu05pgEZl18DhQmAgHHAZGMzmJxCKEOEUJgcFKSwmmzMMDAdHDVNHEAcfJfGdaBgVjhgwmj2IxEQoVSrU0f///+WZnMymptcpqdXK5Vqrfq9jXudvN5Z2v////7lv93Z7O5nM5nM5nM5nM5nM5nM5nM5nM5nMBQDY21tcXN5vXJnN0BnNzO6G5tcBu1tXG2OjW5tcXFxdDczcBuYG5m4G4DAUAwM5m4FxdAUBQFAUBQFAUBQDYOxnNzczcXG22224ujoG4zc3MAYDAUBQFANjAOhoZzTOaZzTOabnXY6Ojbo6OjcGbgzQDYGjoG4G//tAxNs318GXsf7QALzRzfJZVDSXbWxtnM5pmtM1pnM4tprXOTbDTW5tprDmcWNtrYOBoZycnNycnNyc2w21uc3NzcwZoG4NjAYG1saA3OzAOBtrbjmgLkB0NDOaZrTO5pmttbnQGbczm5ycnJycnNycnNzDmbm5gGw1pnJhoDc3OW5zm5ttm223TbQbQ0G5ttbbU22gMDczm22tnNvLNbmBpbnNzA3OgMDbm5gaA0NM5pmtM5pnc0zucW1rXObW2tttcZybnJzd3JtttXG3OTbDmbnJzc3NzcwNoaA0NrY25ucXOcnNycnJycnJzcnJzDm5ycG5ydA3B0DcG4OgLi6YDAUBQFAUBQFAUBQDYzbbbbbboaGc2gM5wbnDQDAUBQFA//tQxOQv1+GXsf7QAL4MvY/2gAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAUBQFAMDaDY25vTm9Ob4Ojo6zWmdDQ0G5ttbnN3cG5yc3OTm5ObnJyb4Ojo6Ojro66zro6Oz3YDdHbW5ycnJyb4OgOgbjbo6OgM7m5gbgwDcwNDQ222232223Q0NA3NzA3MDcwDcwNzcwOcNAbnJtt0dHebdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dnZzMDQ23Nzk5vXd3c3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc//tAxNsz18GXsf7QAL3MvY/2gAXNzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc'],
-                        volume: 0.3 * this.settings.volume,
-                        preload: true
-                    })
-                };
-                
-                return Promise.resolve();
-            },
-            
-            // Unload sounds to save memory
-            unloadSounds: function() {
-                if (this.sounds.hover) {
-                    for (let sound in this.sounds) {
-                        this.sounds[sound].unload();
-                    }
-                    this.sounds = {};
-                }
-            },
-            
-            // Play a sound with optimized handling
+            // Play a sound
             playSound: function(soundName) {
-                if (!this.settings.soundEnabled || !this.sounds[soundName]) return;
+                if (!this.settings.soundEnabled) return;
                 
-                // Avoid multiple sounds playing at once
-                if (soundName === 'hover' && Date.now() - (this._lastHoverSound || 0) < 100) {
-                    return;
-                }
-                
-                this.sounds[soundName].play();
-                this.showVisualizer();
-                
-                if (soundName === 'hover') {
-                    this._lastHoverSound = Date.now();
+                if (this.sounds[soundName]) {
+                    this.sounds[soundName].play();
+                    this.showVisualizer();
                 }
             },
             
-            // Show audio visualizer with reduced DOM manipulation
+            // Show audio visualizer
             showVisualizer: function() {
                 if (!this.visualizer) return;
                 
-                // Use requestAnimationFrame for better performance
-                if (!this._visualizerActive) {
-                    this._visualizerActive = true;
-                    
-                    requestAnimationFrame(() => {
-                        this.visualizer.classList.add('active');
-                        
-                        setTimeout(() => {
-                            this.visualizer.classList.remove('active');
-                            this._visualizerActive = false;
-                        }, 300);
-                    });
-                }
+                this.visualizer.classList.add('active');
+                setTimeout(() => {
+                    this.visualizer.classList.remove('active');
+                }, 300);
             },
             
-            // Trigger haptic feedback with checks for API support
+            // Trigger haptic feedback
             triggerHaptic: function(duration = 20) {
                 if (!this.settings.hapticEnabled) return;
                 
                 // Check if vibration API is available
                 if ('vibrate' in navigator) {
-                    try {
-                        navigator.vibrate(duration);
-                    } catch (e) {
-                        // Silently fail if vibration fails (e.g. in some browsers)
-                    }
+                    navigator.vibrate(duration);
                 }
             },
             
-            // Add sound events using event delegation for better performance
+            // Add sound events to interactive elements
             addSoundEvents: function() {
-                // Sound event delegation - more efficient than individual listeners
-                document.addEventListener('mouseover', (e) => {
-                    const target = e.target;
-                    
-                    // Check if target or any parent matches our selectors
-                    if (target.closest('.nav-link, .btn, .social-link, .view-cert-btn, .info-item, .skill-item, .skill-tag')) {
-                        this.playSound('hover');
-                    }
-                }, listenerOptions);
+                // Navigation links
+                document.querySelectorAll('.nav-link, .btn, .social-link, .view-cert-btn, .info-item, .skill-item, .skill-tag')
+                    .forEach(el => {
+                        el.addEventListener('mouseenter', () => {
+                            SoundManager.playSound('hover');
+                        });
+                        
+                        el.addEventListener('click', () => {
+                            SoundManager.playSound('click');
+                            SoundManager.triggerHaptic(50);
+                        });
+                    });
                 
-                document.addEventListener('click', (e) => {
-                    const target = e.target;
-                    
-                    if (target.closest('.nav-link, .btn, .social-link, .view-cert-btn, .info-item, .skill-item, .skill-tag, .toggle-switch, .close-modal')) {
-                        this.playSound('click');
-                        this.triggerHaptic(50);
-                    }
-                });
-                
-                // Form submission sound
+                // Form submission
                 const contactForm = document.getElementById('contact-form');
                 if (contactForm) {
-                    contactForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        this.playSound('success');
-                        this.triggerHaptic(100);
-                        
-                        // Simulate form submission
-                        const submitBtn = contactForm.querySelector('.form-submit');
-                        const originalText = submitBtn.innerText;
-                        submitBtn.innerText = 'Sending...';
-                        submitBtn.disabled = true;
-                        
-                        setTimeout(() => {
-                            alert('Message sent successfully!');
-                            submitBtn.innerText = originalText;
-                            submitBtn.disabled = false;
-                            contactForm.reset();
-                        }, 1500);
+                    contactForm.addEventListener('submit', function(e) {
+                        SoundManager.playSound('success');
+                        SoundManager.triggerHaptic(100);
                     });
                 }
                 
                 // Scroll sound (throttled)
                 let scrollTimeout;
-                let lastScrollTime = 0;
-                
-                window.addEventListener('scroll', () => {
-                    const now = Date.now();
-                    if (now - lastScrollTime < 150) return;
-                    
-                    lastScrollTime = now;
+                window.addEventListener('scroll', function() {
                     if (!scrollTimeout) {
-                        scrollTimeout = setTimeout(() => {
-                            this.playSound('scroll');
+                        scrollTimeout = setTimeout(function() {
+                            SoundManager.playSound('scroll');
                             scrollTimeout = null;
                         }, 150);
                     }
-                }, listenerOptions);
+                });
                 
                 // Modal open/close
                 const viewCertBtns = document.querySelectorAll('.view-cert-btn');
@@ -2456,120 +2355,108 @@
                 
                 viewCertBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
-                        this.playSound('open');
-                        this.triggerHaptic(70);
+                        SoundManager.playSound('open');
+                        SoundManager.triggerHaptic(70);
                     });
                 });
                 
                 if (closeModal) {
                     closeModal.addEventListener('click', () => {
-                        this.playSound('click');
-                        this.triggerHaptic(40);
+                        SoundManager.playSound('click');
+                        SoundManager.triggerHaptic(40);
+                    });
+                }
+                
+                // Canvas particles interaction
+                const canvas = document.getElementById('creative-canvas');
+                if (canvas) {
+                    canvas.addEventListener('mousemove', () => {
+                        // Throttle this sound to avoid too many sounds
+                        if (Math.random() > 0.97) {
+                            SoundManager.playSound('hover');
+                        }
+                    });
+                    
+                    canvas.addEventListener('click', () => {
+                        SoundManager.playSound('click');
+                        SoundManager.triggerHaptic(30);
                     });
                 }
             }
         };
 
-        // Optimized document ready function using DOMContentLoaded
-        function ready(fn) {
-            if (document.readyState !== 'loading') {
-                fn();
-            } else {
-                document.addEventListener('DOMContentLoaded', fn);
-            }
-        }
-
-        // Main initialization function
-        ready(function() {
-            // Feature detection for passive event listeners
-            const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            // Mobile menu toggle with enhanced animation and accessibility
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle with enhanced animation
             const mobileToggle = document.getElementById('mobile-toggle');
             const navLinks = document.getElementById('nav-links');
-            const navOverlay = document.getElementById('nav-overlay');
 
             if (mobileToggle && navLinks) {
                 mobileToggle.addEventListener('click', function() {
-                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                    this.setAttribute('aria-expanded', !isExpanded);
                     navLinks.classList.toggle('active');
-                    
-                    if (navOverlay) {
-                        navOverlay.classList.toggle('active');
-                    }
-                    
                     if (navLinks.classList.contains('active')) {
                         this.innerHTML = '<i class="fas fa-times"></i>';
-                        document.body.style.overflow = 'hidden'; // Prevent scrolling
                     } else {
                         this.innerHTML = '<i class="fas fa-bars"></i>';
-                        document.body.style.overflow = ''; // Allow scrolling
                     }
                 });
-                
-                // Close mobile menu when clicking a link
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if (navLinks && navLinks.classList.contains('active')) {
-                            navLinks.classList.remove('active');
-                            if (navOverlay) {
-                                navOverlay.classList.remove('active');
-                            }
-                            document.body.style.overflow = '';
-                            if (mobileToggle) {
-                                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                                mobileToggle.setAttribute('aria-expanded', 'false');
-                            }
-                        }
-                    });
-                });
-                
-                // Close mobile menu when clicking overlay
-                if (navOverlay) {
-                    navOverlay.addEventListener('click', () => {
-                        navLinks.classList.remove('active');
-                        navOverlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                        if (mobileToggle) {
-                            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                            mobileToggle.setAttribute('aria-expanded', 'false');
-                        }
-                    });
-                }
             }
 
-            // Enhanced header on scroll with throttling
-            let lastKnownScrollPosition = 0;
-            let headerTicking = false;
-            const header = document.getElementById('header');
-            
-            function updateHeaderOnScroll(scrollPos) {
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks) {
+                        navLinks.classList.remove('active');
+                        if (mobileToggle) {
+                            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    }
+                });
+            });
+
+            // Document click to close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navLinks && mobileToggle && !navLinks.contains(e.target) && e.target !== mobileToggle) {
+                    navLinks.classList.remove('active');
+                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Enhanced header on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
                 if (header) {
-                    if (scrollPos > 50) {
+                    if (window.scrollY > 50) {
                         header.classList.add('scrolled');
                     } else {
                         header.classList.remove('scrolled');
                     }
                 }
-            }
-            
-            window.addEventListener('scroll', function() {
-                lastKnownScrollPosition = window.scrollY;
-                
-                if (!headerTicking) {
-                    window.requestAnimationFrame(function() {
-                        updateHeaderOnScroll(lastKnownScrollPosition);
-                        headerTicking = false;
-                    });
+            });
+
+            // Contact form with enhanced animation
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
                     
-                    headerTicking = true;
-                }
-            }, listenerOptions);
+                    // Simulate form submission
+                    const submitBtn = this.querySelector('.form-submit');
+                    const originalText = submitBtn.innerText;
+                    
+                    submitBtn.innerText = 'Sending...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        alert('Message sent successfully!');
+                        submitBtn.innerText = originalText;
+                        submitBtn.disabled = false;
+                        contactForm.reset();
+                    }, 1500);
+                });
+            }
 
             // Enhanced scroll animations with Intersection Observer
-            // Only set up if user doesn't prefer reduced motion
-            if ('IntersectionObserver' in window && !isReducedMotion) {
+            if ('IntersectionObserver' in window) {
                 const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in');
                 
                 const fadeObserver = new IntersectionObserver((entries) => {
@@ -2579,7 +2466,7 @@
                             fadeObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+                }, { threshold: 0.15 });
                 
                 fadeElements.forEach(element => {
                     fadeObserver.observe(element);
@@ -2595,7 +2482,7 @@
                             timelineObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+                }, { threshold: 0.2 });
                 
                 timelineItems.forEach(item => {
                     timelineObserver.observe(item);
@@ -2607,22 +2494,19 @@
                 const skillObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry, index) => {
                         if (entry.isIntersecting) {
-                            // Use requestAnimationFrame for better performance
-                            requestAnimationFrame(() => {
-                                setTimeout(() => {
-                                    entry.target.classList.add('active');
-                                    // Animate progress bars when skill items become visible
-                                    const progressBar = entry.target.querySelector('.progress-bar');
-                                    if (progressBar) {
-                                        const width = progressBar.getAttribute('data-width') + '%';
-                                        progressBar.style.width = width;
-                                    }
-                                }, index * 100); // Reduced stagger time
-                            });
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                                // Animate progress bars when skill items become visible
+                                const progressBar = entry.target.querySelector('.progress-bar');
+                                if (progressBar) {
+                                    const width = progressBar.getAttribute('data-width') + '%';
+                                    progressBar.style.width = width;
+                                }
+                            }, index * 150); // Staggered animation
                             skillObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+                }, { threshold: 0.1 });
                 
                 skillItems.forEach(item => {
                     skillObserver.observe(item);
@@ -2634,15 +2518,13 @@
                 const educationObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry, index) => {
                         if (entry.isIntersecting) {
-                            requestAnimationFrame(() => {
-                                setTimeout(() => {
-                                    entry.target.classList.add('active');
-                                }, index * 100);
-                            });
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                            }, index * 150); // Staggered animation
                             educationObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+                }, { threshold: 0.1 });
                 
                 educationCards.forEach(card => {
                     educationObserver.observe(card);
@@ -2654,21 +2536,19 @@
                 const achievementObserver = new IntersectionObserver((entries) => {
                     entries.forEach((entry, index) => {
                         if (entry.isIntersecting) {
-                            requestAnimationFrame(() => {
-                                setTimeout(() => {
-                                    entry.target.classList.add('active');
-                                }, index * 100);
-                            });
+                            setTimeout(() => {
+                                entry.target.classList.add('active');
+                            }, index * 150); // Staggered animation
                             achievementObserver.unobserve(entry.target);
                         }
                     });
-                }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+                }, { threshold: 0.1 });
                 
                 achievementCards.forEach(card => {
                     achievementObserver.observe(card);
                 });
             } else {
-                // Fallback for browsers that don't support IntersectionObserver or when reduced motion preferred
+                // Fallback for browsers that don't support IntersectionObserver
                 document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in, .timeline-item, .skill-item, .education-card, .achievement-card').forEach(el => {
                     el.classList.add('active');
                 });
@@ -2680,17 +2560,8 @@
                 });
             }
 
-            // Enhanced active navigation link based on scroll with throttling
-            let navScrollTimeout;
-            let lastScrollY = 0;
-            
+            // Enhanced active navigation link based on scroll
             function updateActiveNav() {
-                const scrollY = window.scrollY;
-                
-                // Skip if scroll position hasn't changed significantly
-                if (Math.abs(scrollY - lastScrollY) < 50) return;
-                lastScrollY = scrollY;
-                
                 const sections = document.querySelectorAll('section');
                 const navLinks = document.querySelectorAll('.nav-link');
                 
@@ -2700,34 +2571,31 @@
                     const sectionTop = section.offsetTop;
                     const sectionHeight = section.clientHeight;
                     
-                    if (scrollY >= sectionTop - 200) {
+                    if (window.scrollY >= sectionTop - 200) {
                         currentId = section.getAttribute('id');
                     }
                 });
                 
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    const href = link.getAttribute('href');
-                    if (href && href.substring(1) === currentId) {
+                    if (link.getAttribute('href').substring(1) === currentId) {
                         link.classList.add('active');
-                        link.setAttribute('aria-current', 'page');
-                    } else {
-                        link.removeAttribute('aria-current');
                     }
                 });
             }
             
             // Update nav on scroll with throttling
+            let scrollTimeout;
             window.addEventListener('scroll', function() {
-                if (!navScrollTimeout) {
-                    navScrollTimeout = requestAnimationFrame(function() {
+                if (!scrollTimeout) {
+                    scrollTimeout = setTimeout(function() {
                         updateActiveNav();
-                        navScrollTimeout = null;
-                    });
+                        scrollTimeout = null;
+                    }, 20);
                 }
-            }, listenerOptions);
+            });
 
-            // Certificate modal functionality with enhanced animation and accessibility
+            // Certificate modal functionality with enhanced animation
             const certModal = document.getElementById('cert-modal');
             const certModalImg = document.getElementById('cert-modal-img');
             const closeModal = document.querySelector('.close-modal');
@@ -2746,53 +2614,133 @@
                         // Handle image loading errors
                         certModalImg.onerror = function() {
                             this.src = 'https://via.placeholder.com/800x600/9b6c49/FFFFFF?text=Certificate+Not+Found';
-                            this.alt = 'Certificate image not found';
                         };
                         
-                        // Show the modal with proper accessibility attributes
+                        // Show the modal
                         certModal.style.display = 'block';
-                        certModal.setAttribute('aria-hidden', 'false');
-                        
-                        // Trap focus within modal for accessibility
-                        closeModal.focus();
-                        
-                        // Prevent body scrolling when modal is open
-                        document.body.style.overflow = 'hidden';
                         
                         // Add the active class after a short delay for animation
-                        requestAnimationFrame(() => {
+                        setTimeout(() => {
                             certModal.classList.add('active');
-                        });
+                        }, 10);
                     });
                 });
                 
                 // Close button functionality
                 closeModal.addEventListener('click', function() {
                     certModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                    
                     setTimeout(() => {
                         certModal.style.display = 'none';
-                        certModal.setAttribute('aria-hidden', 'true');
                     }, 400);
                 });
                 
                 // Close on outside click
-                certModal.addEventListener('click', function(e) {
+                window.addEventListener('click', function(e) {
                     if (e.target === certModal) {
-                        closeModal.click();
-                    }
-                });
-                
-                // Close on escape key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && certModal.style.display === 'block') {
-                        closeModal.click();
+                        certModal.classList.remove('active');
+                        setTimeout(() => {
+                            certModal.style.display = 'none';
+                        }, 400);
                     }
                 });
             }
 
-            // Creative Canvas Animation Setup - Optimized for performance
+            // Particles.js initialization - Create ambient moving particles
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS("particles-js", {
+                    "particles": {
+                        "number": {
+                            "value": 40,
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#9b6c49"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            },
+                            "polygon": {
+                                "nb_sides": 5
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 1,
+                                "opacity_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true,
+                            "anim": {
+                                "enable": true,
+                                "speed": 2,
+                                "size_min": 0.1,
+                                "sync": false
+                            }
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#9b6c49",
+                            "opacity": 0.2,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 1,
+                            "direction": "none",
+                            "random": true,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false,
+                            "attract": {
+                                "enable": false,
+                                "rotateX": 600,
+                                "rotateY": 1200
+                            }
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 0.8
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 3
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+
+            // Creative Canvas Animation Setup
             const setupCreativeCanvas = () => {
                 const canvas = document.getElementById('creative-canvas');
                 if (!canvas) return;
@@ -2804,20 +2752,8 @@
                 canvas.width = parent.offsetWidth;
                 canvas.height = parent.offsetHeight;
                 
-                // Determine particle count based on screen size and preferences
-                let particleCount = 70; // Default
-                
-                if (window.innerWidth < 768) {
-                    particleCount = 30;
-                } else if (window.innerWidth < 480) {
-                    particleCount = 15;
-                }
-                
-                // Reduce further for users who prefer reduced motion
-                if (isReducedMotion) {
-                    particleCount = Math.floor(particleCount / 2);
-                }
-                
+                // Particles config
+                const particleCount = 70;
                 const connectionDistance = 80;
                 const colorPalette = [
                     '#9b6c49', // Primary accent
@@ -2829,8 +2765,6 @@
                 
                 // Create particles
                 let particles = [];
-                let animationFrameId;
-                let isCanvasActive = true; // Track if canvas is visible
                 
                 class Particle {
                     constructor() {
@@ -2865,33 +2799,24 @@
                             this.vy = -this.vy;
                         }
                         
-                        // Only draw connections if not reduced motion
-                        if (!isReducedMotion) {
-                            // Draw connections but limit to nearby particles only
-                            // This is a big performance improvement
-                            for (let i = 0; i < particles.length; i++) {
-                                const particle = particles[i];
-                                if (this === particle) continue;
-                                
-                                const dx = this.x - particle.x;
-                                const dy = this.y - particle.y;
-                                
-                                // Quick distance check using squared distance (avoids square root calculation)
-                                const squaredDistance = dx * dx + dy * dy;
-                                
-                                if (squaredDistance < connectionDistance * connectionDistance) {
-                                    const distance = Math.sqrt(squaredDistance);
-                                    ctx.beginPath();
-                                    ctx.strokeStyle = this.color;
-                                    ctx.globalAlpha = 0.1 * (1 - distance / connectionDistance);
-                                    ctx.lineWidth = 0.5;
-                                    ctx.moveTo(this.x, this.y);
-                                    ctx.lineTo(particle.x, particle.y);
-                                    ctx.stroke();
-                                    ctx.globalAlpha = 1;
-                                }
+                        // Draw connections between particles
+                        particles.forEach(particle => {
+                            const distance = Math.sqrt(
+                                Math.pow(this.x - particle.x, 2) + 
+                                Math.pow(this.y - particle.y, 2)
+                            );
+                            
+                            if (distance < connectionDistance && this !== particle) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = this.color;
+                                ctx.globalAlpha = 0.1 * (1 - distance / connectionDistance);
+                                ctx.lineWidth = 0.5;
+                                ctx.moveTo(this.x, this.y);
+                                ctx.lineTo(particle.x, particle.y);
+                                ctx.stroke();
+                                ctx.globalAlpha = 1;
                             }
-                        }
+                        });
                         
                         this.draw();
                     }
@@ -2902,366 +2827,166 @@
                     particles.push(new Particle());
                 }
                 
-                // Animation loop with RAF throttling
+                // Animation loop
                 function animate() {
-                    // Only animate if canvas is active and visible
-                    if (isCanvasActive) {
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        
-                        particles.forEach(particle => {
-                            particle.update();
-                        });
-                    }
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                     
-                    animationFrameId = requestAnimationFrame(animate);
+                    particles.forEach(particle => {
+                        particle.update();
+                    });
                 }
                 
-                // Start animation
                 animate();
                 
-                // Use Intersection Observer to pause animation when not visible
-                if ('IntersectionObserver' in window) {
-                    const canvasObserver = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            isCanvasActive = entry.isIntersecting;
-                        });
-                    }, { threshold: 0.1 });
-                    
-                    canvasObserver.observe(canvas);
-                }
-                
-                // Handle window resize efficiently with debounce
-                let resizeTimeout;
+                // Handle window resize
                 window.addEventListener('resize', () => {
-                    if (resizeTimeout) clearTimeout(resizeTimeout);
-                    
-                    resizeTimeout = setTimeout(() => {
-                        canvas.width = parent.offsetWidth;
-                        canvas.height = parent.offsetHeight;
-                    }, 250);
-                }, listenerOptions);
-                
-                // Clean up on page unload
-                window.addEventListener('beforeunload', () => {
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId);
-                    }
+                    canvas.width = parent.offsetWidth;
+                    canvas.height = parent.offsetHeight;
                 });
                 
-                // Make particles follow cursor on hover - if not reduced motion
-                if (!isReducedMotion) {
-                    let mouseX = 0;
-                    let mouseY = 0;
-                    let isHovering = false;
+                // Make particles follow cursor on hover
+                canvas.addEventListener('mousemove', (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
                     
-                    canvas.addEventListener('mousemove', (e) => {
-                        const rect = canvas.getBoundingClientRect();
-                        mouseX = e.clientX - rect.left;
-                        mouseY = e.clientY - rect.top;
-                        isHovering = true;
-                    }, listenerOptions);
-                    
-                    canvas.addEventListener('mouseleave', () => {
-                        isHovering = false;
-                    });
-                    
-                    // Modify the animate function to include particle following
-                    function updateParticleMovement() {
-                        if (isHovering) {
-                            particles.forEach(particle => {
-                                const dx = mouseX - particle.x;
-                                const dy = mouseY - particle.y;
-                                const distance = Math.sqrt(dx * dx + dy * dy);
-                                
-                                if (distance < 100) {
-                                    const force = 0.05;
-                                    const angle = Math.atan2(dy, dx);
-                                    particle.vx += Math.cos(angle) * force;
-                                    particle.vy += Math.sin(angle) * force;
-                                    
-                                    // Limit maximum velocity
-                                    const maxVel = 2;
-                                    const vel = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
-                                    if (vel > maxVel) {
-                                        particle.vx = (particle.vx / vel) * maxVel;
-                                        particle.vy = (particle.vy / vel) * maxVel;
-                                    }
-                                }
-                            });
-                        }
+                    particles.forEach(particle => {
+                        const dx = mouseX - particle.x;
+                        const dy = mouseY - particle.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
                         
-                        // Schedule the next update if canvas is active
-                        if (isCanvasActive) {
-                            requestAnimationFrame(updateParticleMovement);
+                        if (distance < 100) {
+                            const force = 0.05;
+                            const angle = Math.atan2(dy, dx);
+                            particle.vx += Math.cos(angle) * force;
+                            particle.vy += Math.sin(angle) * force;
                         }
-                    }
-                    
-                    // Start the particle movement updates
-                    updateParticleMovement();
-                }
+                    });
+                });
+                
+                // Add interaction for skill tags
+                const skillTags = document.querySelectorAll('.skill-tag');
+                skillTags.forEach(tag => {
+                    tag.addEventListener('mouseenter', () => {
+                        // Create burst effect
+                        for (let i = 0; i < 5; i++) {
+                            const p = new Particle();
+                            const rect = tag.getBoundingClientRect();
+                            const canvasRect = canvas.getBoundingClientRect();
+                            
+                            p.x = rect.left - canvasRect.left + rect.width / 2;
+                            p.y = rect.top - canvasRect.top + rect.height / 2;
+                            p.vx = (Math.random() - 0.5) * 3;
+                            p.vy = (Math.random() - 0.5) * 3;
+                            p.radius = Math.random() * 3 + 2;
+                            p.opacity = 0.8;
+                            
+                            particles.push(p);
+                            
+                            // Remove extra particles to avoid performance issues
+                            if (particles.length > particleCount + 10) {
+                                particles.shift();
+                            }
+                        }
+                    });
+                });
             };
             
-            // Only initialize creative canvas if it exists and not in reduced motion mode
-            // or initialize with reduced particle count in reduced motion mode
-            if (document.getElementById('creative-canvas')) {
-                setupCreativeCanvas();
-            }
+            // Initialize the creative canvas
+            setupCreativeCanvas();
 
-            // Initialize particles.js with optimized settings
-            // Calculate particle count based on screen size and available space
-            if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
-                let particleCount = window.innerWidth < 480 ? 7 : 
-                                  (window.innerWidth < 768 ? 12 : 20);
-                if (isReducedMotion) particleCount = Math.floor(particleCount / 2);
-                
-                particlesJS("particles-js", {
-                    "particles": {
-                        "number": {"value": particleCount, "density": {"enable": true, "value_area": 1000}},
-                        "color": {"value": "#9b6c49"},
-                        "shape": {"type": "circle", "stroke": {"width": 0}},
-                        "opacity": {
-                            "value": 0.4,
-                            "random": false,
-                            "anim": {"enable": false}
-                        },
-                        "size": {
-                            "value": 4,
-                            "random": true,
-                            "anim": {"enable": false}
-                        },
-                        "line_linked": {"enable": true, "distance": 150, "color": "#9b6c49", "opacity": 0.2, "width": 1},
-                        "move": {
-                            "enable": true,
-                            "speed": 0.8,
-                            "random": true,
-                            "out_mode": "out"
-                        }
-                    },
-                    "interactivity": {
-                        "detect_on": "canvas",
-                        "events": {
-                            "onhover": {"enable": true, "mode": "grab"},
-                            "resize": true
-                        },
-                        "modes": {
-                            "grab": {"distance": 140, "line_linked": {"opacity": 0.8}}
-                        }
-                    },
-                    "retina_detect": true
+            // For mobile devices, reduce animation complexity for better performance
+            if (window.innerWidth < 768) {
+                document.querySelectorAll('.floating-shape').forEach(shape => {
+                    shape.style.animation = 'none';
                 });
-            } else if (document.getElementById('particles-js') && !isReducedMotion) {
-                loadScript('https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js')
-                    .then(() => {
-                        const particlesElement = document.getElementById('particles-js');
-                        if (particlesElement) {
-                            // Reduce particle area and concentration
-                            particlesElement.style.height = '100%';
-                            particlesElement.style.width = '100%';
-                            particlesElement.style.opacity = '0.3';
-                            
-                            const particleCount = window.innerWidth < 480 ? 7 : 
-                                                (window.innerWidth < 768 ? 12 : 20);
-                            
-                            particlesJS("particles-js", {
-                                "particles": {
-                                    "number": {
-                                        "value": particleCount,
-                                        "density": {
-                                            "enable": true,
-                                            "value_area": 1000
-                                        }
-                                    },
-                                    "color": {"value": "#9b6c49"},
-                                    "opacity": {
-                                        "value": 0.4,
-                                        "random": false
-                                    },
-                                    "size": {
-                                        "value": 4,
-                                        "random": true
-                                    },
-                                    "line_linked": {
-                                        "enable": true,
-                                        "distance": 150,
-                                        "color": "#9b6c49",
-                                        "opacity": 0.2,
-                                        "width": 1
-                                    },
-                                    "move": {
-                                        "enable": true,
-                                        "speed": 0.8,
-                                        "direction": "none",
-                                        "random": true,
-                                        "straight": false,
-                                        "out_mode": "out"
-                                    }
-                                },
-                                "interactivity": {
-                                    "detect_on": "canvas",
-                                    "events": {
-                                        "onhover": {"enable": true, "mode": "grab"},
-                                        "resize": true
-                                    },
-                                    "modes": {
-                                        "grab": {"distance": 140, "line_linked": {"opacity": 0.8}}
-                                    }
-                                },
-                                "retina_detect": true
-                            });
-                    })
-                    .catch(() => {});
             }
 
             // Call updateActiveNav once on page load
             updateActiveNav();
             
-            // Smooth scrolling for anchor links with polyfill for better browser support
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        // Get header height for offset
-                        const headerHeight = document.getElementById('header')?.offsetHeight || 0;
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
-                        
-                        // Use smooth scrolling with fallback
-                        if ('scrollBehavior' in document.documentElement.style) {
-                            window.scrollTo({
-                                top: targetPosition,
-                                behavior: 'smooth'
-                            });
-                        } else {
-                            // Fallback for browsers that don't support smooth scrolling
-                            window.scrollTo(0, targetPosition);
-                        }
-                    }
-                });
-            });
-            
-            // Initialize Sound Manager with lazy loading
+            // Initialize Sound Manager
             SoundManager.init();
-            
-            // Initialize certificate viewer
-            setTimeout(initCertificateViewer, 1000);
-            
-            // Ensure skill bars initialize
-            requestAnimationFrame(() => {
-                document.querySelectorAll('.progress-bar').forEach(bar => {
-                    if (isReducedMotion) {
-                        const width = bar.getAttribute('data-width') + '%';
-                        bar.style.width = width;
-                    } else {
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            const width = bar.getAttribute('data-width') + '%';
-                            bar.style.width = width;
-                        }, 500);
-                    }
-                });
-            });
-            
-            // Handle form validation and accessibility
-            const form = document.getElementById('contact-form');
-            if (form) {
-                const inputs = form.querySelectorAll('input, textarea');
-                
-                inputs.forEach(input => {
-                    // Add aria-invalid attribute for screen readers
-                    input.addEventListener('invalid', () => {
-                        input.setAttribute('aria-invalid', 'true');
-                    });
-                    
-                    input.addEventListener('input', () => {
-                        if (input.validity.valid) {
-                            input.removeAttribute('aria-invalid');
-                        }
-                    });
-                });
-            }
-            
-            // Improve keyboard navigation with visual focus indicators
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Tab') {
-                    document.body.classList.add('keyboard-user');
-                }
-            });
-            
-            document.addEventListener('mousedown', () => {
-                document.body.classList.remove('keyboard-user');
-            });
         });
 
-        // Certificate viewer initialization function
+        // Ensure certificate viewing works correctly
         function initCertificateViewer() {
             const certModal = document.getElementById('cert-modal');
             const certModalImg = document.getElementById('cert-modal-img');
             const closeModal = document.querySelector('.close-modal');
             const viewCertBtns = document.querySelectorAll('.view-cert-btn');
             
-            if (!certModal || !certModalImg || !closeModal || viewCertBtns.length === 0) {
-                // Try again if elements aren't loaded yet
-                setTimeout(initCertificateViewer, 500);
-                return;
-            }
+            if (!certModal || !certModalImg || !closeModal) return;
             
-            // Otherwise continue with initialization
+            // Set up event listeners for each certificate button
             viewCertBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
+                btn.onclick = function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     const certPath = this.getAttribute('data-cert');
+                    console.log('Opening certificate:', certPath);
                     
                     // Set the image source
                     certModalImg.src = certPath;
-                    certModalImg.alt = `Certificate: ${this.closest('.achievement-card').querySelector('.achievement-title').textContent}`;
                     
                     // Handle image loading errors
                     certModalImg.onerror = function() {
+                        console.log('Certificate image failed to load. Using placeholder.');
                         this.src = 'https://via.placeholder.com/800x600/9b6c49/FFFFFF?text=Certificate+Not+Found';
-                        this.alt = 'Certificate image not found';
                     };
                     
                     // Show the modal
                     certModal.style.display = 'block';
-                    certModal.setAttribute('aria-hidden', 'false');
                     
                     // Add the active class after a short delay for animation
-                    requestAnimationFrame(() => {
+                    setTimeout(() => {
                         certModal.classList.add('active');
-                    });
+                    }, 10);
                     
-                    // Prevent scrolling
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Focus on close button for keyboard accessibility
-                    setTimeout(() => closeModal.focus(), 100);
-                });
+                    return false;
+                };
             });
             
-            // ESC key to close modal
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && certModal.style.display === 'block') {
-                    closeModal.click();
+            // Close button functionality
+            if (closeModal) {
+                closeModal.onclick = function() {
+                    certModal.classList.remove('active');
+                    setTimeout(() => {
+                        certModal.style.display = 'none';
+                    }, 400);
+                };
+            }
+            
+            // Close on outside click
+            window.addEventListener('click', function(e) {
+                if (e.target === certModal) {
+                    certModal.classList.remove('active');
+                    setTimeout(() => {
+                        certModal.style.display = 'none';
+                    }, 400);
                 }
             });
+            
+            console.log('Certificate viewer initialized with', viewCertBtns.length, 'certificates');
         }
 
-        // Lazy load external resources as needed
-        window.addEventListener('load', () => {
-            // Only load particles.js if user doesn't prefer reduced motion
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                if (typeof particlesJS === 'undefined' && document.getElementById('particles-js')) {
-                    loadScript('https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js');
-                }
-            }
-        });
+        // Run this on page load and also after a slight delay to ensure everything is loaded
+        setTimeout(initCertificateViewer, 1000);
+        
+        // Ensure skill bars initialize correctly
+        setTimeout(() => {
+            document.querySelectorAll('.skill-progress-bar').forEach(bar => {
+                const value = bar.getAttribute('data-value');
+                bar.style.width = value + '%';
+            });
+            
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                const width = bar.getAttribute('data-width') + '%';
+                bar.style.width = width;
+            });
+        }, 1000);
     </script>
 </body>
 </html>
